@@ -68,7 +68,7 @@ public class StudentController {
     @GetMapping("/login")
     public String studentLogin(Model m) {
 
-        return "/student/login";
+        return "student/login";
     }
 
 
