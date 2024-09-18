@@ -1,0 +1,27 @@
+.mycard {
+    max-width: 1250px; /* Set max-width for the card */
+    height: 800px;
+    margin: 10px auto; /* Center the card horizontally and add top margin */
+    border: 2px solid #343a40; /* Dark border for the card */
+}
+.mycard-header {
+    background-color: #343a40; /* Dark background for the header */
+}
+.mycard-header h4 {
+    margin: 0;
+}
+.mytable {
+    width: 100%; /* Ensure table takes full width of the card */
+    border: 1px solid #343a40; /* Dark border for the table */
+}
+th,
+td {
+    text-align: center; /* Center text in table cells */
+    vertical-align: middle; /* Center text vertically */
+}
+.form-control {
+    width: 100%; /* Ensure inputs take full width of table cells */
+}
+.btn {
+    margin-top: 1rem; /* Add space above buttons */
+}

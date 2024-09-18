@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="admin/base::layout(~{::section},~{::title},~{::style},~{::script})"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Add Attendence</title>
+    <style>
+        .mycard {
+            max-width: 1250px; /* Set max-width for the card */
+            height: auto;
+            margin: auto; /* Center the card horizontally and add top margin */
+            border: 2px solid #343a40; /* Dark border for the card */
+        }
+
+        .mycard-header {
+            background-color: #343a40; /* Dark background for the header */
+        }
+
+        .mycard-header h4 {
+            margin: 0;
+        }
+
+        .mytable {
+            margin-top: 10px;
+            width: 100%; /* Ensure table takes full width of the card */
+            border: 1px solid #343a40; /* Dark border for the table */
+        }
+
+        th,
+        td {
+            text-align: center; /* Center text in table cells */
+            vertical-align: middle; /* Center text vertically */
+        }
+
+        .form-control {
+            width: 100%; /* Ensure inputs take full width of table cells */
+        }
+
+        .btn {
+            margin-top: 1rem; /* Add space above buttons */
+        }
+    </style>
+</head>
+<body>
+<section>
+    <div
+            id="alert"
+            th:if="${session.message}"
+            th:classappend="${session.message.type}"
+            class="alert my-2 mx-4"
+            style="height: 60px"
+            role="alert"
+    >
+        <p class="text-center" th:text="${session.message.content}"></p>
+        <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
+    </div>
+    <div class="container flex-fill " style="width: 1250px">
+        <div class="container">
+            <div class="mycard card mt-3">
+                <div class="mycard-header card-header text-white text-center">
+                    <h4 class="mb-0">Add Student Attendance</h4>
+                </div>
+                <div class="card-body" style="background-color: #e2e2e2">
+                    <form
+                            id="attendanceForm"
+                            method="post"
+                            th:action="@{/admin/process-add-attendence}"
+                    >
+                        <div class="row">
+                            <div class="col-2">
+                                <p class="form-control"  style="background-color: #e2e2e2">Enter Student ID : </p>
+                            </div>
+                            <div class="col-2">
+                                <input class="form-control" type="text" name="rollNo" required/>
+
+                            </div>
+                        </div>
+
+                        <table class="mytable table table-bordered">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>Semester</th>
+                                <th>Total Days</th>
+                                <th>Present Days</th>
+                                <th>Attendance (%)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- Semester Rows -->
+                            <tr>
+                                <td>1st Semester</td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="totalDays1"
+                                            placeholder="Enter Total Days"
+                                            min="0"
+                                            value="0"
+                                            name="tday1"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="presentDays1"
+                                            placeholder="Enter Present Days"
+                                            min="0"
+                                            value="0"
+                                            name="pday1"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="attendance1"
+                                            placeholder="Attendance Percentage"
+                                            name="a1"
+                                            value="0"
+                                            readonly
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2nd Semester</td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="totalDays2"
+                                            placeholder="Enter Total Days"
+                                            min="0"
+                                            value="0"
+                                            name="tday2"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="presentDays2"
+                                            placeholder="Enter Present Days"
+                                            min="0"
+                                            value="0"
+                                            name="pday2"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="attendance2"
+                                            placeholder="Attendance Percentage"
+                                            name="a2"
+                                            value="0"
+                                            readonly
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3rd Semester</td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="totalDays3"
+                                            placeholder="Enter Total Days"
+                                            min="0"
+                                            value="0"
+                                            name="tday3"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="presentDays3"
+                                            placeholder="Enter Present Days"
+                                            min="0"
+                                            value="0"
+                                            name="pday3"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="attendance3"
+                                            placeholder="Attendance Percentage"
+                                            name="a3"
+                                            value="0"
+                                            readonly
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4th Semester</td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="totalDays4"
+                                            placeholder="Enter Total Days"
+                                            min="0"
+                                            value="0"
+                                            name="tday4"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="presentDays4"
+                                            placeholder="Enter Present Days"
+                                            min="0"
+                                            value="0"
+                                            name="pday4"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="attendance4"
+                                            placeholder="Attendance Percentage"
+                                            name="a4"
+                                            value="0"
+                                            readonly
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5th Semester</td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="totalDays5"
+                                            placeholder="Enter Total Days"
+                                            min="0"
+                                            value="0"
+                                            name="tday5"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="presentDays5"
+                                            placeholder="Enter Present Days"
+                                            min="0"
+                                            value="0"
+                                            name="pday5"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="attendance5"
+                                            placeholder="Attendance Percentage"
+                                            name="a5"
+                                            value="0"
+                                            readonly
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>6th Semester</td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="totalDays6"
+                                            placeholder="Enter Total Days"
+                                            min="0"
+                                            value="0"
+                                            name="tday6"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="presentDays6"
+                                            placeholder="Enter Present Days"
+                                            min="0"
+                                            value="0"
+                                            name="pday6"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="attendance6"
+                                            placeholder="Attendance Percentage"
+                                            name="a6"
+                                            value="0"
+                                            readonly
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>7th Semester</td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="totalDays7"
+                                            placeholder="Enter Total Days"
+                                            min="0"
+                                            value="0"
+                                            name="tday7"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="presentDays7"
+                                            placeholder="Enter Present Days"
+                                            min="0"
+                                            value="0"
+                                            name="pday7"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="attendance7"
+                                            placeholder="Attendance Percentage"
+                                            name="a7"
+                                            value="0"
+                                            readonly
+                                    />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>8th Semester</td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="totalDays8"
+                                            placeholder="Enter Total Days"
+                                            min="0"
+                                            value="0"
+                                            name="tday8"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="presentDays8"
+                                            placeholder="Enter Present Days"
+                                            min="0"
+                                            value="0"
+                                            name="pday8"
+                                            required
+                                    />
+                                </td>
+                                <td>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="attendance8"
+                                            placeholder="Attendance Percentage"
+                                            name="a8"
+                                            value="0"
+                                            readonly
+                                    />
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Buttons for Save and Reset -->
+                        <div class="d-flex justify-content-center mt-4">
+                            <button type="submit" class="btn btn-lg btn-success mx-3">
+                                Save
+                            </button>
+                            <button type="reset" class="btn btn-lg btn-danger mx-3">
+                                Reset
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        for (let i = 1; i <= 8; i++) {
+            const totalDaysInput = document.getElementById(`totalDays${i}`);
+            const presentDaysInput = document.getElementById(`presentDays${i}`);
+            const attendanceInput = document.getElementById(`attendance${i}`);
+
+            const calculateAttendance = () => {
+                const totalDays = parseFloat(totalDaysInput.value) || 0;
+                const presentDays = parseFloat(presentDaysInput.value) || 0;
+                const attendancePercentage =
+                    totalDays > 0 ? ((presentDays / totalDays) * 100).toFixed(2) : 0;
+                attendanceInput.value = attendancePercentage;
+            };
+
+            totalDaysInput.addEventListener("input", calculateAttendance);
+            presentDaysInput.addEventListener("input", calculateAttendance);
+        }
+    });
+
+
+    // Hide alert after 3 seconds
+    window.onload = function () {
+        const alertBox = document.getElementById('alert');
+        if (alertBox) {
+            setTimeout(function () {
+                alertBox.style.display = 'none';
+            }, 3000); // 3000ms = 3 seconds
+        }
+    };
+</script>
+</body>
+</html>

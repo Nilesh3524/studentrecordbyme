@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="admin/base::layout(~{::section},~{::title},~{::script},~{::style})"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Upload Result</title>
+    <style>
+
+
+
+    </style>
+
+</head>
+<body>
+<section>
+    <div class="mt-5 mx-2">
+        <div class="row">
+            <div class="col-md-6 offset-md-2">
+                <div class="card text-black" style="background-color: #b3c7ff">
+                    <div class="card-header">
+                        <h1 class="text-center">Upload Result</h1>
+                    </div>
+                    <div class="card-body">
+                        <form enctype="multipart/form-data" th:action="@{/admin/process-upload-result}" method="post" id="uploadForm">
+
+                            <div class="form-group my-3">
+                                <h5>Result Name: </h5>
+                                <input type="text" name="name" class="form-control" placeholder="Enter result name" required/>
+                            </div>
+
+                            <div class="form-group my-4">
+                                <input type="file" id="fileInput" name="image" required/>
+                                <small class="text-danger mt-2" id="fileSizeError" style="display: none;">File size exceeds 2 MB</small>
+                            </div>
+
+                            <div class="text-center my-3">
+                                <button type="submit" class="btn btn-primary">Upload</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function (event) {
+        const fileInput = document.getElementById('fileInput');
+        const fileSizeError = document.getElementById('fileSizeError');
+
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const maxFileSize = 2 * 1024 * 1024; // 2 MB in bytes
+
+            if (file.size > maxFileSize) {
+                event.preventDefault(); // Prevent form submission
+                fileSizeError.style.display = 'block'; // Show error message
+            } else {
+                fileSizeError.style.display = 'none'; // Hide error message if the file size is valid
+            }
+        }
+    });
+</script>
+</body>
+</html>

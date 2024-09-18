@@ -1,0 +1,32 @@
+.acc {
+    color: black;
+}
+
+#sidebar {
+    height: 120vh;
+    margin-top: 3px;
+    background-color: lightblue;
+}
+
+section div nav ul li :hover {
+    cursor: pointer;
+    background-color: cornflowerblue;
+}
+
+.card1{
+    background-color: rgb(3, 126, 3);
+}
+
+.card2{
+    background-color: rgb(3, 107, 139);
+}
+
+.card2 div h5{
+    font-size: 30px;
+    color: white;
+}
+
+.card2 div p{
+    font-size: 50px;
+    color: white;
+}

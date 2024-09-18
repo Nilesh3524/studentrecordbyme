@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="admin/base::layout(~{::section},~{::title},~{::style},~{::script})"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>All Students</title>
+    <style>
+
+        .trow{
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+<section>
+    <div
+            class="alert my-2 mx-4 text-center d-none"
+            id="my-alert"
+            style="height: 60px"
+            role="alert"
+    >
+        <p></p>
+    </div>
+    <div
+            id="alert"
+            th:if="${session.message}"
+            th:classappend="${session.message.type}"
+            class="alert my-2 mx-4"
+            style="height: 60px"
+            role="alert"
+    >
+        <p class="text-center" th:text="${session.message.content}"></p>
+        <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
+    </div>
+
+    <div class="text-center mb-4 mt-3">
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('all')">All</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2021')">2021</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2022')">2022</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2023')">2023</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2024')">2024</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2025')">2025</button>
+    </div>
+
+
+    <div class="container flex-fill" style="width: 1250px">
+        <div class="container mt-3">
+            <h2 class="mb-4 text-center">All Students</h2>
+            <table class="table table-bordered table1">
+                <thead class="">
+                <tr>
+                    <th class="text-center">Year</th>
+                    <th class="text-center">ID</th>
+                    <th class="text-center">Name</th>
+                    <th class="text-center">Phone</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Backlog</th>
+                    <th class="text-center">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="trow" th:each="s:${students}" id="body" th:data-year="${s.year}"
+                >
+                    <td class="text-center" th:text="${s.year}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                        onclick="window.location.href=this.getAttribute('data-url')"></td>
+                    <td class="text-center" th:text="${s.rollNo}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                        onclick="window.location.href=this.getAttribute('data-url')">1
+                    </td>
+                    <td class="text-center" th:text="${s.name}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                        onclick="window.location.href=this.getAttribute('data-url')">himanshu
+                    </td>
+                    <td class="text-center" th:text="${s.phone}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                        onclick="window.location.href=this.getAttribute('data-url')">7709638870
+                    </td>
+                    <td class="text-center" th:text="${s.email}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                        onclick="window.location.href=this.getAttribute('data-url')">h@123
+                    </td>
+                    <td class="text-center" th:text="${s.backlog?'yes':'no'}"
+                        th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                        onclick="window.location.href=this.getAttribute('data-url')">no
+                    </td>
+                    <td class="text-center" style="font-size: 20px;">
+                        <a th:data-rollNo="${s.rollNo}"
+                           onclick="deleteButton()"
+                           id="delete-alert" class="mx-2" style="color: red"
+                        ><i
+                                class="fa-solid fa-trash"></i></a>
+                        <a data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#staticBackdrop"
+                           th:data-rollNo="${s.rollNo}"
+                           th:data-name="${s.name}"
+                           th:data-backlog="${s.backlog}"
+                           th:data-backSub="${s.backSub}"
+                           th:data-currentBacklog="${s.currentBacklog}"
+                           id="edit-student"
+                           class="mx-2 edit-student" style="color: green"><i
+                                class="fa-solid fa-pen-to-square "></i></a>
+
+                        <a th:if="${s.attendence}" data-mdb-ripple-init data-mdb-modal-init
+                           data-mdb-target="#updateAttendence"
+                           class="mx-2 edit-attendence" style="color: blue"
+                           th:data-rollNo="${s.rollNo}"
+                           th:data-pday1="${s.attendence.getPday1()}"
+                           th:data-tday1="${s.attendence.getTday1()}"
+                           th:data-avg1="${s.attendence.getA1()}"
+                           th:data-pday2="${s.attendence.getPday2()}"
+                           th:data-tday2="${s.attendence.getTday2()}"
+                           th:data-avg2="${s.attendence.getA2()}"
+                           th:data-pday3="${s.attendence.getPday3()}"
+                           th:data-tday3="${s.attendence.getTday3()}"
+                           th:data-avg3="${s.attendence.getA3()}"
+                           th:data-pday4="${s.attendence.getPday4()}"
+                           th:data-tday4="${s.attendence.getTday4()}"
+                           th:data-avg4="${s.attendence.getA4()}"
+                           th:data-pday5="${s.attendence.getPday5()}"
+                           th:data-tday5="${s.attendence.getTday5()}"
+                           th:data-avg5="${s.attendence.getA5()}"
+                           th:data-pday6="${s.attendence.getPday6()}"
+                           th:data-tday6="${s.attendence.getTday6()}"
+                           th:data-avg6="${s.attendence.getA6()}"
+                           th:data-pday7="${s.attendence.getPday7()}"
+                           th:data-tday7="${s.attendence.getTday7()}"
+                           th:data-avg7="${s.attendence.getA7()}"
+                           th:data-pday8="${s.attendence.getPday8()}"
+                           th:data-tday8="${s.attendence.getTday8()}"
+                           th:data-avg8="${s.attendence.getA8()}"
+                        >
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</section>
+<script>
+
+    // Function to filter and display students
+    function fetchAndDisplayStudents(year) {
+        const rows = document.querySelectorAll('tbody tr');  // Select all table rows
+
+        rows.forEach(row => {
+            const studentYear = row.getAttribute('data-year');  // Get the student's year from the data-year attribute
+
+            if (year === 'all' || studentYear === year) {
+                row.style.display = '';  // Show row if year matches or if 'all' is selected
+            } else {
+                row.style.display = 'none';  // Hide row if year doesn't match
+            }
+        });
+    }
+
+    // student update model
+    document.addEventListener('DOMContentLoaded', function () {
+
+        document.body.addEventListener('click', function (e) {
+
+
+            const button = e.target.closest('.edit-student');
+
+
+            if (button) {
+
+
+                e.preventDefault();
+
+                const rollNo = button.getAttribute('data-rollNo');
+                const name = button.getAttribute('data-name');
+                const backlog = button.getAttribute('data-backlog');
+                const backSub = button.getAttribute('data-backSub');
+                const currentBacklog = button.getAttribute('data-currentBacklog');
+
+
+                document.getElementById('rollNo').value = rollNo;
+                document.getElementById('name').value = name;
+
+                // Ensure backlog value matches one of the options
+                const backlogSelect = document.getElementById('backlog');
+
+                // Remove previously selected option
+                Array.from(backlogSelect.options).forEach(option => {
+                    option.removeAttribute('selected');
+                });
+
+                // Set the correct option as selected
+                if (backlog === 'true' || backlog === 'yes') {
+                    backlogSelect.querySelector('option[value="yes"]').setAttribute('selected', 'selected');
+                } else if (backlog === 'false' || backlog === 'no') {
+                    backlogSelect.querySelector('option[value="no"]').setAttribute('selected', 'selected');
+                } else {
+                    console.error('Unexpected backlog value:', backlog);
+                    backlogSelect.querySelector('option[value="no"]').setAttribute('selected', 'selected'); // Default fallback
+                }
+
+                document.getElementById('backSub').value = backSub;
+                document.getElementById('currentBacklog').value = currentBacklog;
+
+            }
+
+        });
+
+    });
+
+
+    //   student update  form submit
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const editForm = document.getElementById('editStudentForm');
+
+        if (editForm) {
+
+            editForm.addEventListener('submit', function (e) {
+
+
+                e.preventDefault(); // Prevent the default form submission
+
+                const formData = new FormData(this);
+
+
+                fetch('/admin/student/update', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Response from server:', data);
+
+                        if (data.success) {
+                            console.log('Student updated successfully!');
+                            // Store the success message in sessionStorage
+                            sessionStorage.setItem('alertMessage', 'Student updated successfully');
+                            sessionStorage.setItem('alertType', 'alert-info');
+                            location.reload(); // Reload the page to see the updated student data
+
+                        } else {
+                            console.log(`Failed to update student: ${data.message}`);
+                            // Store the error message in sessionStorage
+                            sessionStorage.setItem('alertMessage', 'Something went wrong');
+                            sessionStorage.setItem('alertType', 'alert-danger');
+
+                            location.reload(); // Reload the page
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        console.log('An error occurred. Please try again.');
+                        // Store the error message in sessionStorage
+                        sessionStorage.setItem('alertMessage', 'An error occurred. Please try again');
+                        sessionStorage.setItem('alertType', 'alert-danger');
+
+                        location.reload(); // Reload the page
+                    });
+            });
+        } else {
+            console.error('Form with ID "editStudentForm" not found.');
+        }
+
+
+    });
+
+
+    //  attendence update  model
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.body.addEventListener('click', function (e) {
+
+
+            const button = e.target.closest('.edit-attendence');
+
+
+            if (button) {
+
+                console.log(button)
+
+                e.preventDefault();
+
+                const rollNo = button.getAttribute('data-rollNo');
+
+                const pday1 = button.getAttribute('data-pday1');
+                const tday1 = button.getAttribute('data-tday1');
+                const avg1 = button.getAttribute('data-avg1');
+
+                const pday2 = button.getAttribute('data-pday2');
+                const tday2 = button.getAttribute('data-tday2');
+                const avg2 = button.getAttribute('data-avg2');
+
+                const pday3 = button.getAttribute('data-pday3');
+                const tday3 = button.getAttribute('data-tday3');
+                const avg3 = button.getAttribute('data-avg3');
+
+                const pday4 = button.getAttribute('data-pday4');
+                const tday4 = button.getAttribute('data-tday4');
+                const avg4 = button.getAttribute('data-avg4');
+
+                const pday5 = button.getAttribute('data-pday5');
+                const tday5 = button.getAttribute('data-tday5');
+                const avg5 = button.getAttribute('data-avg5');
+
+                const pday6 = button.getAttribute('data-pday6');
+                const tday6 = button.getAttribute('data-tday6');
+                const avg6 = button.getAttribute('data-avg6');
+
+                const pday7 = button.getAttribute('data-pday7');
+                const tday7 = button.getAttribute('data-tday7');
+                const avg7 = button.getAttribute('data-avg7');
+
+                const pday8 = button.getAttribute('data-pday8');
+                const tday8 = button.getAttribute('data-tday8');
+                const avg8 = button.getAttribute('data-avg8');
+
+
+                document.getElementById('sRollNo').value = rollNo;
+
+                document.getElementById('pdays1').value = pday1;
+                document.getElementById('tdays1').value = tday1;
+                document.getElementById('avg1').value = avg1;
+
+                document.getElementById('pdays2').value = pday2;
+                document.getElementById('tdays2').value = tday2;
+                document.getElementById('avg2').value = avg2;
+
+                document.getElementById('pdays3').value = pday3;
+                document.getElementById('tdays3').value = tday3;
+                document.getElementById('avg3').value = avg3;
+
+                document.getElementById('pdays4').value = pday4;
+                document.getElementById('tdays4').value = tday4;
+                document.getElementById('avg4').value = avg4;
+
+                document.getElementById('pdays5').value = pday5;
+                document.getElementById('tdays5').value = tday5;
+                document.getElementById('avg5').value = avg5;
+
+                document.getElementById('pdays6').value = pday6;
+                document.getElementById('tdays6').value = tday6;
+                document.getElementById('avg6').value = avg6;
+
+                document.getElementById('pdays7').value = pday7;
+                document.getElementById('tdays7').value = tday7;
+                document.getElementById('avg7').value = avg7;
+
+                document.getElementById('pdays8').value = pday8;
+                document.getElementById('tdays8').value = tday8;
+                document.getElementById('avg8').value = avg8;
+
+            }
+
+        });
+
+    });
+
+
+    // attendence form submit
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const editForm1 = document.getElementById('editAttendenceForm');
+
+        if (editForm1) {
+            editForm1.addEventListener('submit', function (e) {
+
+
+                e.preventDefault(); // Prevent the default form submission
+
+
+                const formData = new FormData(this);
+
+
+                fetch('/admin/student/update/attendence', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Response from server:', data);
+
+                        if (data.success) {
+                            console.log('Attendence updated successfully!');
+                            // Store the success message in sessionStorage
+                            sessionStorage.setItem('alertMessage', 'Attendence updated successfully');
+                            sessionStorage.setItem('alertType', 'alert-info');
+                            location.reload(); // Reload the page to see the updated student data
+
+                        } else {
+                            console.log(`Failed to update attendence: ${data.message}`);
+                            // Store the error message in sessionStorage
+                            sessionStorage.setItem('alertMessage', 'Something went wrong');
+                            sessionStorage.setItem('alertType', 'alert-danger');
+
+                            location.reload(); // Reload the page
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        console.log('An error occurred. Please try again.');
+                        // Store the error message in sessionStorage
+                        sessionStorage.setItem('alertMessage', 'An error occurred. Please try again');
+                        sessionStorage.setItem('alertType', 'alert-danger');
+
+                        location.reload(); // Reload the page
+                    });
+            });
+        } else {
+            console.error('Form with ID "updateAttendence" not found.');
+        }
+
+    });
+
+
+    //delete alert
+    function deleteButton() {
+
+        const button = document.getElementById('delete-alert');
+
+        const rollNo = button.getAttribute('data-rollNo');
+
+        swal({
+            title: "Are you sure?",
+            text: "You want to delete this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    // Redirect to the href of the delete button to proceed with the deletion
+                    window.location.href = `/admin/student/delete/${rollNo}`;
+                } else {
+                    swal("Your record is safe!");
+                }
+            });
+    }
+
+    //display alert
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Check if there's a message in sessionStorage
+        const alertMessage = sessionStorage.getItem('alertMessage');
+        const alertType = sessionStorage.getItem('alertType');
+
+        if (alertMessage) {
+            const alert = document.getElementById('my-alert');
+            const alertContent = alert.querySelector('p');
+
+            // Display the alert with the stored message and type
+            alert.classList.remove('d-none');
+            alert.classList.add('show', alertType);
+            alertContent.textContent = alertMessage;
+
+            // Remove the message from sessionStorage after displaying
+            sessionStorage.removeItem('alertMessage');
+            sessionStorage.removeItem('alertType');
+
+            // Hide the alert after a few seconds
+            setTimeout(function () {
+                alert.classList.remove('show');
+                alert.classList.add('d-none');
+            }, 3000);
+        }
+
+    });
+
+    //calculate attendence
+    document.addEventListener("DOMContentLoaded", function () {
+        for (let i = 1; i <= 8; i++) {
+            const totalDaysInput = document.getElementById(`tdays${i}`);
+            const presentDaysInput = document.getElementById(`pdays${i}`);
+            const attendanceInput = document.getElementById(`avg${i}`);
+
+            const calculateAttendance = () => {
+                const totalDays = parseFloat(totalDaysInput.value) || 0;
+                const presentDays = parseFloat(presentDaysInput.value) || 0;
+                const attendancePercentage =
+                    totalDays > 0 ? ((presentDays / totalDays) * 100).toFixed(2) : 0;
+                attendanceInput.value = attendancePercentage;
+            };
+
+            totalDaysInput.addEventListener("input", calculateAttendance);
+            presentDaysInput.addEventListener("input", calculateAttendance);
+        }
+    });
+
+    // Hide alert after 3 seconds
+    window.onload = function () {
+        const alertBox = document.getElementById('alert');
+        if (alertBox) {
+            setTimeout(function () {
+                alertBox.style.display = 'none';
+            }, 3000); // 3000ms = 3 seconds
+        }
+    };
+
+
+</script>
+</body>
+</html>

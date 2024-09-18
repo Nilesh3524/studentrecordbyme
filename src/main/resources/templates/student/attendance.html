@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="student/base::layout(~{::section},~{::title},~{::style},~{::script})"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance</title>
+    <style>
+
+        .table-custom th, .table-custom td {
+            text-align: center;
+        }
+
+        table{
+            border-collapse: separate;
+            border-radius: 30px;
+        }
+
+
+        .card-custom {
+            width: 1200px;
+            background-color: #e2e2e2;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<section>
+    <div class="main-content">
+        <div class="container mt-4">
+            <div class="card mb-4 card-custom">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Student Attendance Records</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-custom" th:if="${s.attendence}">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Semester</th>
+                            <th>Total Days</th>
+                            <th>Present Days</th>
+                            <th>Attendance (%)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1st Semester</td>
+                            <td th:text="${s.attendence.getTday1()}">90</td>
+                            <td th:text="${s.attendence.getPday1()}">80</td>
+                            <td th:text="${s.attendence.getA1()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>2nd Semester</td>
+                            <td th:text="${s.attendence.getTday2()}">90</td>
+                            <td th:text="${s.attendence.getPday2()}">80</td>
+                            <td th:text="${s.attendence.getA2()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>3rd Semester</td>
+                            <td th:text="${s.attendence.getTday3()}">90</td>
+                            <td th:text="${s.attendence.getPday3()}">80</td>
+                            <td th:text="${s.attendence.getA3()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>4th Semester</td>
+                            <td th:text="${s.attendence.getTday4()}">90</td>
+                            <td th:text="${s.attendence.getPday4()}">80</td>
+                            <td th:text="${s.attendence.getA4()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>5th Semester</td>
+                            <td th:text="${s.attendence.getTday5()}">90</td>
+                            <td th:text="${s.attendence.getPday5()}">80</td>
+                            <td th:text="${s.attendence.getA5()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>6th Semester</td>
+                            <td th:text="${s.attendence.getTday6()}">90</td>
+                            <td th:text="${s.attendence.getPday6()}">80</td>
+                            <td th:text="${s.attendence.getA6()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>7th Semester</td>
+                            <td th:text="${s.attendence.getTday7()}">90</td>
+                            <td th:text="${s.attendence.getPday7()}">80</td>
+                            <td th:text="${s.attendence.getA7()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>8th Semester</td>
+                            <td th:text="${s.attendence.getTday8()}">90</td>
+                            <td th:text="${s.attendence.getPday8()}">80</td>
+                            <td th:text="${s.attendence.getA8()}+' %'">88.89</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                    <div class="text-center msg" th:unless="${s.attendence}">
+                        <h4 class="text-black">Not Available</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script></script>
+</body>
+</html>

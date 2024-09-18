@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="admin/base::layout(~{::section},~{::title},~{::style},~{::script})"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Add Student</title>
+    <style>
+
+
+
+    </style>
+</head>
+<body>
+<div th:fragment="section">
+    <div
+            id="alert"
+            th:if="${session.message}"
+            th:classappend="${session.message.type}"
+            class="alert my-2 mx-4"
+            style="height: 60px"
+            role="alert"
+    >
+        <p class="text-center" th:text="${session.message.content}"></p>
+        <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
+    </div>
+    <div class="card mx-3 mt-2" style="width: auto;">
+        <div class="container flex-fill mt-2">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Add Student Form</h3>
+            </div>
+            <div class="card-body" style=" background-color: #e2e2e2">
+                <form method="post" th:action="@{/admin/process-add-student}" th:object="${s}"
+                      enctype="multipart/form-data"
+                      id="uploadForm">
+                    <div class="row my-2">
+                        <div class="col-md-6">
+                            <label for="year">Year</label>
+                            <select
+                                    name="year"
+                                    class="form-control"
+                                    id="year"
+                                    required
+                            >
+                                <option value="">Select year</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6"></div>
+                    </div>
+
+                    <!-- Row 1: Student ID and Name -->
+                    <div class="row my-2">
+                        <div class="form-group col-md-6">
+                            <label for="studentId">Student ID</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="studentId"
+                                    placeholder="Enter Student ID"
+                                    required
+                                    name="rollNo"
+                                    th:field="*{rollNo}"
+                                    th:classappend="${#fields.hasErrors('rollNo')?'is-invalid':''}"
+                            />
+                            <div
+                                    th:if="${#fields.hasErrors('rollNo')}"
+                                    th:errors="*{rollNo}"
+                                    class="invalid-feedback text-danger"
+                            ></div>
+
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name">Name</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="name"
+                                    placeholder="Enter Name"
+                                    required
+                                    name="name"
+                                    th:field="*{name}"
+                                    th:classappend="${#fields.hasErrors('name')?'is-invalid':''}"
+                            />
+                            <div
+                                    th:each="e : ${#fields.errors('name')}"
+                                    th:errors="*{name}"
+                                    class="invalid-feedback text-danger"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- Row 2: Address and Email -->
+                    <div class="row my-3">
+                        <div class="form-group col-md-6">
+                            <label for="address">Address</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="address"
+                                    placeholder="Enter Address"
+                                    required
+                                    name="address"
+                                    th:field="*{address}"
+                                    th:classappend="${#fields.hasErrors('address')?'is-invalid':''}"
+                            />
+                            <div
+                                    class="invalid-feedback text-danger"
+                                    th:errors="*{address}"
+                                    \></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="email">Email</label>
+                            <input
+                                    type="email"
+                                    class="form-control"
+                                    id="email"
+                                    placeholder="Enter Email"
+                                    required
+                                    name="email"
+                                    th:field="*{email}"
+                                    th:classappend="${#fields.hasErrors('email')?'is-invalid':''}"
+                            />
+                            <div
+                                    class="invalid-feedback text-danger"
+                                    th:errors="*{email}"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- Row 3: Contact and Branch -->
+                    <div class="row my-3">
+                        <div class="form-group col-md-6">
+                            <label for="Contact">Contact</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="Contact"
+                                    placeholder="Enter Contact"
+                                    required
+                                    name="phone"
+                                    th:field="*{phone}"
+                                    th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}"
+                            />
+                            <div
+                                    class="invalid-feedback text-danger"
+                                    th:errors="*{phone}"
+                            ></div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="branch">Branch</label>
+                            <select
+                                    name="branch"
+                                    class="form-control"
+                                    id="branch"
+                                    required
+                            >
+                                <option value="" th:selected="${s.branch == null}">Select Branch</option>
+                                <option value="ETC" th:selected="${s.branch == 'ETC'}">ETC</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Row 4: Backlog and Contact Forum -->
+                    <div class="row my-3">
+                        <div class="form-group col-md-6">
+                            <label for="backlog">Backlog</label>
+                            <select
+                                    name="backlog"
+                                    class="form-control"
+                                    id="backlog"
+                                    onchange="toggleBacklogSub()"
+                                    required
+                            >
+                                <option value="" th:selected="${s.backlog == null}">Select</option>
+                                <option value="yes" th:selected="${s.backlog== true}">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="forum">Forum Member</label>
+                            <select
+                                    name="forum"
+                                    class="form-control"
+                                    id="forum"
+                                    required
+                            >
+                                <option value="" th:selected="${s.forum == null}">Select</option>
+                                <option value="yes" th:selected="${s.forum == true}">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="form-group col-md-6">
+                            <label for="backlogsub">Backlog Subjects if any</label>
+                            <textarea th:classappend="${#fields.hasErrors('backSub')?'is-invalid':''}"
+                                      th:text="${s.backSub}" class="form-control d-none" name="backSub" id="backlogsub"
+                                      rows="3" ></textarea>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="backlogsub">Current Backlog Subjects</label>
+                            <textarea th:classappend="${#fields.hasErrors('currentBacklog')?'is-invalid':''}"
+                                      th:text="${s.currentBacklog}" class="form-control d-none" name="currentBacklog"
+                                      id="backlogsub2" rows="3" ></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Row 5: Certificate Text Input -->
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <label for="fileInput">Certificate</label>
+                            <input
+                                    type="file"
+                                    class="form-control"
+                                    id="fileInput"
+                                    name="certificates"
+                            />
+                            <small class="text-danger mt-2" id="fileSizeError" style="display: none;">File size exceeds 2 MB</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="parents">Parents Contact</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="parents"
+                                    placeholder="Enter here "
+                                    required
+                                    name="parents"
+                                    th:field="*{parents}"
+                                    th:classappend="${#fields.hasErrors('parents')?'is-invalid':''}"
+                            />
+                            <div
+                                    class="invalid-feedback text-danger"
+                                    th:errors="*{parents}"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- Row 5: participation Text Input -->
+                    <div class="row my-3">
+                        <div class="col-md-6">
+                            <label for="participation">Participation</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="participation"
+                                    placeholder="Enter participation Info"
+                                    name="participation"
+                                    th:field="*{participation}"
+                                    th:classappend="${#fields.hasErrors('participation')?'is-invalid':''}"
+                            />
+                            <div
+                                    class="invalid-feedback text-danger"
+                                    th:errors="*{participation}"
+                            ></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="mother">Mother Name</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="mother"
+                                    placeholder="Enter mother name"
+                                    required
+                                    name="mother"
+                                    th:field="*{mother}"
+                                    th:classappend="${#fields.hasErrors('mother')?'is-invalid':''}"
+                            />
+                            <div
+                                    class="invalid-feedback text-danger"
+                                    th:errors="*{mother}"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group text-center my-2">
+                        <button type="submit" class="btn btn-lg btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    //upload size validation
+
+    document.addEventListener("DOMContentLoaded",function (){
+
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            const fileInput = document.getElementById('fileInput');
+            console.log(fileInput)
+            const fileSizeError = document.getElementById('fileSizeError');
+            console.log(fileSizeError)
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const maxFileSize = 2 * 1024 * 1024; // 2 MB in bytes
+
+                if (file.size > maxFileSize) {
+                    event.preventDefault(); // Prevent form submission
+                    fileSizeError.style.display = 'block'; // Show error message
+                } else {
+                    fileSizeError.style.display = 'none'; // Hide error message if the file size is valid
+                }
+            }
+        });
+
+    });
+
+    // attendence count
+    function toggleBacklogSub() {
+
+        const backlog = document.getElementById('backlog').value;
+        const backlogsub = document.getElementById('backlogsub');
+        const backlogsub2 = document.getElementById('backlogsub2');
+
+        // Debugging: Log the current value of backlog select
+        console.log('Backlog selected:', backlog);
+
+        if (backlog === 'yes') {
+
+            backlogsub.classList.remove('d-none');
+            backlogsub.classList.add('show');
+
+            backlogsub2.classList.remove('d-none');
+            backlogsub2.classList.add('show');
+
+        } else{
+
+            backlogsub.classList.remove('show');
+            backlogsub.classList.add('d-none');
+
+            backlogsub2.classList.remove('show');
+            backlogsub2.classList.add('d-none');
+
+        }
+
+    }
+
+
+
+    // Hide alert after 3 seconds
+    window.onload = function () {
+        const alertBox = document.getElementById('alert');
+        const backlogSelect = document.getElementById('backlog');
+
+
+        if (alertBox) {
+            setTimeout(function () {
+                alertBox.style.display = 'none';
+            }, 3000); // 3000ms = 3 seconds
+        }
+
+
+        // Call once on page load to set initial state
+        toggleBacklogSub();
+    };
+
+
+</script>
+</body>
+</html>

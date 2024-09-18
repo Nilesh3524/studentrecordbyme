@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="student/base::layout(~{::section},~{::title},~{::style},~{::script})"
+>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <style>
+
+        .main-content {
+            margin-left: 20px;
+            padding: 20px;
+        }
+
+        .c-body{
+            background-color: #e2e2e2;
+            color: black;
+        }
+
+        .c-body label{
+            font-weight: bold;
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+<section>
+    <div class="main-content">
+        <div class="row">
+            <div class="col-6">
+                <!-- Student Personal Information Section -->
+                <div class="card mb-4" style="width: 1200px">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="text-center">Personal Information</h5>
+                    </div>
+                    <div class="card-body c-body overflow-auto">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label">Name</label>
+                                <p id="name" th:text="${s.name}">John Doe</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="rollno" class="form-label">Roll No</label>
+                                <p id="rollno" th:text="${s.rollNo}">123456</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="year" class="form-label">Year</label>
+                                <p id="year" th:text="${s.year}">-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="avgAttendence" class="form-label">Average Attendence</label>
+                                <p id="avgAttendence" th:text="${s.avgAttendence+' %'}">-</p>
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">Email</label>
+                                <p id="email" th:text="${s.email}">john.doe@example.com</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="address" class="form-label">Address</label>
+                                <p id="address" th:text="${s.address}">123 Main St, City, Country</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="branch" class="form-label">Branch</label>
+                                <p id="branch" th:text="${s.branch}">Computer Science</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="contact" class="form-label">Contact No</label>
+                                <p id="contact" th:text="${s.phone}">+1234567890</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="motherName" class="form-label">Mother's Name</label>
+                                <p id="motherName" th:text="${s.phone}">Jane Doe</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="parentsContact" class="form-label">Parent's Contact No</label>
+                                <p id="parentsContact" th:text="${s.parents}">+0987654321</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="backlog" class="form-label">Backlog</label>
+                                <p id="backlog" th:text="${s.backlog?'yes':'no'}">-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="forum" class="form-label">Forum Member</label>
+                                <p id="forum" th:text="${s.forum?'yes':'no'}">-</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3" th:if="${s.backlog}">
+                            <div class="col-md-6">
+                                <label for="backSub" class="form-label">Backlog in Records</label>
+                                <p id="backSub" th:text="${s.backSub}">-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="currentBacklog" class="form-label">Current Backlog</label>
+                                <p id="currentBacklog" th:text="${s.currentBacklog}">-</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3" th:if="${s.certificate}">
+                            <div class="col-md-6">
+                                <label for="certificate" class="form-label">Certificate</label>
+                                <p id="certificate" th:text="${s.certificate.getName()}">-</p>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 style="margin-bottom: 33px"></h4>
+                                <a th:href="@{'/admin/certificate/download/' + ${s.rollNo}}">
+                                    <button class="btn btn-primary">
+                                        Download
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="admin/base::layout(~{::section},~{::title},~{::script},~{::style})"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+
+        .card {
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            background-color: #dee2e6 !important;
+        }
+
+        .card-title {
+            font-weight: 600;
+        }
+
+        /* Remove table borders and apply center alignment */
+        .table-center {
+            width: 100%;
+            margin: 0 auto;
+            border-collapse: collapse; /* Collapse borders if there are any */
+            background-color: #dee2e6 !important;
+        }
+
+        .table-center td, .table-center th {
+            text-align: center;
+            padding: 10px;
+            border: none; /* Remove default borders */
+            background-color: #dee2e6 !important;
+
+        }
+
+        .table-center thead th {
+            border-bottom: 2px solid #dee2e6; /* Add a subtle bottom border for the header */
+
+        }
+
+
+    </style>
+
+</head>
+<body>
+<section>
+    <div
+            id="alert"
+            th:if="${session.message}"
+            th:classappend="${session.message.type}"
+            class="alert my-2 mx-4"
+            style="height: 60px"
+            role="alert"
+    >
+        <p class="text-center" th:text="${session.message.content}"></p>
+        <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
+    </div>
+    <!-- Main Content -->
+    <div class="m-3 flex-fill p-3">
+
+        <h1 class="text-black" style="text-indent: 140px; ">Department of Electronics And Telecommunication</h1>
+
+        <h1 class="display-3 text-center text-black mt-4 mb-5">Welcome
+            <th:block th:text="${loggedInUser}"></th:block>
+            !
+        </h1>
+
+        <div>
+            <div class="row mx-1">
+                <div class="col-md-4 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Student Management</h5>
+                            <p class="card-text">Add, edit, or remove students including backlog students.</p>
+                            <a th:href="@{/admin/all-students}" class="btn btn-primary">Manage Students</a>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Courses </h5>
+                            <p class="card-text">Manage courses, assign faculty, and view course details.</p>
+                            <a th:href="@{/admin/cources}" class="btn btn-primary">View Courses</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-4 col-lg-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Attendance Tracking</h5>
+                            <p class="card-text">Track and manage student attendance on daily based.</p>
+                            <a th:href="@{/admin/add-attendence}" class="btn btn-primary">Add Attendance</a>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Results & Grades</h5>
+                            <p class="card-text">View and update student results and grades upload also results for CAE,
+                                sessional exam.</p>
+                            <a th:href="@{/admin/upload-result}" class="btn btn-primary">Upload Results</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!--                result section-->
+                <div class="col-md-4 col-lg-4 mb-4">
+                    <div class="card" style="height: 378px;border-radius: 10px;width: 390px">
+
+                        <div class="card-body overflow-auto">
+                            <h5 class="text-center my-2">Declared Results</h5>
+                            <table class="table table-center ">
+                                <tbody>
+                                <tr th:each="file : ${files}">
+                                    <td th:text="${file.name}"></td>
+                                    <td th:text="${file.date}"></td>
+                                    <td>
+                                        <div>
+                                            <a th:href="@{'/admin/files/download/' + ${file.id}}" style="margin-right: 3px">
+
+                                                <i class="fa-solid fa-file-arrow-down" style="font-size: 20px"></i>
+
+                                            </a>
+                                            <a th:href="@{'/admin/file/delete/' + ${file.id}}" onclick="return confirm('Are you sure want to delete this !!')">
+
+                                                <i class="fa-solid fa-trash" style="font-size: 20px"></i>
+
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+<script>
+    // Hide alert after 3 seconds
+    window.onload = function () {
+        const alertBox = document.getElementById('alert');
+        if (alertBox) {
+            setTimeout(function () {
+                alertBox.style.display = 'none';
+            }, 3000); // 3000ms = 3 seconds
+        }
+    };
+</script>
+</body>
+</html>

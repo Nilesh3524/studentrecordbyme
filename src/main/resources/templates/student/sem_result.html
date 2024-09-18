@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="student/base::layout(~{::section},~{::title},~{::style},~{::script})"
+>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Semester Result</title>
+    <style>
+
+        .main-content{
+            margin-left: 20px;
+        }
+
+        .card-custom{
+            margin: 10px;
+            width: 1200px;
+        }
+
+        .row-custom {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .col-custom {
+            flex: 0 0 46%;
+            margin: 1%;
+            width: 516px;
+        }
+
+        .c-body{
+            background-color: #e2e2e2;
+        }
+
+
+    </style>
+</head>
+<body>
+<section>
+    <div class="main-content">
+        <div class="container mt-4">
+            <div class="card mb-4 card-custom">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Student Academic Results</h3>
+                </div>
+                <div class="card-body c-body">
+                    <div class="row row-custom" th:unless="${sgpa.isEmpty()}" >
+                        <div class="col-custom" th:each="sg, iterStat: ${sgpa}">
+                            <div class="card mb-3" style="background-color: #e2e2e2">
+                                <div class="card-body c-body" style="margin-left: 40px">
+                                    <label for="sem1Result" class="form-label text-black" th:text="'Semester '+${iterStat.index + 1}+' Result :'">Semester 1 Result</label>
+                                    <p id="sem1Result" th:text="${sg.getName()}">A</p>
+                                    <a id="sem1ResultDownload" th:href="@{'/student/sgpa/download/'+${s.rollNo}+'/'+${sg.id}}"
+                                       class="btn btn-primary btn-sm">Download Result</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center msg" th:if="${sgpa.isEmpty()}">
+                        <h4 class="text-black">Not Available</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script></script>
+</body>
+</html>
