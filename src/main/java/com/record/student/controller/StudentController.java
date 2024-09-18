@@ -104,7 +104,7 @@ public class StudentController {
     //academic result page
     @GetMapping("/declared-result")
     public String studentAcademicResult(Model m) {
-        return "/student/declared_result";
+        return "student/declared_result";
     }
 
     //download sgpa

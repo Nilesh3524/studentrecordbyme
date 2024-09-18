@@ -142,7 +142,7 @@ public class AdminController {
     @GetMapping("/add-sgpa")
     public String addSGPAForm() {
 
-        return "admin/addSGPA";
+        return "admin/addsgpa";
 
 
     }
