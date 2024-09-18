@@ -97,6 +97,14 @@ public class AdminController {
         return "admin/addStudent";
     }
 
+    // add sgpa page
+    @GetMapping("/add-sgpa")
+    public String addSGPAForm() {
+
+        return "admin/addsgpa";
+    }
+
+
     // process add student
     @PostMapping("/process-add-student")
     public String addStudent(@Valid @ModelAttribute("s") Student student, BindingResult result, @RequestParam("certificates") MultipartFile certificates, HttpSession session, Model m) throws IOException {
@@ -138,15 +146,7 @@ public class AdminController {
     }
 
 
-    // add sgpa page
-    @GetMapping("/add-sgpa")
-    public String addSGPAForm() {
-
-        return "admin/addsgpa";
-
-
-    }
-
+    
 
     //process add sgpa
     @PostMapping("/process-add-sgpa")
