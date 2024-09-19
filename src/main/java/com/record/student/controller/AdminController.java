@@ -43,6 +43,9 @@ public class AdminController {
     @Autowired
     private EmailService emailService;
 
+    @Autowired
+    private AdminService adminService;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -520,5 +523,6 @@ public class AdminController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + sgpa.getName() + "\"")
                 .body(sgpa.getData());
     }
+
 
 }
