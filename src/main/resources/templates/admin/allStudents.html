@@ -10,7 +10,7 @@
     <title>All Students</title>
     <style>
 
-        .trow{
+        .trow {
             cursor: pointer;
         }
 
@@ -398,49 +398,67 @@
 
                 const formData = new FormData(this);
 
+                // Get the modal element
+                const modalElement = document.getElementById('updateAttendence');
 
-                fetch('/admin/student/update/attendence', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Response from server:', data);
+                if (modalElement) {
 
-                        if (data.success) {
-                            console.log('Attendence updated successfully!');
-                            // Store the success message in sessionStorage
-                            sessionStorage.setItem('alertMessage', 'Attendence updated successfully');
-                            sessionStorage.setItem('alertType', 'alert-info');
-                            location.reload(); // Reload the page to see the updated student data
+                    document.getElementById('loadingSpinner1').style.display = 'block';
 
-                        } else {
-                            console.log(`Failed to update attendence: ${data.message}`);
-                            // Store the error message in sessionStorage
-                            sessionStorage.setItem('alertMessage', 'Something went wrong');
-                            sessionStorage.setItem('alertType', 'alert-danger');
+                    // Use requestAnimationFrame to wait until the modal is closed
+                    requestAnimationFrame(() => {
 
-                            location.reload(); // Reload the page
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        console.log('An error occurred. Please try again.');
-                        // Store the error message in sessionStorage
-                        sessionStorage.setItem('alertMessage', 'An error occurred. Please try again');
-                        sessionStorage.setItem('alertType', 'alert-danger');
+                        fetch('/admin/student/update/attendence', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Response from server:', data);
 
-                        location.reload(); // Reload the page
+                                if (data.success) {
+                                    console.log('Attendence updated successfully!');
+                                    // Store the success message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'Attendence updated successfully');
+                                    sessionStorage.setItem('alertType', 'alert-info');
+                                    // Hide the spinner after the response is received
+                                    document.getElementById('loadingSpinner').style.display = 'none';
+                                    location.reload(); // Reload the page to see the updated student data
+
+                                } else {
+                                    console.log(`Failed to update attendence: ${data.message}`);
+                                    // Store the error message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'Something went wrong');
+                                    sessionStorage.setItem('alertType', 'alert-danger');
+                                    // Hide the spinner after the response is received
+                                    document.getElementById('loadingSpinner').style.display = 'none';
+
+                                    location.reload(); // Reload the page
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                console.log('An error occurred. Please try again.');
+                                // Store the error message in sessionStorage
+                                sessionStorage.setItem('alertMessage', 'An error occurred. Please try again');
+                                sessionStorage.setItem('alertType', 'alert-danger');
+
+                                location.reload(); // Reload the page
+                            });
                     });
+                } else {
+                    console.error('Form with ID "updateAttendence" not found.');
+                }
+
             });
-        } else {
-            console.error('Form with ID "updateAttendence" not found.');
+
         }
+
 
     });
 
