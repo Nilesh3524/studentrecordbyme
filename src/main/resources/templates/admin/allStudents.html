@@ -225,47 +225,66 @@
                 const formData = new FormData(this);
 
 
-                fetch('/admin/student/update', {
-                    method: 'POST',
-                    body: formData
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log('Response from server:', data);
+                // Get the modal element
+                const modalElement = document.getElementById('staticBackdrop');
 
-                        if (data.success) {
-                            console.log('Student updated successfully!');
-                            // Store the success message in sessionStorage
-                            sessionStorage.setItem('alertMessage', 'Student updated successfully');
-                            sessionStorage.setItem('alertType', 'alert-info');
-                            location.reload(); // Reload the page to see the updated student data
+                if (modalElement) {
 
-                        } else {
-                            console.log(`Failed to update student: ${data.message}`);
-                            // Store the error message in sessionStorage
-                            sessionStorage.setItem('alertMessage', 'Something went wrong');
-                            sessionStorage.setItem('alertType', 'alert-danger');
+                    document.getElementById('loadingSpinner').style.display = 'block';
 
-                            location.reload(); // Reload the page
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        console.log('An error occurred. Please try again.');
-                        // Store the error message in sessionStorage
-                        sessionStorage.setItem('alertMessage', 'An error occurred. Please try again');
-                        sessionStorage.setItem('alertType', 'alert-danger');
+                    // Use requestAnimationFrame to wait until the modal is closed
+                    requestAnimationFrame(() => {
+                        // After the modal is closed, start the asynchronous operation
+                        fetch('/admin/student/update', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Response from server:', data);
 
-                        location.reload(); // Reload the page
+                                if (data.success) {
+                                    console.log('Student updated successfully!');
+                                    // Store the success message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'Student updated successfully');
+                                    sessionStorage.setItem('alertType', 'alert-info');
+
+                                    // Hide the spinner after the response is received
+                                    document.getElementById('loadingSpinner').style.display = 'none';
+
+                                } else {
+                                    console.log(`Failed to update student: ${data.message}`);
+                                    // Store the error message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'Failed to update student');
+                                    sessionStorage.setItem('alertType', 'alert-danger');
+
+                                    // Hide the spinner after the response is received
+                                    document.getElementById('loadingSpinner').style.display = 'none';
+                                }
+
+                                // Reload the page to reflect the update and display the message
+                                location.reload();
+
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                // Store the error message in sessionStorage
+                                sessionStorage.setItem('alertMessage', 'An error occurred. Please try again');
+                                sessionStorage.setItem('alertType', 'alert-danger');
+                                location.reload(); // Reload the page
+                            });
                     });
+                } else {
+                    console.error('Modal with ID "staticBackdrop" not found.');
+                }
             });
         } else {
-            console.error('Form with ID "editStudentForm" not found.');
+            console.error('Form with ID "staticBackdrop" not found.');
         }
 
 

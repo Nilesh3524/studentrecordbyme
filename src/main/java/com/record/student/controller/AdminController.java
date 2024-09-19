@@ -1,11 +1,9 @@
 package com.record.student.controller;
 
+import com.record.student.helper.EmailMessage;
 import com.record.student.helper.Message;
 import com.record.student.model.*;
-import com.record.student.sevice.CertificateService;
-import com.record.student.sevice.FileService;
-import com.record.student.sevice.SgpaFileService;
-import com.record.student.sevice.StudentService;
+import com.record.student.sevice.*;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -41,6 +39,9 @@ public class AdminController {
 
     @Autowired
     private CertificateService certificateService;
+
+    @Autowired
+    private EmailService emailService;
 
 
 
@@ -367,9 +368,12 @@ public class AdminController {
             // Save the updated student back to the database
             this.studentService.addStudent(oldStudent);
 
+            this.emailService.sendEmail(oldStudent.getEmail(),"Studentrecordbyme | Update On Your Record", EmailMessage.getMessage(student));
+
             // Return success response
             response.put("success", true);
             response.put("message", "Student updated successfully.");
+
 
         } else {
             // If student is not found, return failure response

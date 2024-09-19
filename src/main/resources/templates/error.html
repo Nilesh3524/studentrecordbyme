@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Error Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #ff0000;
+        }
+
+        .img{
+            width: 300px;
+        }
+
+
+    </style>
 </head>
 <body>
-$END$
-</body>
+    <img th:src="@{/img/error.png}" class="img">
+    <h1>An error occurred</h1>
+    <p th:text="${error}" th:if="${error}"></p>
+    <p>Sorry for the inconvenience. Please try again later.</p>
+    </body>
 </html>
