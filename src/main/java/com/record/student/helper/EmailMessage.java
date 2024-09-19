@@ -13,7 +13,9 @@ public class EmailMessage {
                         """
                 !
 
-               Your data has been updated. you can check on our website.
+               Your data has been updated. you can check on following link.
+               
+               https://studentrecordbyme.onrender.com
 
                We hope you're having a great day!
                
