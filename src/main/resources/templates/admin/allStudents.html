@@ -41,11 +41,11 @@
 
     <div class="text-center mb-4 mt-3">
         <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('all')">All</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2021')">2021</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2022')">2022</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2023')">2023</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2024')">2024</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2025')">2025</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2021-2025')">2021-2025</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2022-2026')">2022-2026</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2023-2027')">2023-2027</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2024-2028')">2024-2028</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2025-2029')">2025-2029</button>
     </div>
 
 
@@ -55,6 +55,7 @@
             <table class="table table-bordered table1">
                 <thead class="">
                 <tr>
+                    <th class="text-center">Batch</th>
                     <th class="text-center">Year</th>
                     <th class="text-center">ID</th>
                     <th class="text-center">Name</th>
@@ -65,8 +66,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="trow" th:each="s:${students}" id="body" th:data-year="${s.year}"
+                <tr class="trow" th:each="s:${students}" id="body" th:data-batch="${s.batch}"
                 >
+                    <td class="text-center" th:text="${s.batch}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                        onclick="window.location.href=this.getAttribute('data-url')"></td>
                     <td class="text-center" th:text="${s.year}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
                         onclick="window.location.href=this.getAttribute('data-url')"></td>
                     <td class="text-center" th:text="${s.rollNo}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
@@ -94,6 +97,7 @@
                         <a data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#staticBackdrop"
                            th:data-rollNo="${s.rollNo}"
                            th:data-name="${s.name}"
+                           th:data-year="${s.year}"
                            th:data-backlog="${s.backlog}"
                            th:data-backSub="${s.backSub}"
                            th:data-currentBacklog="${s.currentBacklog}"
@@ -144,13 +148,13 @@
 <script>
 
     // Function to filter and display students
-    function fetchAndDisplayStudents(year) {
+    function fetchAndDisplayStudents(batch) {
         const rows = document.querySelectorAll('tbody tr');  // Select all table rows
 
         rows.forEach(row => {
-            const studentYear = row.getAttribute('data-year');  // Get the student's year from the data-year attribute
+            const studentYear = row.getAttribute('data-batch');  // Get the student's year from the data-year attribute
 
-            if (year === 'all' || studentYear === year) {
+            if (batch === 'all' || studentYear === batch) {
                 row.style.display = '';  // Show row if year matches or if 'all' is selected
             } else {
                 row.style.display = 'none';  // Hide row if year doesn't match
@@ -174,6 +178,7 @@
 
                 const rollNo = button.getAttribute('data-rollNo');
                 const name = button.getAttribute('data-name');
+                const year = button.getAttribute('data-year');
                 const backlog = button.getAttribute('data-backlog');
                 const backSub = button.getAttribute('data-backSub');
                 const currentBacklog = button.getAttribute('data-currentBacklog');
@@ -181,6 +186,10 @@
 
                 document.getElementById('rollNo').value = rollNo;
                 document.getElementById('name').value = name;
+
+
+                document.getElementById('year').value = year;
+
 
                 // Ensure backlog value matches one of the options
                 const backlogSelect = document.getElementById('backlog');
@@ -208,6 +217,34 @@
         });
 
     });
+
+    // toggle back log
+    document.addEventListener("DOMContentLoaded", function () {
+        document.body.addEventListener("change", function (e) {
+            if (e.target && e.target.id === 'backlog') {
+                const backlog = e.target.value;
+                const backlogsub = document.getElementById('backlogsub');
+                const backlogsub2 = document.getElementById('backlogsub2');
+
+                console.log('Backlog selected:', backlog);
+
+                if (backlog === 'yes') {
+                    backlogsub.classList.remove('d-none');
+                    backlogsub.classList.add('show');
+
+                    backlogsub2.classList.remove('d-none');
+                    backlogsub2.classList.add('show');
+                } else {
+                    backlogsub.classList.remove('show');
+                    backlogsub.classList.add('d-none');
+
+                    backlogsub2.classList.remove('show');
+                    backlogsub2.classList.add('d-none');
+                }
+            }
+        });
+    });
+
 
 
     //   student update  form submit

@@ -66,7 +66,7 @@ public class Student implements UserDetails {
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true,mappedBy = "student")
     private Certificate certificate;
 
-    private String participation;
+    private String batch;
 
     private String year;
 

@@ -102,18 +102,18 @@
 
 <body>
 <!-- navbar start -->
-<nav class="navbar navbar-expand-lg" style="background-color: #3939ff;height: 69px">
+<nav class="navbar navbar-expand-lg" style="background-color: #3939ff;">
     <div class="container-fluid">
         <a
                 th:if="${loggedInUser}"
                 class="navbar-brand"
-                th:href="@{/admin/home}"
+                th:href="@{/admin/dashboard}"
         >
             <img th:src="@{/img/sb.jpg}" style="width: 30px" alt=""/>
             <div class="d-none d-lg-inline text-white"
             >S.B. Jain Institute of Technology and Management Research
             </div>
-            <span class="d-inline d-lg-none">S.B. Jain Institute</span>
+            <span class="d-inline d-lg-none text-white">S.B. Jain Institute</span>
         </a>
         <a th:unless="${loggedInUser}" class="navbar-brand" th:href="@{/}" style="text-decoration: none">
             <img th:src="@{/img/sb.jpg}" style="width: 30px" alt=""/>
@@ -121,10 +121,11 @@
             >S.B. Jain Institute of Technology and Management Research
             </div
             >
-            <div class="d-inline d-lg-none">S.B. Jain Institute</div>
+            <div class="d-inline d-lg-none text-white">S.B. Jain Institute</div>
         </a>
         <button
                 class="navbar-toggler"
+                style="background-color: white"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarNav"
@@ -304,6 +305,26 @@
 
                         <div class="form-group row text-center my-1">
                             <div class="col">
+                                <p style="font-weight: bold">Year :</p>
+                            </div>
+                            <div class="col">
+                                <select
+                                        name="year"
+                                        class="form-control"
+                                        id="year"
+                                        required
+                                >
+                                    <option value="">Select Year</option>
+                                    <option value="1st">1st</option>
+                                    <option value="2nd">2nd</option>
+                                    <option value="3rd">3rd</option>
+                                    <option value="4ht">4th</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row text-center my-1">
+                            <div class="col">
                                 <p style="font-weight: bold">Backlog :</p>
                             </div>
                             <div class="col">
@@ -321,7 +342,7 @@
 
                         <!-- Row 3 - Backlog Subjects -->
 
-                        <div class="form-group row text-center my-1">
+                        <div class="form-group row text-center my-1" id="backlogsub">
                             <div class="col">
                                 <p style="font-weight: bold">Backlog Subjects :</p>
                             </div>
@@ -335,7 +356,7 @@
 
                         <!-- Row 4 - current backlog -->
 
-                        <div class="form-group row text-center mt-3">
+                        <div class="form-group row text-center mt-3" id="backlogsub2">
                             <div class="col">
                                 <p style="font-weight: bold">Current Backlog :</p>
                             </div>

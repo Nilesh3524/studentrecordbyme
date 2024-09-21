@@ -11,7 +11,6 @@
     <style>
 
 
-
     </style>
 </head>
 <body>
@@ -38,6 +37,22 @@
                       id="uploadForm">
                     <div class="row my-2">
                         <div class="col-md-6">
+                            <label for="batch">Batch</label>
+                            <select
+                                    name="batch"
+                                    class="form-control"
+                                    id="batch"
+                                    required
+                            >
+                                <option value="">Select Batch</option>
+                                <option value="2021-2025">2021-2025</option>
+                                <option value="2022-2026">2022-2026</option>
+                                <option value="2023-2027">2023-2027</option>
+                                <option value="2024-2028">2024-2028</option>
+                                <option value="2025-2029">2025-2029</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
                             <label for="year">Year</label>
                             <select
                                     name="year"
@@ -45,15 +60,13 @@
                                     id="year"
                                     required
                             >
-                                <option value="">Select year</option>
-                                <option value="2021">2021</option>
-                                <option value="2022">2022</option>
-                                <option value="2023">2023</option>
-                                <option value="2024">2024</option>
-                                <option value="2025">2025</option>
+                                <option value="">Select Year</option>
+                                <option value="1st">1st</option>
+                                <option value="2nd">2nd</option>
+                                <option value="3rd">3rd</option>
+                                <option value="4ht">4th</option>
                             </select>
                         </div>
-                        <div class="col-md-6"></div>
                     </div>
 
                     <!-- Row 1: Student ID and Name -->
@@ -176,7 +189,6 @@
                                     name="backlog"
                                     class="form-control"
                                     id="backlog"
-                                    onchange="toggleBacklogSub()"
                                     required
                             >
                                 <option value="" th:selected="${s.backlog == null}">Select</option>
@@ -204,14 +216,14 @@
                             <label for="backlogsub">Backlog Subjects if any</label>
                             <textarea th:classappend="${#fields.hasErrors('backSub')?'is-invalid':''}"
                                       th:text="${s.backSub}" class="form-control d-none" name="backSub" id="backlogsub"
-                                      rows="3" ></textarea>
+                                      rows="3"></textarea>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="backlogsub">Current Backlog Subjects</label>
                             <textarea th:classappend="${#fields.hasErrors('currentBacklog')?'is-invalid':''}"
                                       th:text="${s.currentBacklog}" class="form-control d-none" name="currentBacklog"
-                                      id="backlogsub2" rows="3" ></textarea>
+                                      id="backlogsub2" rows="3"></textarea>
                         </div>
 
                     </div>
@@ -226,7 +238,8 @@
                                     id="fileInput"
                                     name="certificates"
                             />
-                            <small class="text-danger mt-2" id="fileSizeError" style="display: none;">File size exceeds 2 MB</small>
+                            <small class="text-danger mt-2" id="fileSizeError" style="display: none;">File size exceeds
+                                2 MB</small>
                         </div>
                         <div class="col-md-6">
                             <label for="parents">Parents Contact</label>
@@ -250,22 +263,6 @@
                     <!-- Row 5: participation Text Input -->
                     <div class="row my-3">
                         <div class="col-md-6">
-                            <label for="participation">Participation</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="participation"
-                                    placeholder="Enter participation Info"
-                                    name="participation"
-                                    th:field="*{participation}"
-                                    th:classappend="${#fields.hasErrors('participation')?'is-invalid':''}"
-                            />
-                            <div
-                                    class="invalid-feedback text-danger"
-                                    th:errors="*{participation}"
-                            ></div>
-                        </div>
-                        <div class="col-md-6">
                             <label for="mother">Mother Name</label>
                             <input
                                     type="text"
@@ -282,6 +279,7 @@
                                     th:errors="*{mother}"
                             ></div>
                         </div>
+                        <div class="col-md-6"></div>
                     </div>
 
                     <!-- Submit Button -->
@@ -299,7 +297,7 @@
 
     //upload size validation
 
-    document.addEventListener("DOMContentLoaded",function (){
+    document.addEventListener("DOMContentLoaded", function () {
 
         document.getElementById('uploadForm').addEventListener('submit', function (event) {
             const fileInput = document.getElementById('fileInput');
@@ -322,43 +320,40 @@
 
     });
 
-    // attendence count
-    function toggleBacklogSub() {
+    // toggle backlog sub
+    document.addEventListener("DOMContentLoaded", function () {
+        document.body.addEventListener("change", function (e) {
+            if (e.target && e.target.id === 'backlog') {
+                const backlog = e.target.value;
+                const backlogsub = document.getElementById('backlogsub');
+                const backlogsub2 = document.getElementById('backlogsub2');
 
-        const backlog = document.getElementById('backlog').value;
-        const backlogsub = document.getElementById('backlogsub');
-        const backlogsub2 = document.getElementById('backlogsub2');
+                console.log('Backlog selected:', backlog);
 
-        // Debugging: Log the current value of backlog select
-        console.log('Backlog selected:', backlog);
+                if (backlog === 'yes') {
+                    backlogsub.classList.remove('d-none');
+                    backlogsub.classList.add('show');
 
-        if (backlog === 'yes') {
+                    backlogsub2.classList.remove('d-none');
+                    backlogsub2.classList.add('show');
+                } else {
+                    backlogsub.classList.remove('show');
+                    backlogsub.classList.add('d-none');
 
-            backlogsub.classList.remove('d-none');
-            backlogsub.classList.add('show');
+                    backlogsub2.classList.remove('show');
+                    backlogsub2.classList.add('d-none');
+                }
+            }
+        });
+    });
 
-            backlogsub2.classList.remove('d-none');
-            backlogsub2.classList.add('show');
 
-        } else{
-
-            backlogsub.classList.remove('show');
-            backlogsub.classList.add('d-none');
-
-            backlogsub2.classList.remove('show');
-            backlogsub2.classList.add('d-none');
-
-        }
-
-    }
 
 
 
     // Hide alert after 3 seconds
     window.onload = function () {
         const alertBox = document.getElementById('alert');
-        const backlogSelect = document.getElementById('backlog');
-
 
         if (alertBox) {
             setTimeout(function () {
@@ -368,7 +363,7 @@
 
 
         // Call once on page load to set initial state
-        toggleBacklogSub();
+        // toggleBacklogSub();
     };
 
 

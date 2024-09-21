@@ -15,11 +15,11 @@
 
     <div class="text-center mb-4 mt-3">
         <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('all')">All</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2021')">2021</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2022')">2022</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2023')">2023</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2024')">2024</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2025')">2025</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2021-2025')">2021-2025</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2022-2026')">2022-2026</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2023-2027')">2023-2027</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2024-2028')">2024-2028</button>
+        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2025-2029')">2025-2029</button>
     </div>
 
     <div class="container flex-fill" style="width: 1250px">
@@ -28,6 +28,7 @@
             <table class="table table-bordered">
                 <thead class="thead-dark">
                 <tr>
+                    <th class="text-center">Batch</th>
                     <th class="text-center">Year</th>
                     <th class="text-center">ID</th>
                     <th class="text-center">Name</th>
@@ -39,10 +40,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="s:${students}" th:if="${s.backlog}" th:data-year="${s.year}" style="cursor: pointer;"
+                <tr th:each="s:${students}" th:if="${s.backlog}" th:data-batch="${s.batch}" style="cursor: pointer;"
                     th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
                     onclick="window.location.href=this.getAttribute('data-url')">
-
+                    <td class="text-center" th:text="${s.batch}"></td>
                     <td class="text-center" th:text="${s.year}">1</td>
                     <td class="text-center" th:text="${s.rollNo}">1</td>
                     <td class="text-center" th:text="${s.name}">himanshu</td>
@@ -63,16 +64,17 @@
 <script>
 
     // Function to filter and display students
-    function fetchAndDisplayStudents(year) {
+    function fetchAndDisplayStudents(batch) {
         const rows = document.querySelectorAll('tbody tr');  // Select all table rows
 
         rows.forEach(row => {
-            const studentYear = row.getAttribute('data-year');  // Get the student's year from the data-year attribute
+
+            const studentYear = row.getAttribute('data-batch');  // Get the student's year from the data-year attribute
 
             console.log(studentYear);
 
 
-            if (year === 'all' || studentYear === year) {
+            if (batch === 'all' || studentYear === batch) {
                 row.style.display = '';  // Show row if year matches or if 'all' is selected
             } else {
                 row.style.display = 'none';  // Hide row if year doesn't match

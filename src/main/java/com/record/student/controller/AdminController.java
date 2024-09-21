@@ -353,6 +353,8 @@ public class AdminController {
             Student oldStudent = optionalStudent.get();
 
             // Update the student details
+
+            oldStudent.setYear(student.getYear());
             oldStudent.setBacklog(student.isBacklog());
             oldStudent.setBackSub(student.getBackSub());
             oldStudent.setCurrentBacklog(student.getCurrentBacklog());
