@@ -211,21 +211,20 @@
                         </div>
                     </div>
 
-                    <div class="row my-3">
+                    <div class="row my-3 d-none" id="toggleBacklog">
                         <div class="form-group col-md-6">
                             <label for="backlogsub">Backlog Subjects if any</label>
                             <textarea th:classappend="${#fields.hasErrors('backSub')?'is-invalid':''}"
-                                      th:text="${s.backSub}" class="form-control d-none" name="backSub" id="backlogsub"
+                                      th:text="${s.backSub}" class="form-control" name="backSub" id="backlogsub"
                                       rows="3"></textarea>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="backlogsub">Current Backlog Subjects</label>
                             <textarea th:classappend="${#fields.hasErrors('currentBacklog')?'is-invalid':''}"
-                                      th:text="${s.currentBacklog}" class="form-control d-none" name="currentBacklog"
+                                      th:text="${s.currentBacklog}" class="form-control" name="currentBacklog"z
                                       id="backlogsub2" rows="3"></textarea>
                         </div>
-
                     </div>
 
                     <!-- Row 5: Certificate Text Input -->
@@ -325,8 +324,8 @@
         document.body.addEventListener("change", function (e) {
             if (e.target && e.target.id === 'backlog') {
                 const backlog = e.target.value;
-                const backlogsub = document.getElementById('backlogsub');
-                const backlogsub2 = document.getElementById('backlogsub2');
+                const backlogsub = document.getElementById('toggleBacklog');
+                console.log(backlogsub)
 
                 console.log('Backlog selected:', backlog);
 
@@ -334,14 +333,10 @@
                     backlogsub.classList.remove('d-none');
                     backlogsub.classList.add('show');
 
-                    backlogsub2.classList.remove('d-none');
-                    backlogsub2.classList.add('show');
                 } else {
                     backlogsub.classList.remove('show');
                     backlogsub.classList.add('d-none');
 
-                    backlogsub2.classList.remove('show');
-                    backlogsub2.classList.add('d-none');
                 }
             }
         });
