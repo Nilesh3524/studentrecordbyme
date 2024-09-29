@@ -7,7 +7,13 @@
     <th:block th:replace="${link}"></th:block>
     <style>
         section {
-            background-color: lightgray;
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/img/home.jpg") no-repeat center center fixed;
+            background-size: cover;
+            overflow: hidden; /* Prevent scrolling on the background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     </style>
     <link
@@ -44,15 +50,15 @@
 <body>
 
 <!-- navbar start -->
-<nav class="navbar navbar-expand-lg" style="background-color: #3939ff">
+<nav class="navbar navbar-expand-lg" style="background-color: lightblue">
     <div class="container-fluid">
 
         <a th:unless="${loggedInUser}" class="navbar-brand" th:href="@{/}" style="text-decoration: none">
             <img th:src="@{/img/sb.jpg}" style="width: 30px" alt=""/>
-            <div class="d-none d-lg-inline" style="color: white">
+            <div class="d-none d-lg-inline" style="color: black">
                 S.B. Jain Institute of Technology and Management Research
             </div>
-            <div class="d-inline d-lg-none text-white">S.B. Jain Institute</div>
+            <div class="d-inline d-lg-none text-black">S.B. Jain Institute</div>
         </a>
 
         <!-- Navbar toggler (hamburger menu) -->
@@ -79,7 +85,7 @@
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
                     <a th:href="@{/admin/login}" class="text-white nav-link">
-                        <button class="btn btn-warning">ADMIN LOGIN</button>
+                        <button class="btn btn-primary">ADMIN LOGIN</button>
                     </a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
@@ -96,44 +102,6 @@
 </nav>
 <!-- navbar end -->
 
-
-<!-- Sidebar -->
-<nav th:if="${loggedInUser}" id="sidebar" class="border-end" style="width: 250px">
-    <div class="text-center my-1">
-        <img th:src="@{/img/sb.jpg}" alt="" style="width: 100px; border-radius: 100px;">
-
-    </div>
-    <h4 class="mb-4 mt-2 text-center" style="color: black;">Electronics and Telecommunication</h4>
-    <ul class="nav flex-column">
-        <li class="nav-item my-1">
-
-            <a class="acc nav-link" href="#"><i class="fa-solid fa-house"></i>&nbsp; Home</a>
-        </li>
-        <li class="nav-item my-1">
-            <a class="acc nav-link" href="#"><i class="fa-solid fa-user"></i>&nbsp; View Students</a>
-        </li>
-        <li class="nav-item my-1">
-            <a class="acc nav-link" th:href="@{/admin/add-student}"><i class="fa-solid fa-plus"></i>&nbsp; Add
-                Student</a>
-        </li>
-        <li class="nav-item my-1">
-            <a class="acc nav-link" href="#"><i class="fa-solid fa-address-card"></i>&nbsp; Add Attendence</a>
-        </li>
-        <li class="nav-item my-1">
-            <a class="acc nav-link" href="#"><i class="fa-solid fa-square-poll-horizontal"></i>&nbsp; Add SGPA</a>
-        </li>
-        <li class="nav-item my-1">
-            <a class="acc nav-link" href="#"><i class="fa-solid fa-book-open-reader"></i>&nbsp; Courses</a>
-        </li>
-        <li class="nav-item my-1">
-            <a class="acc nav-link" href="#"><i class="fa-solid fa-clover"></i>&nbsp; Backlog Students</a>
-        </li>
-        <li class="nav-item my-1">
-            <a class="acc nav-link" href="#"><i class="fa-solid fa-right-to-bracket"></i>&nbsp; Logout</a>
-        </li>
-    </ul>
-</nav>
-<!-- sidebar end -->
 
 <div class="container-fluid" th:replace="${content}"></div>
 

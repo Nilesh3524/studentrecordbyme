@@ -8,10 +8,10 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Students Detail</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-
         .card-body {
-            background-color: #e2e2e2;
+            background-color: lightblue;
         }
 
         label {
@@ -20,35 +20,31 @@
         }
 
         .table-custom th, .table-custom td {
+            color: black !important;
             text-align: center;
-            border-collapse: collapse; /* Collapse borders if there are any */
-            background-color: #dee2e6 !important;
+            border-collapse: collapse;
+            background-color: lightblue !important;
         }
 
-        /* Remove table borders and apply center alignment */
         .table-center {
             width: 100%;
             margin: 0 auto;
-            border-collapse: collapse; /* Collapse borders if there are any */
-            background-color: #dee2e6 !important;
+            border-collapse: collapse;
+            background-color: lightblue !important;
         }
 
         .table-center td, .table-center th {
             text-align: start;
             padding: 0;
-            border: none; /* Remove default borders */
-            background-color: #dee2e6 !important;
+            border: none;
+            background-color: lightblue !important;
             color: black !important;
-
         }
 
         .table-center thead th {
-            border-bottom: 2px solid #dee2e6; /* Add a subtle bottom border for the header */
-
+            border-bottom: 2px solid #dee2e6;
         }
-
     </style>
-
 </head>
 <body>
 <section>
@@ -67,9 +63,7 @@
     <div class="container my-3" style="overflow-y: auto">
         <div class="row">
 
-            <div class="col-6">
-
-
+            <div class="col-md-6 col-sm-12"> <!-- Adjusted for responsiveness -->
                 <!-- Student Personal Information Section -->
                 <div class="card mb-4" style="height: 483px">
                     <div class="card-header bg-primary text-white">
@@ -77,225 +71,211 @@
                     </div>
                     <div class="card-body overflow-auto">
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="batch" class="form-label">Batch</label>
-                                <p id="batch" th:text="${s.batch}" style="font-weight: normal; color: black;font-size: 17px">2021-2025</p>
+                                <p id="batch" th:text="${s.batch}" style="font-weight: normal; color: black; font-size: 17px">2021-2025</p>
                             </div>
-                            <div class="col-md-6"></div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="name" class="form-label">Name</label>
                                 <p id="name" th:text="${s.name}">John Doe</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="rollno" class="form-label">Roll No</label>
                                 <p id="rollno" th:text="${s.rollNo}">123456</p>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="year" class="form-label">Year</label>
                                 <p id="year" th:text="${s.year}">-</p>
                             </div>
-                            <div class="col-md-6">
-                                <label for="avgAttendence" class="form-label">Average Attendence</label>
+                            <div class="col-6">
+                                <label for="avgAttendence" class="form-label">Average Attendance</label>
                                 <p id="avgAttendence" th:text="${s.avgAttendence+' %'}">-</p>
-
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="email" class="form-label">Email</label>
                                 <p id="email" th:text="${s.email}">john.doe@example.com</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="address" class="form-label">Address</label>
                                 <p id="address" th:text="${s.address}">123 Main St, City, Country</p>
                             </div>
                         </div>
-
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="branch" class="form-label">Branch</label>
                                 <p id="branch" th:text="${s.branch}">Computer Science</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="contact" class="form-label">Contact No</label>
                                 <p id="contact" th:text="${s.phone}">+1234567890</p>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="motherName" class="form-label">Mother's Name</label>
                                 <p id="motherName" th:text="${s.phone}">Jane Doe</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="parentsContact" class="form-label">Parent's Contact No</label>
                                 <p id="parentsContact" th:text="${s.parents}">+0987654321</p>
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="backlog" class="form-label">Backlog</label>
                                 <p id="backlog" th:text="${s.backlog?'yes':'no'}">-</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="forum" class="form-label">Forum Member</label>
                                 <p id="forum" th:text="${s.forum?'yes':'no'}">-</p>
                             </div>
                         </div>
                         <div class="row mb-3" th:if="${s.backlog}">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="backSub" class="form-label">Backlog in Records</label>
                                 <p id="backSub" th:text="${s.backSub}">-</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="currentBacklog" class="form-label">Current Backlog</label>
                                 <p id="currentBacklog" th:text="${s.currentBacklog}">-</p>
                             </div>
                         </div>
-
                         <div class="row mb-3" th:if="${s.certificate}">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label for="certificate" class="form-label">Certificate</label>
                                 <p id="certificate" th:text="${s.certificate.getName()}">-</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <h4 style="margin-bottom: 33px"></h4>
                                 <a th:href="@{'/admin/certificate/download/' + ${s.rollNo}}">
-                                    <button class="btn btn-primary">
-                                        Download
-                                    </button>
+                                    <button class="btn btn-primary">Download</button>
                                 </a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
 
-            <div class="col-6"  >
+<!--            result section-->
+            <div class="col-md-6 col-sm-12">
                 <div class="card" style="height: 483px">
-                    <div class="card-header bg-primary text-white" >
+                    <div class="card-header bg-primary text-white">
                         <h5 class="text-center">Results</h5>
-
                     </div>
-                    <div class="card-body overflow-auto" >
+                    <div class="card-body overflow-auto">
                         <div class="text-end mb-2">
                             <a th:unless="${sgpa.isEmpty()}"
                                th:data-rollNo="${s.rollNo}"
                                onclick="deleteButton()"
-                               id="delete-alert" style="color: red"
-                            >
+                               id="delete-alert" style="color: red">
                                 <button class="btn btn-danger">Delete Record</button>
                             </a>
                         </div>
-                        <table class="table table-center" th:unless="${sgpa.isEmpty()}">
+                        <table class="table table-center table-responsive" th:unless="${sgpa.isEmpty()}">
                             <tbody th:each="sg : ${sgpa}">
-                                <tr>
-                                    <td >
-                                        <p th:text="${sg.name}"></p>
-                                    </td>
-                                    <td>
-                                        <a th:href="@{'/admin/sgpa/download/'+ ${s.rollNo} + '/' + ${sg.id}}">Download</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>
+                                    <p th:text="${sg.name}"></p>
+                                </td>
+                                <td>
+                                    <a th:href="@{'/admin/sgpa/download/'+ ${s.rollNo} + '/' + ${sg.id}}">Download</a>
+                                </td>
+                            </tr>
                             </tbody>
-                        </table >
+                        </table>
                         <div class="text-center" th:if="${sgpa.isEmpty()}" style="margin-top: 130px">
                             <p>Not Available</p>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Attendance Records Section -->
-        <div class="card mb-4" >
+        <div class="card m-4">
             <div class="card-header bg-primary text-white text-center">
                 <h5 class="mb-0">Attendance Records</h5>
             </div>
             <div class="card-body">
-                <table class="table table-bordered table-custom" th:if="${s.attendence}">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th>Semester</th>
-                        <th>Total Days</th>
-                        <th>Present Days</th>
-                        <th>Attendance (%)</th>
-                    </tr>
-                    </thead>
-                    <tbody >
-                    <tr>
-                        <td>1st Semester</td>
-                        <td th:text="${s.attendence.getTday1()}">90</td>
-                        <td th:text="${s.attendence.getPday1()}">80</td>
-                        <td th:text="${s.attendence.getA1()}+' %'">88.89</td>
-                    </tr>
-                    <tr>
-                        <td>2nd Semester</td>
-                        <td th:text="${s.attendence.getTday2()}">90</td>
-                        <td th:text="${s.attendence.getPday2()}">80</td>
-                        <td th:text="${s.attendence.getA2()}+' %'">88.89</td>
-                    </tr>
-                    <tr>
-                        <td>3rd Semester</td>
-                        <td th:text="${s.attendence.getTday3()}">90</td>
-                        <td th:text="${s.attendence.getPday3()}">80</td>
-                        <td th:text="${s.attendence.getA3()}+' %'">88.89</td>
-                    </tr>
-                    <tr>
-                        <td>4th Semester</td>
-                        <td th:text="${s.attendence.getTday4()}">90</td>
-                        <td th:text="${s.attendence.getPday4()}">80</td>
-                        <td th:text="${s.attendence.getA4()}+' %'">88.89</td>
-                    </tr>
-                    <tr>
-                        <td>5th Semester</td>
-                        <td th:text="${s.attendence.getTday5()}">90</td>
-                        <td th:text="${s.attendence.getPday5()}">80</td>
-                        <td th:text="${s.attendence.getA5()}+' %'">88.89</td>
-                    </tr>
-                    <tr>
-                        <td>6th Semester</td>
-                        <td th:text="${s.attendence.getTday6()}">90</td>
-                        <td th:text="${s.attendence.getPday6()}">80</td>
-                        <td th:text="${s.attendence.getA6()}+' %'">88.89</td>
-                    </tr>
-                    <tr>
-                        <td>7th Semester</td>
-                        <td th:text="${s.attendence.getTday7()}">90</td>
-                        <td th:text="${s.attendence.getPday7()}">80</td>
-                        <td th:text="${s.attendence.getA7()}+' %'">88.89</td>
-                    </tr>
-                    <tr>
-                        <td>8th Semester</td>
-                        <td th:text="${s.attendence.getTday8()}">90</td>
-                        <td th:text="${s.attendence.getPday8()}">80</td>
-                        <td th:text="${s.attendence.getA8()}+' %'">88.89</td>
-                    </tr>
-
-                    </tbody>
-                </table>
+                <div class="table-responsive"> <!-- Make the table responsive -->
+                    <table class="table table-bordered table-custom" th:if="${s.attendence}">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Semester</th>
+                            <th>Total Days</th>
+                            <th>Present Days</th>
+                            <th>Attendance (%)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1st Semester</td>
+                            <td th:text="${s.attendence.getTday1()}">90</td>
+                            <td th:text="${s.attendence.getPday1()}">80</td>
+                            <td th:text="${s.attendence.getA1()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>2nd Semester</td>
+                            <td th:text="${s.attendence.getTday2()}">90</td>
+                            <td th:text="${s.attendence.getPday2()}">80</td>
+                            <td th:text="${s.attendence.getA2()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>3rd Semester</td>
+                            <td th:text="${s.attendence.getTday3()}">90</td>
+                            <td th:text="${s.attendence.getPday3()}">80</td>
+                            <td th:text="${s.attendence.getA3()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>4th Semester</td>
+                            <td th:text="${s.attendence.getTday4()}">90</td>
+                            <td th:text="${s.attendence.getPday4()}">80</td>
+                            <td th:text="${s.attendence.getA4()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>5th Semester</td>
+                            <td th:text="${s.attendence.getTday5()}">90</td>
+                            <td th:text="${s.attendence.getPday5()}">80</td>
+                            <td th:text="${s.attendence.getA5()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>6th Semester</td>
+                            <td th:text="${s.attendence.getTday6()}">90</td>
+                            <td th:text="${s.attendence.getPday6()}">80</td>
+                            <td th:text="${s.attendence.getA6()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>7th Semester</td>
+                            <td th:text="${s.attendence.getTday7()}">90</td>
+                            <td th:text="${s.attendence.getPday7()}">80</td>
+                            <td th:text="${s.attendence.getA7()}+' %'">88.89</td>
+                        </tr>
+                        <tr>
+                            <td>8th Semester</td>
+                            <td th:text="${s.attendence.getTday8()}">90</td>
+                            <td th:text="${s.attendence.getPday8()}">80</td>
+                            <td th:text="${s.attendence.getA8()}+' %'">88.89</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="text-center" th:unless="${s.attendence}" style="margin-top: 20px">
                     <p>Not Available</p>
                 </div>
             </div>
         </div>
-
     </div>
-
-
 </section>
 <script>
-
     //delete alert
     function deleteButton() {
-
         const button = document.getElementById('delete-alert');
-
         const rollNo = button.getAttribute('data-rollNo');
 
         swal({
@@ -304,15 +284,14 @@
             icon: "warning",
             buttons: true,
             dangerMode: true,
-        })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // Redirect to the href of the delete button to proceed with the deletion
-                    window.location.href = `/admin/student/record/delete/${rollNo}`;
-                } else {
-                    swal("Your results are safe!");
-                }
-            });
+        }).then((willDelete) => {
+            if (willDelete) {
+                // Redirect to the href of the delete button to proceed with the deletion
+                window.location.href = `/admin/student/record/delete/${rollNo}`;
+            } else {
+                swal("Your results are safe!");
+            }
+        });
     }
 
     // Hide alert after 3 seconds

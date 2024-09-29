@@ -1,109 +1,164 @@
 <!DOCTYPE html>
 <html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  th:replace="student/base::layout(~{::section},~{::title},~{::style},~{::script})"
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="student/base::layout(~{::section},~{::title},~{::style},~{::script})"
 >
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-      <style>
-          .main-content {
-              margin-left: 20px;
-              padding: 20px;
-          }
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+            integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMtcK5tjA6rO1l6VjsYvTkmNQ3zTgFv5f5G3y6"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+        .main-content {
+            margin-left: 20px;
+            padding: 20px;
+        }
 
-          .card-custom {
-              margin: 20px;
-              border: 1px groove #b3c7ff;
-          }
+        .card-custom {
+            margin: 20px;
+            border: 1px groove #b3c7ff;
+        }
 
-          .name{
-              text-align: center;
-              font-size: 80px;
-              font-family: "Segoe UI Light",serif;
-              font-weight: bold;
-              color: #343a40;
-              letter-spacing: 7px;
-          }
+        .name {
+            text-align: center;
+            font-size: 80px;
+            font-family: "Segoe UI Light", serif;
+            font-weight: bold;
+            color: white;
+            letter-spacing: 7px;
+        }
 
-          .icon{
-              color: midnightblue;
-          }
+        .icon {
+            color: midnightblue;
+        }
 
-          .four:hover{
-              background-color: #3939ff;
-              color: white;
-              text-shadow: 2px 2px 2px teal;
-          }
+        .four:hover {
+            background-color: #0b3d63;
+            color: white;
+            text-shadow: 2px 2px 2px teal;
+        }
 
-      </style>
-  </head>
-  <body>
-    <section>
+        @media (max-width: 768px) {
+            .name {
+                font-size: 40px; /* Reduce font size on smaller screens */
+                letter-spacing: 3px;
+            }
 
-        <!-- Main Content -->
-            <div class="main-content">
-                <div class="container mt-4">
-                    <div style="margin-bottom: 90px">
-                        <h1 th:text="'Welcome '+${s.name}+' !'" class="name"></h1>
-                    </div>
-                    <div class="row mt-5">
-                        <div class="col-lg-12">
-                            <div class="card mb-4 card-custom">
+            .card-custom {
+                margin: 10px; /* Reduce margin for smaller screens */
+            }
 
-                                <div class="card-body">
-                                    <div class="row text-center">
-                                        <div class="col-lg-3 col-md-6">
-                                            <a th:href="@{/student/profile}" class="text-decoration-none">
-                                                <div class="card four card-custom shadow-sm">
-                                                    <div class="card-body" style="height: 152px">
-                                                        <i class="fas fa-user fa-2x mb-3 icon"></i>
-                                                        <h5>Personal Information</h5>
-                                                    </div>
-                                                </div>
-                                            </a>
+            .card-body {
+                padding: 10px; /* Reduce padding inside the card */
+                height: auto; /* Allow height to adjust */
+            }
+
+            .icon {
+                font-size: 1.5rem; /* Adjust icon size */
+            }
+
+            .four h5 {
+                font-size: 14px; /* Adjust card heading size */
+            }
+        }
+
+        @media (max-width: 576px) {
+            .name {
+                font-size: 30px; /* Further reduce font size for very small screens */
+                letter-spacing: 2px;
+            }
+
+            .icon {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<section>
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container mt-4">
+            <div style="margin-bottom: 90px">
+                <h1 th:text="'Welcome '+${s.name}+' !'" class="name"></h1>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-12">
+                    <div class="card mb-4 card-custom">
+                        <div class="card-body" style="background-color: mediumturquoise">
+                            <div class="row text-center">
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                                    <a
+                                            th:href="@{/student/profile}"
+                                            class="text-decoration-none"
+                                    >
+                                        <div class="card four card-custom shadow-sm">
+                                            <div class="card-body" style="height: 152px">
+                                                <i class="fas fa-user fa-2x mb-3 icon"></i>
+                                                <h5>Personal Information</h5>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-6">
-                                            <a th:href="@{/student/declared-result}" class="text-decoration-none">
-                                                <div class="card four card-custom shadow-sm">
-                                                    <div class="card-body" style="height: 152px">
-                                                        <i class="fas fa-graduation-cap fa-2x mb-3 icon"></i>
-                                                        <h5>Declared Result</h5>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6">
-                                            <a th:href="@{/student/attendance}" class="text-decoration-none">
-                                                <div class="card four card-custom shadow-sm">
-                                                    <div class="card-body" style="height: 152px">
-                                                        <i class="fas fa-calendar-check fa-2x mb-3 icon"></i>
-                                                        <h5>Attendance records</h5>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6">
-                                            <a th:href="@{/student/sem-result}" class="text-decoration-none">
-                                                <div class="card four  card-custom shadow-sm">
-                                                    <div class="card-body" style="height: 152px">
-                                                        <i class="fas fa-award fa-2x mb-3 icon"></i>
-                                                        <h5>Semester Results</h5>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
+                                    </a>
                                 </div>
-
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                                    <a
+                                            th:href="@{/student/declared-result}"
+                                            class="text-decoration-none"
+                                    >
+                                        <div class="card four card-custom shadow-sm">
+                                            <div class="card-body" style="height: 152px">
+                                                <i class="fas fa-graduation-cap fa-2x mb-3 icon"></i>
+                                                <h5>Declared Result</h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                                    <a
+                                            th:href="@{/student/attendance}"
+                                            class="text-decoration-none"
+                                    >
+                                        <div class="card four card-custom shadow-sm">
+                                            <div class="card-body" style="height: 152px">
+                                                <i
+                                                        class="fas fa-calendar-check fa-2x mb-3 icon"
+                                                ></i>
+                                                <h5>Attendance records</h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                                    <a
+                                            th:href="@{/student/sem-result}"
+                                            class="text-decoration-none"
+                                    >
+                                        <div class="card four card-custom shadow-sm">
+                                            <div class="card-body" style="height: 152px">
+                                                <i class="fas fa-award fa-2x mb-3 icon"></i>
+                                                <h5>Semester Results</h5>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </section>
-  <script></script>
-  </body>
+        </div>
+    </div>
+</section>
+<script></script>
+</body>
 </html>

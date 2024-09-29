@@ -10,6 +10,9 @@
     <title>Add Student</title>
     <style>
 
+        label{
+            color: black;
+        }
 
     </style>
 </head>
@@ -26,9 +29,9 @@
         <p class="text-center" th:text="${session.message.content}"></p>
         <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
     </div>
-    <div class="card mx-3 mt-2" style="width: auto;">
-        <div class="container flex-fill mt-2">
-            <div class="card-header bg-primary text-white">
+    <div class="card mx-3 mt-2" style="width: auto;background-color: #343a40">
+        <div class="container flex-fill mt-2" >
+            <div class="card-header text-center text-white" style="background-color: rgb(0,112,145)">
                 <h3 class="mb-0">Add Student Form</h3>
             </div>
             <div class="card-body" style=" background-color: #e2e2e2">
@@ -61,8 +64,7 @@
                                     required
                             >
                                 <option value="">Select Year</option>
-                                <option value="1st">1st</option>
-                                <option value="2nd">2nd</option>
+]                                <option value="2nd">2nd</option>
                                 <option value="3rd">3rd</option>
                                 <option value="4ht">4th</option>
                             </select>

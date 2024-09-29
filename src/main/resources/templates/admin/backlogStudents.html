@@ -8,71 +8,82 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Backlog Students</title>
-    <style></style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+
+        .table1 th {
+            background-color: darkgray;
+            color: black;
+        }
+
+        .table1 tbody td{
+            background-color: #343a40;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 <section>
 
     <div class="text-center mb-4 mt-3">
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('all')">All</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2021-2025')">2021-2025</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2022-2026')">2022-2026</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2023-2027')">2023-2027</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2024-2028')">2024-2028</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2025-2029')">2025-2029</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('all')">All</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2021-2025')">2021-2025</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2022-2026')">2022-2026</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2023-2027')">2023-2027</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2024-2028')">2024-2028</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2025-2029')">2025-2029</button>
     </div>
 
-    <div class="container flex-fill" style="width: 1250px">
+    <div class="container-fluid">
         <div class="container mt-5">
-            <h2 class="mb-4 text-center">Students With Current Backlog</h2>
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                <tr>
-                    <th class="text-center">Batch</th>
-                    <th class="text-center">Year</th>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Phone</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Backlog</th>
-                    <th class="text-center">backlog subjects</th>
-                    <th class="text-center">Current Backlog</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="s:${students}" th:if="${s.backlog}" th:data-batch="${s.batch}" style="cursor: pointer;"
-                    th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
-                    onclick="window.location.href=this.getAttribute('data-url')">
-                    <td class="text-center" th:text="${s.batch}"></td>
-                    <td class="text-center" th:text="${s.year}">1</td>
-                    <td class="text-center" th:text="${s.rollNo}">1</td>
-                    <td class="text-center" th:text="${s.name}">himanshu</td>
-                    <td class="text-center" th:text="${s.phone}">7709638870</td>
-                    <td class="text-center" th:text="${s.email}">h@123</td>
-                    <td class="text-center" th:text="${s.backlog?'yes':'no'}"></td>
-                    <td class="text-center" th:text="${s.backSub}">sub</td>
-                    <td class="text-center" th:text="${s.currentBacklog}">current backlog</td>
-
-                </tr>
-
-                <!-- Add more rows as needed -->
-                </tbody>
-            </table>
+            <h2 class="m-4 text-center text-white" style="font-size: 40px">Students With Current Backlog</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table1">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center">Batch</th>
+                        <th class="text-center">Year</th>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Phone</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Backlog</th>
+                        <th class="text-center">Backlog Subjects</th>
+                        <th class="text-center">Current Backlog</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="s:${students}" th:if="${s.backlog}" th:data-batch="${s.batch}" style="cursor: pointer;"
+                        th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                        onclick="window.location.href=this.getAttribute('data-url')">
+                        <td class="text-center" th:text="${s.batch}"></td>
+                        <td class="text-center" th:text="${s.year}">1</td>
+                        <td class="text-center" th:text="${s.rollNo}">1</td>
+                        <td class="text-center" th:text="${s.name}">himanshu</td>
+                        <td class="text-center" th:text="${s.phone}">7709638870</td>
+                        <td class="text-center" th:text="${s.email}">h@123</td>
+                        <td class="text-center" th:text="${s.backlog ? 'yes' : 'no'}"></td>
+                        <td class="text-center" th:text="${s.backSub}">sub</td>
+                        <td class="text-center" th:text="${s.currentBacklog}">current backlog</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>
 <script>
-
     // Function to filter and display students
     function fetchAndDisplayStudents(batch) {
         const rows = document.querySelectorAll('tbody tr');  // Select all table rows
 
         rows.forEach(row => {
-
             const studentYear = row.getAttribute('data-batch');  // Get the student's year from the data-year attribute
-
-            console.log(studentYear);
-
 
             if (batch === 'all' || studentYear === batch) {
                 row.style.display = '';  // Show row if year matches or if 'all' is selected

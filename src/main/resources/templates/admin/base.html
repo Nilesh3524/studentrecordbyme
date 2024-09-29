@@ -18,26 +18,25 @@
             padding: 0;
         }
 
-
         .sidebar {
             margin-top: 5px;
-            background-color: #3939ff;
+            background-color: teal;
         }
 
         .sidebar a {
             padding: 15px 20px;
             text-decoration: none;
             font-size: 18px;
-            color: white;
+            color: aliceblue;
             display: block;
             letter-spacing: 1px;
             transition: background-color 0.3s;
-            font-family: "Century Schoolbook",serif;
+            font-family: "Century Schoolbook", serif;
         }
 
         .sidebar a:hover {
-            color: yellow;
-            text-shadow: 3px 3px 4px midnightblue;
+            color: black;
+            background-color: #b3c7ff;
         }
 
         .card2 div h5 {
@@ -50,13 +49,13 @@
             color: white;
         }
 
-        .branch{
-            color: thistle;
+        .branch {
+            color: white;
             letter-spacing: 1px;
-            font-family: "Times New Roman",serif;
+            font-family: "Times New Roman", serif;
             font-style: oblique;
             font-weight: bolder;
-            text-shadow: 1px 1px 1px cyan;
+            text-shadow: 1px 1px 1px gray;
         }
 
 
@@ -100,90 +99,36 @@
     <link rel="icon" type="image/ico" th:href="@{/img/favicon.ico}">
 </head>
 
-<body>
+<body style="background-color: #343a40">
 <!-- navbar start -->
-<nav class="navbar navbar-expand-lg" style="background-color: #3939ff;">
+<nav class="navbar navbar-expand-lg" style="background-color: lightblue;">
     <div class="container-fluid">
-        <a
-                th:if="${loggedInUser}"
-                class="navbar-brand"
-                th:href="@{/admin/dashboard}"
-        >
+        <a th:if="${loggedInUser}" class="navbar-brand" th:href="@{/admin/dashboard}">
             <img th:src="@{/img/sb.jpg}" style="width: 30px" alt=""/>
-            <div class="d-none d-lg-inline text-white"
-            >S.B. Jain Institute of Technology and Management Research
-            </div>
-            <span class="d-inline d-lg-none text-white">S.B. Jain Institute</span>
+            <div class="d-none d-lg-inline " style="color: black">S.B. Jain Institute of Technology and Management Research</div>
+            <span class="d-inline d-lg-none " style="color: black">S.B. Jain Institute</span>
         </a>
         <a th:unless="${loggedInUser}" class="navbar-brand" th:href="@{/}" style="text-decoration: none">
             <img th:src="@{/img/sb.jpg}" style="width: 30px" alt=""/>
-            <div class="d-none d-lg-inline" style="color: white"
-            >S.B. Jain Institute of Technology and Management Research
-            </div
-            >
-            <div class="d-inline d-lg-none text-white">S.B. Jain Institute</div>
+            <div class="d-none d-lg-inline" style="color: black">S.B. Jain Institute of Technology and Management Research</div>
+            <div class="d-inline d-lg-none text-black">S.B. Jain Institute</div>
         </a>
-        <button
-                class="navbar-toggler"
-                style="background-color: white"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-        >
+        <button class="navbar-toggler" style="background-color: white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div
-                class="collapse navbar-collapse justify-content-end"
-                id="navbarNav"
-        >
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li th:unless="${loggedInUser}" class="nav-item">
-                    <a
-                            th:href="@{/}"
-                            class="nav-link text-white"
-                    >
-                        <button class="btn btn-success">
-                            Home
-                        </button>
-                    </a
-                    >
+                    <a th:href="@{/}" class="nav-link text-white"><button class="btn btn-success">Home</button></a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
-                    <a
-                            th:href="@{/admin/login}"
-                            class="text-white nav-link"
-                    >
-                        <button class="btn btn-warning">
-                            Admin login
-                        </button>
-                    </a
-                    >
+                    <a th:href="@{/admin/login}" class="text-white nav-link"><button class="btn btn-primary">Admin login</button></a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
-                    <a
-                            th:href="@{/student/login}"
-                            class=" text-white nav-link"
-                    >
-                        <button class="btn btn-secondary">
-                            Student Login
-                        </button>
-                    </a
-                    >
+                    <a th:href="@{/student/login}" class="text-white nav-link"><button class="btn btn-secondary">Student Login</button></a>
                 </li>
-
                 <li th:if="${loggedInUser}" class="nav-item">
-                    <a
-                            th:href="@{/admin/logout}"
-                            class=" text-white nav-link"
-                    >
-                        <button class="btn btn-danger">
-                            Logout
-                        </button>
-                    </a
-                    >
+                    <a th:href="@{/admin/logout}" class="text-white nav-link"><button class="btn btn-danger">Logout</button></a>
                 </li>
             </ul>
         </div>
@@ -193,65 +138,25 @@
 
 <div class="d-flex">
     <!-- Sidebar -->
-    <nav id="sidebar" class="sidebar border-end" style="width: 300px" th:if="${loggedInUser}">
-        <button
-                class="btn btn-secondary d-lg-none mb-3"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#sidebarContent"
-                aria-expanded="false"
-                aria-controls="sidebarContent"
-        >
+    <nav id="sidebar" class="sidebar border-end" style="width: 300px;" th:if="${loggedInUser}">
+        <button class="btn btn-secondary d-lg-none mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarContent" aria-expanded="false" aria-controls="sidebarContent">
             <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
         </button>
         <div class="collapse d-lg-block" id="sidebarContent">
             <div class="text-center my-1">
-                <img
-                        th:src="@{/img/sb.jpg}"
-                        alt="Profile Picture"
-                        style="width: 100px; border-radius: 100px"
-                />
+                <img th:src="@{/img/sb.jpg}" alt="Profile Picture" style="width: 100px; border-radius: 100px"/>
             </div>
-            <h4 class="mb-4 mt-2 text-center branch">
-                Electronics and Telecommunication
-            </h4>
+            <h4 class="mb-4 mt-2 text-center branch">Electronics and Telecommunication</h4>
             <ul class="nav flex-column">
-                <li class="nav-item mt-1">
-                    <a class=" nav-link"  th:href="@{/admin/dashboard}"><i class="fa-solid fa-house"></i>&nbsp;
-                        Home</a>
-                </li>
-                <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/admin/all-students}"><i class="fa-solid fa-user"></i>&nbsp; All
-                        Students</a>
-                </li>
-                <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/admin/add-student}"><i class="fa-solid fa-plus"></i>&nbsp; Add
-                        Student</a>
-                </li>
-                <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/admin/add-attendence}"><i
-                            class="fa-solid fa-address-card"></i>&nbsp; Add Attendance</a>
-                </li>
-                <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/admin/add-sgpa}"><i
-                            class="fa-solid fa-square-poll-horizontal"></i>&nbsp; Add SGPA</a>
-                </li>
-                <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/admin/cources}"><i class="fa-solid fa-book-open-reader"></i>&nbsp;
-                        Courses</a>
-                </li>
-                <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/admin/backlog-students}"><i class="fa-solid fa-clover"></i>&nbsp;
-                        Backlog Students</a>
-                </li>
-                <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/admin/upload-result}"><i class="fa-solid fa-chart-simple"></i>&nbsp;
-                        Upload Result</a>
-                </li>
-                <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/admin/logout}"><i class="fa-solid fa-right-to-bracket"></i>&nbsp;
-                        Logout</a>
-                </li>
+                <li class="nav-item mt-1"><a class="nav-link" th:href="@{/admin/dashboard}"><i class="fa-solid fa-house"></i>&nbsp; Home</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/all-students}"><i class="fa-solid fa-user"></i>&nbsp; All Students</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-student}"><i class="fa-solid fa-plus"></i>&nbsp; Add Student</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-attendence}"><i class="fa-solid fa-address-card"></i>&nbsp; Add Attendance</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-sgpa}"><i class="fa-solid fa-square-poll-horizontal"></i>&nbsp; Add SGPA</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/cources}"><i class="fa-solid fa-book-open-reader"></i>&nbsp; Courses</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/backlog-students}"><i class="fa-solid fa-clover"></i>&nbsp; Backlog Students</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/upload-result}"><i class="fa-solid fa-chart-simple"></i>&nbsp; Upload Result</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/logout}"><i class="fa-solid fa-right-to-bracket"></i>&nbsp; Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -334,8 +239,8 @@
                                         id="backlog"
                                         required
                                 >
-                                    <option value="yes" >Yes</option>
-                                    <option value="no" >No</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
                                 </select>
                             </div>
                         </div>
@@ -386,10 +291,10 @@
             </div>
         </div>
     </div>
-<!--    update student model end-->
+    <!--    update student model end-->
 
 
-<!--    update attendence model-->
+    <!--    update attendence model-->
 
     <div
             class="modal fade"
@@ -442,7 +347,7 @@
 
                         </div>
 
-                         <!-- Row 2 - Attendence semester 2 -->
+                        <!-- Row 2 - Attendence semester 2 -->
 
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 2 :</h5>
@@ -463,7 +368,7 @@
 
                         </div>
 
-                         <!-- Row 3 - Attendence semester 3 -->
+                        <!-- Row 3 - Attendence semester 3 -->
 
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 3 :</h5>
@@ -484,7 +389,7 @@
 
                         </div>
 
-                         <!-- Row 4 - Attendence semester 4 -->
+                        <!-- Row 4 - Attendence semester 4 -->
 
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 4 :</h5>
@@ -505,7 +410,7 @@
 
                         </div>
 
-                         <!-- Row 5 - Attendence semester 5 -->
+                        <!-- Row 5 - Attendence semester 5 -->
 
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 5 :</h5>
@@ -526,7 +431,7 @@
 
                         </div>
 
-                         <!-- Row 6 - Attendence semester 6 -->
+                        <!-- Row 6 - Attendence semester 6 -->
 
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 6 :</h5>
@@ -546,7 +451,7 @@
                             </div>
 
                         </div>
-                         <!-- Row 7 - Attendence semester 7 -->
+                        <!-- Row 7 - Attendence semester 7 -->
 
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 7 :</h5>
@@ -567,7 +472,7 @@
 
                         </div>
 
-                         <!-- Row 8 - Attendence semester 8 -->
+                        <!-- Row 8 - Attendence semester 8 -->
 
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 8 :</h5>
@@ -589,8 +494,6 @@
                         </div>
 
 
-
-
                         <div class="modal-footer justify-content-center">
                             <button type="button" class="btn btn-secondary" data-mdb-ripple-init
                                     data-mdb-dismiss="modal">Close
@@ -610,12 +513,13 @@
         </div>
     </div>
 
-    <div class="vw-100">
+    <div class="vw-100 section">
 
         <div th:replace="${section}" class="flex-grow-1"></div>
     </div>
 
 </div>
+</body>
 
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

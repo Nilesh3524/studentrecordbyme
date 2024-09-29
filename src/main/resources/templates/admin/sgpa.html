@@ -1,233 +1,224 @@
 <!DOCTYPE html>
 <html
-  lang="en"
-  xmlns:th="http://www.thymeleaf.org"
-  th:replace="admin/base::layout(~{::section},~{::title},~{::script},~{::style})"
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        th:replace="admin/base::layout(~{::section},~{::title},~{::script},~{::style})"
 >
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Add SGPA</title>
-    <style>
-      .file-size-error {
-        display: none;
-        color: red;
-        margin-top: 5px;
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Add SGPA</title>
+  <style>
+    .file-size-error {
+      display: none;
+      color: red;
+      margin-top: 5px;
+    }
+
+    label{
+      color: black;
+    }
+
+    /* Custom styles for better responsiveness */
+    @media (max-width: 576px) {
+      .form-group label {
+        font-size: 14px;
       }
-    </style>
-  </head>
-  <body>
-    <section>
-      <div
-              id="alert"
-              th:if="${session.message}"
-              th:classappend="${session.message.type}"
-              class="alert my-2 mx-4"
-              style="height: 60px"
-              role="alert"
-      >
-        <p class="text-center" th:text="${session.message.content}"></p>
-        <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
-      </div>
-      <div class="container flex-fill mt-2" style="width: 1250px;">
-        <div class="card mx-3 mt-3">
-          <div class="card-header bg-primary text-white text-center">
-            <h4 class="mb-0">Add SGPA</h4>
-          </div>
-          <div class="card-body" style=" background-color: #e2e2e2">
-            <form method="post" th:action= "@{/admin/process-add-sgpa}" enctype="multipart/form-data" id="uploadForm">
-              <!-- Ensure form takes full width of the card -->
-              <!-- SGPA Fields -->
-              <div class="row">
-                <div class="col-2">
-                  <p class="form-control"  style="background-color: #e2e2e2">Enter Student ID : </p>
-                </div>
-                <div class="col-2">
-                  <input class="form-control" type="text" name="rollNo" required/>
-
-                </div>
-              </div>
-              <h4 class="mt-4">SGPA for Each Semester</h4>
-              <div class="row my-3">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="sgpa1">SGPA 1st Semester</label>
-
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="sgpa1"
-                      placeholder="Enter SGPA for 1st Semester"
-                      required
-                      name="sgpa1"
-                    />
-                    <small class="file-size-error" id="sgpa1Error">File size exceeds 2 MB</small>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="sgpa2">SGPA 2nd Semester</label>
-
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="sgpa2"
-                      placeholder="Enter SGPA for 2nd Semester"
-                      required
-                      name="sgpa2"
-                    />
-                    <small class="file-size-error" id="sgpa2Error">File size exceeds 2 MB</small>
-
-                  </div>
-                </div>
-              </div>
-              <div class="row my-3">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="sgpa3">SGPA 3rd Semester</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="sgpa3"
-                      required
-                      name="sgpa3"
-                    />
-                    <small class="file-size-error" id="sgpa3Error">File size exceeds 2 MB</small>
-
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="sgpa4">SGPA 4th Semester</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="sgpa4"
-                      required
-                      name="sgpa4"
-                    />
-                    <small class="file-size-error" id="sgpa4Error">File size exceeds 2 MB</small>
-
-                  </div>
-                </div>
-              </div>
-              <div class="row my-3">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="sgpa5">SGPA 5th Semester</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="sgpa5"
-                      required
-                      name="sgpa5"
-                    />
-                    <small class="file-size-error" id="sgpa5Error">File size exceeds 2 MB</small>
-
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="sgpa6">SGPA 6th Semester</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="sgpa6"
-                      required
-                      name="sgpa6"
-                    />
-                    <small class="file-size-error" id="sgpa6Error">File size exceeds 2 MB</small>
-
-                  </div>
-                </div>
-              </div>
-              <div class="row my-3">
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="sgpa7">SGPA 7th Semester</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="sgpa7"
-                      required
-                      name="sgpa7"
-                    />
-                    <small class="file-size-error" id="sgpa7Error">File size exceeds 2 MB</small>
-
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label for="sgpa8">SGPA 8th Semester</label>
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="sgpa8"
-                      required
-                      name="sgpa8"
-                    />
-                    <small class="file-size-error" id="sgpa8Error">File size exceeds 2 MB</small>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="text-center mt-5">
-                <!-- Submit Button -->
-              <button type="submit" class="btn btn-lg btn-primary">Submit</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-    <script>
-
-      // Maximum allowed file size (2 MB)
-      const maxFileSize = 2 * 1024 * 1024;
-
-      // Function to check file size and show/hide error message
-      function validateFileSize(inputElement, errorElement) {
-        const file = inputElement.files[0];
-        if (file && file.size > maxFileSize) {
-          errorElement.style.display = 'block';
-          return false;
-        } else {
-          errorElement.style.display = 'none';
-          return true;
-        }
+      .form-control {
+        font-size: 14px;
       }
+    }
 
-      // On form submit, validate all file inputs
-      document.getElementById('uploadForm').addEventListener('submit', function (event) {
-        let isValid = true;
+    @media (max-width: 768px) {
+      .container {
+        width: 100%;
+        padding: 0 10px;
+      }
+      .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+<section>
+  <div
+          id="alert"
+          th:if="${session.message}"
+          th:classappend="${session.message.type}"
+          class="alert my-2 mx-4"
+          style="height: 60px"
+          role="alert"
+  >
+    <p class="text-center" th:text="${session.message.content}"></p>
+    <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
+  </div>
+  <div class="container flex-fill mt-2">
+    <div class="card mx-3 mt-3">
+      <div class="card-header text-white text-center" style="background-color: darkcyan">
+        <h4 class="mb-0">Add SGPA</h4>
+      </div>
+      <div class="card-body" style=" background-color: #e2e2e2">
+        <form method="post" th:action="@{/admin/process-add-sgpa}" enctype="multipart/form-data" id="uploadForm">
+          <div class="row mb-3">
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="rollNo">Enter Student ID:</label>
+                <input type="text" class="form-control" id="rollNo" name="rollNo" required />
+              </div>
+            </div>
+          </div>
 
-        // Validate each file input
-        isValid &= validateFileSize(document.getElementById('sgpa1'), document.getElementById('sgpa1Error'));
-        isValid &= validateFileSize(document.getElementById('sgpa2'), document.getElementById('sgpa2Error'));
-        isValid &= validateFileSize(document.getElementById('sgpa3'), document.getElementById('sgpa3Error'));
-        isValid &= validateFileSize(document.getElementById('sgpa4'), document.getElementById('sgpa4Error'));
-        isValid &= validateFileSize(document.getElementById('sgpa5'), document.getElementById('sgpa5Error'));
-        isValid &= validateFileSize(document.getElementById('sgpa6'), document.getElementById('sgpa6Error'));
-        isValid &= validateFileSize(document.getElementById('sgpa7'), document.getElementById('sgpa7Error'));
-        isValid &= validateFileSize(document.getElementById('sgpa8'), document.getElementById('sgpa8Error'));
+          <h4 class="mt-4 text-black">SGPA for Each Semester</h4>
 
-        // Prevent form submission if any file exceeds the size limit
-        if (!isValid) {
-          event.preventDefault();
-        }
-      });
+          <div class="row my-3">
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="sgpa1">SGPA 1st Semester</label>
+                <input type="file" class="form-control" id="sgpa1" name="sgpa1" required />
+                <small class="file-size-error" id="sgpa1Error">File size exceeds 2 MB</small>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="sgpa2">SGPA 2nd Semester</label>
+                <input type="file" class="form-control" id="sgpa2" name="sgpa2" required />
+                <small class="file-size-error" id="sgpa2Error">File size exceeds 2 MB</small>
+              </div>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="sgpa3">SGPA 3rd Semester</label>
+                <input
+                        type="file"
+                        class="form-control"
+                        id="sgpa3"
+                        required
+                        name="sgpa3"
+                />
+                <small class="file-size-error" id="sgpa3Error">File size exceeds 2 MB</small>
 
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="sgpa4">SGPA 4th Semester</label>
+                <input
+                        type="file"
+                        class="form-control"
+                        id="sgpa4"
+                        required
+                        name="sgpa4"
+                />
+                <small class="file-size-error" id="sgpa4Error">File size exceeds 2 MB</small>
 
-      // Hide alert after 3 seconds
-      window.onload = function () {
-        const alertBox = document.getElementById('alert');
-        if (alertBox) {
-          setTimeout(function () {
-            alertBox.style.display = 'none';
-          }, 3000); // 3000ms = 3 seconds
-        }
-      };
-    </script>
-  </body>
+              </div>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="sgpa5">SGPA 5th Semester</label>
+                <input
+                        type="file"
+                        class="form-control"
+                        id="sgpa5"
+                        required
+                        name="sgpa5"
+                />
+                <small class="file-size-error" id="sgpa5Error">File size exceeds 2 MB</small>
+
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="sgpa6">SGPA 6th Semester</label>
+                <input
+                        type="file"
+                        class="form-control"
+                        id="sgpa6"
+                        required
+                        name="sgpa6"
+                />
+                <small class="file-size-error" id="sgpa6Error">File size exceeds 2 MB</small>
+
+              </div>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="sgpa7">SGPA 7th Semester</label>
+                <input
+                        type="file"
+                        class="form-control"
+                        id="sgpa7"
+                        required
+                        name="sgpa7"
+                />
+                <small class="file-size-error" id="sgpa7Error">File size exceeds 2 MB</small>
+
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label for="sgpa8">SGPA 8th Semester</label>
+                <input
+                        type="file"
+                        class="form-control"
+                        id="sgpa8"
+                        required
+                        name="sgpa8"
+                />
+                <small class="file-size-error" id="sgpa8Error">File size exceeds 2 MB</small>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-5">
+            <button type="submit" class="btn btn-lg" style="background-color: darkcyan;color: white">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const maxFileSize = 2 * 1024 * 1024;
+  function validateFileSize(inputElement, errorElement) {
+    const file = inputElement.files[0];
+    if (file && file.size > maxFileSize) {
+      errorElement.style.display = 'block';
+      return false;
+    } else {
+      errorElement.style.display = 'none';
+      return true;
+    }
+  }
+
+  document.getElementById('uploadForm').addEventListener('submit', function (event) {
+    let isValid = true;
+    isValid &= validateFileSize(document.getElementById('sgpa1'), document.getElementById('sgpa1Error'));
+    isValid &= validateFileSize(document.getElementById('sgpa2'), document.getElementById('sgpa2Error'));
+    // Repeat for all other SGPA inputs
+    if (!isValid) {
+      event.preventDefault();
+    }
+  });
+
+  window.onload = function () {
+    const alertBox = document.getElementById('alert');
+    if (alertBox) {
+      setTimeout(function () {
+        alertBox.style.display = 'none';
+      }, 3000);
+    }
+  };
+</script>
+</body>
 </html>

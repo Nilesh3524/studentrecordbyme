@@ -20,6 +20,11 @@
             margin-top: 20px;
         }
 
+        .my-table th, .my-table tbody td{
+            background-color: darkcyan;
+            color: black;
+        }
+
         .msg{
             position: absolute;
             left: 50%;
@@ -34,7 +39,7 @@
 <section>
     <div class="main-content">
         <div class="container">
-            <div class="text-center text-black">
+            <div class="text-center text-white">
                 <h2  style="font-size: 50px">Declared Results</h2>
             </div>
             <table class="table table-bordered my-table" th:if="${files}">
@@ -53,7 +58,7 @@
                         <td th:text="${file.date}">1</td>
                         <td>
                             <a th:href="@{'/student/files/download/'+${file.id}}">
-                                <button class="btn btn-primary">
+                                <button class="btn btn-warning">
                                     Download
                                 </button>
                             </a>

@@ -14,6 +14,16 @@
             cursor: pointer;
         }
 
+        .table1 th {
+            background-color: darkgray;
+            color: black;
+        }
+
+        .table1 tbody td{
+            background-color: #343a40;
+            color: white;
+        }
+
 
     </style>
 </head>
@@ -40,111 +50,84 @@
     </div>
 
     <div class="text-center mb-4 mt-3">
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('all')">All</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2021-2025')">2021-2025</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2022-2026')">2022-2026</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2023-2027')">2023-2027</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2024-2028')">2024-2028</button>
-        <button class="btn btn-secondary mx-1" onclick="fetchAndDisplayStudents('2025-2029')">2025-2029</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('all')">All</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2021-2025')">2021-2025</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2022-2026')">2022-2026</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2023-2027')">2023-2027</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2024-2028')">2024-2028</button>
+        <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2025-2029')">2025-2029</button>
     </div>
 
-
-    <div class="container flex-fill" style="width: 1250px">
+    <div class="container-fluid">
         <div class="container mt-3">
-            <h2 class="mb-4 text-center">All Students</h2>
-            <table class="table table-bordered table1">
-                <thead class="">
-                <tr>
-                    <th class="text-center">Batch</th>
-                    <th class="text-center">Year</th>
-                    <th class="text-center">ID</th>
-                    <th class="text-center">Name</th>
-                    <th class="text-center">Phone</th>
-                    <th class="text-center">Email</th>
-                    <th class="text-center">Backlog</th>
-                    <th class="text-center">Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="trow" th:each="s:${students}" id="body" th:data-batch="${s.batch}"
-                >
-                    <td class="text-center" th:text="${s.batch}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
-                        onclick="window.location.href=this.getAttribute('data-url')"></td>
-                    <td class="text-center" th:text="${s.year}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
-                        onclick="window.location.href=this.getAttribute('data-url')"></td>
-                    <td class="text-center" th:text="${s.rollNo}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
-                        onclick="window.location.href=this.getAttribute('data-url')">1
-                    </td>
-                    <td class="text-center" th:text="${s.name}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
-                        onclick="window.location.href=this.getAttribute('data-url')">himanshu
-                    </td>
-                    <td class="text-center" th:text="${s.phone}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
-                        onclick="window.location.href=this.getAttribute('data-url')">7709638870
-                    </td>
-                    <td class="text-center" th:text="${s.email}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
-                        onclick="window.location.href=this.getAttribute('data-url')">h@123
-                    </td>
-                    <td class="text-center" th:text="${s.backlog?'yes':'no'}"
-                        th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
-                        onclick="window.location.href=this.getAttribute('data-url')">no
-                    </td>
-                    <td class="text-center" style="font-size: 20px;">
-                        <a th:data-rollNo="${s.rollNo}"
-                           onclick="deleteButton()"
-                           id="delete-alert" class="mx-2" style="color: red"
-                        ><i
-                                class="fa-solid fa-trash"></i></a>
-                        <a data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#staticBackdrop"
-                           th:data-rollNo="${s.rollNo}"
-                           th:data-name="${s.name}"
-                           th:data-year="${s.year}"
-                           th:data-backlog="${s.backlog}"
-                           th:data-backSub="${s.backSub}"
-                           th:data-currentBacklog="${s.currentBacklog}"
-                           id="edit-student"
-                           class="mx-2 edit-student" style="color: green"><i
-                                class="fa-solid fa-pen-to-square "></i></a>
+            <h2 class="mb-4 text-center text-white" style="font-size: 40px">All Students</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover table1">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Batch</th>
+                        <th class="text-center">Year</th>
+                        <th class="text-center">ID</th>
+                        <th class="text-center">Name</th>
+                        <th class="text-center">Phone</th>
+                        <th class="text-center">Email</th>
+                        <th class="text-center">Backlog</th>
+                        <th class="text-center">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="trow" th:each="s:${students}" id="body" th:data-batch="${s.batch}">
+                        <td class="text-center" th:text="${s.batch}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                            onclick="window.location.href=this.getAttribute('data-url')"></td>
+                        <td class="text-center" th:text="${s.year}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                            onclick="window.location.href=this.getAttribute('data-url')"></td>
+                        <td class="text-center" th:text="${s.rollNo}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                            onclick="window.location.href=this.getAttribute('data-url')"></td>
+                        <td class="text-center" th:text="${s.name}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                            onclick="window.location.href=this.getAttribute('data-url')"></td>
+                        <td class="text-center" th:text="${s.phone}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                            onclick="window.location.href=this.getAttribute('data-url')"></td>
+                        <td class="text-center" th:text="${s.email}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                            onclick="window.location.href=this.getAttribute('data-url')"></td>
+                        <td class="text-center" th:text="${s.backlog?'yes':'no'}"
+                            th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                            onclick="window.location.href=this.getAttribute('data-url')"></td>
+                        <td class="text-center" style="font-size: 20px;">
+                            <a th:data-rollNo="${s.rollNo}" onclick="deleteButton()" id="delete-alert"
+                               class="mx-2" style="color: red"><i class="fa-solid fa-trash"></i></a>
+                            <a data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#staticBackdrop"
+                               th:data-rollNo="${s.rollNo}" th:data-name="${s.name}" th:data-year="${s.year}"
+                               th:data-backlog="${s.backlog}" th:data-backSub="${s.backSub}"
+                               th:data-currentBacklog="${s.currentBacklog}" id="edit-student"
+                               class="mx-2 edit-student" style="color: green"><i
+                                    class="fa-solid fa-pen-to-square"></i></a>
 
-                        <a th:if="${s.attendence}" data-mdb-ripple-init data-mdb-modal-init
-                           data-mdb-target="#updateAttendence"
-                           class="mx-2 edit-attendence" style="color: blue"
-                           th:data-rollNo="${s.rollNo}"
-                           th:data-pday1="${s.attendence.getPday1()}"
-                           th:data-tday1="${s.attendence.getTday1()}"
-                           th:data-avg1="${s.attendence.getA1()}"
-                           th:data-pday2="${s.attendence.getPday2()}"
-                           th:data-tday2="${s.attendence.getTday2()}"
-                           th:data-avg2="${s.attendence.getA2()}"
-                           th:data-pday3="${s.attendence.getPday3()}"
-                           th:data-tday3="${s.attendence.getTday3()}"
-                           th:data-avg3="${s.attendence.getA3()}"
-                           th:data-pday4="${s.attendence.getPday4()}"
-                           th:data-tday4="${s.attendence.getTday4()}"
-                           th:data-avg4="${s.attendence.getA4()}"
-                           th:data-pday5="${s.attendence.getPday5()}"
-                           th:data-tday5="${s.attendence.getTday5()}"
-                           th:data-avg5="${s.attendence.getA5()}"
-                           th:data-pday6="${s.attendence.getPday6()}"
-                           th:data-tday6="${s.attendence.getTday6()}"
-                           th:data-avg6="${s.attendence.getA6()}"
-                           th:data-pday7="${s.attendence.getPday7()}"
-                           th:data-tday7="${s.attendence.getTday7()}"
-                           th:data-avg7="${s.attendence.getA7()}"
-                           th:data-pday8="${s.attendence.getPday8()}"
-                           th:data-tday8="${s.attendence.getTday8()}"
-                           th:data-avg8="${s.attendence.getA8()}"
-                        >
-                            <i class="fa-solid fa-calendar-days"></i>
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                            <a th:if="${s.attendence}" data-mdb-ripple-init data-mdb-modal-init
+                               data-mdb-target="#updateAttendence" class="mx-2 edit-attendence"
+                               style="color: blue" th:data-rollNo="${s.rollNo}"
+                               th:data-pday1="${s.attendence.getPday1()}" th:data-tday1="${s.attendence.getTday1()}"
+                               th:data-avg1="${s.attendence.getA1()}" th:data-pday2="${s.attendence.getPday2()}"
+                               th:data-tday2="${s.attendence.getTday2()}" th:data-avg2="${s.attendence.getA2()}"
+                               th:data-pday3="${s.attendence.getPday3()}" th:data-tday3="${s.attendence.getTday3()}"
+                               th:data-avg3="${s.attendence.getA3()}" th:data-pday4="${s.attendence.getPday4()}"
+                               th:data-tday4="${s.attendence.getTday4()}" th:data-avg4="${s.attendence.getA4()}"
+                               th:data-pday5="${s.attendence.getPday5()}" th:data-tday5="${s.attendence.getTday5()}"
+                               th:data-avg5="${s.attendence.getA5()}" th:data-pday6="${s.attendence.getPday6()}"
+                               th:data-tday6="${s.attendence.getTday6()}" th:data-avg6="${s.attendence.getA6()}"
+                               th:data-pday7="${s.attendence.getPday7()}" th:data-tday7="${s.attendence.getTday7()}"
+                               th:data-avg7="${s.attendence.getA7()}" th:data-pday8="${s.attendence.getPday8()}"
+                               th:data-tday8="${s.attendence.getTday8()}" th:data-avg8="${s.attendence.getA8()}">
+                                <i class="fa-solid fa-calendar-days"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-
 </section>
+
 <script>
 
     // Function to filter and display students
