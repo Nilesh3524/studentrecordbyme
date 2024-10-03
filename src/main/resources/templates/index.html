@@ -1,174 +1,173 @@
 <!DOCTYPE html>
-<html lang="en"  xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: parent(~{::section},~{::title},~{::link},~{::script})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: parent(~{::section},~{::title},~{::script},~{::style})}">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
     <link th:src="@{/css/home.css}"/>
+    <style>
+        .headline-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .headline-container img {
+            max-width: 200px;
+            height: auto;
+        }
+
+        .headline-container h1 {
+            font-size: 100px;
+            font-style: oblique;
+            font-family: 'Bookman Old Style';
+            color: darkorange;
+        }
+    </style>
 </head>
 <body>
-    <div th:fragment="section">
-        <!-- Hero Section -->
-        <section class="jumbotron" style="align-self: auto">
-            <div class="container">
-                <h1 class="text-warning" style="font-size: 100px;font-style: oblique;font-family: 'Bookman Old Style';">Welcome to S.B. Jain Institute</h1>
-                <p class="lead" style="font-family: 'Comic Sans MS',serif;margin: 10px;padding-bottom: 10px;font-size: 40px; color: lightskyblue">Empowering Minds, Building Futures</p>
-                <a href="#about" class="btn" style="margin: 10px; background-color: aqua; color: black; font-size: 15px">About Us</a>
-                <a href="#courses" class="btn" style="margin: 10px; background-color: powderblue; color: black;font-size: 15px">Courses Offered</a>
-                <a href="#contact" class="btn" style="margin: 10px; background-color: rgba(255,138,223,0.77);color: black;font-size: 15px">Contact Us</a>
+<div th:fragment="section">
+    <!-- Hero Section -->
+    <section class="jumbotron" style="align-self: auto">
+        <div class="container">
+            <!-- Logo and headline container -->
+            <div class="headline-container">
+                <img th:src="@{/img/logo.png}" alt="SB Jain Logo">
+                <h1>Electronics And Telecommunication</h1>
             </div>
-        </section>
+            <p class="lead" style="font-family: 'Comic Sans MS', serif; margin: 10px; padding-bottom: 10px; font-size: 40px; color: lightskyblue">Connecting the world, one signal at a time</p>
+            <a href="#about" class="btn" style="margin: 10px; background-color: aqua; color: black; font-size: 15px">About Us</a>
+            <a href="#courses" class="btn" style="margin: 10px; background-color: powderblue; color: black; font-size: 15px">Courses Offered</a>
+            <a href="#contact" class="btn" style="margin: 10px; background-color: rgba(255,138,223,0.77); color: black; font-size: 15px">Contact Us</a>
+        </div>
+    </section>
 
-        <!-- About Section -->
-        <section id="about" class="py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h2 style="color: lightgreen;font-size: 50px; font-family: 'Comic Sans MS'">About Us</h2>
-                        <p style="color: white">
-                            S.B. Jain Institute of Technology and Management Research,
-                            located in Nagpur, Maharashtra, aims to provide quality
-                            education in engineering and management disciplines. The
-                            institute focuses on holistic development, innovation, and
-                            research to prepare students for global challenges.
-                        </p>
-                        <h3 style="margin-top: 10px;color: lightgreen; font-family: 'Comic Sans MS'">Vision</h3>
-                        <p style="color: white">
-                            To be a leading institute in technical and management education,
-                            fostering innovation and entrepreneurship.
-                        </p>
-                        <h3 style="margin-top: 10px;color: lightgreen; font-family: 'Comic Sans MS'">Mission</h3>
-                        <p style="color: white">
-                            Empowering students with knowledge and skills through quality
-                            education, research, and industry collaboration.
-                        </p>
-                    </div>
-                    <div class="col-md-6">
-                        <img
-                                th:src="@{/img/about.png}"
-                                class="img-fluid"
-                                alt="About Us Image"
-                                style="border-radius: 10px;max-height: 500px; margin-left: 80px; object-fit: cover;"
-                        />
-                    </div>
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 style="color: lightgreen; font-size: 50px; font-family: 'Comic Sans MS'">About Us</h2>
+                    <p style="color: white">
+                        S.B. Jain Institute of Technology and Management Research,
+                        located in Nagpur, Maharashtra, aims to provide quality
+                        education in engineering and management disciplines. The
+                        institute focuses on holistic development, innovation, and
+                        research to prepare students for global challenges.
+                    </p>
+                    <h3 style="margin-top: 10px; color: lightgreen; font-family: 'Comic Sans MS'">Vision</h3>
+                    <p style="color: white">
+                        To be a leading institute in technical and management education,
+                        fostering innovation and entrepreneurship.
+                    </p>
+                    <h3 style="margin-top: 10px; color: lightgreen; font-family: 'Comic Sans MS'">Mission</h3>
+                    <p style="color: white">
+                        Empowering students with knowledge and skills through quality
+                        education, research, and industry collaboration.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <img th:src="@{/img/about.png}" class="img-fluid" alt="About Us Image" style="border-radius: 10px; max-height: 500px; margin-left: 80px; object-fit: cover;" />
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Courses Section -->
-        <section id="courses" class="py-5">
-            <div class="container">
-                <h2 class="text-center mb-4" style="color: lightblue; font-size: 70px; font-family: 'Berlin Sans FB'">Courses Offered</h2>
-                <div class="row mt-5">
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
-                            <div class="card-body">
-                                <h5 class="card-title" style="color: black;">Bachelor of Technology (B.Tech)</h5>
-                                <p class="card-text mt-4" style="color: rgba(44,44,255,0.78);font-size: 20px">
-                                    Specializations: Computer Science, Mechanical, Electrical,
-                                    Civil, Electronics & Communication.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
-                            <div class="card-body">
-                                <h5 class="card-title" style="color: black;">
-                                    Master of Business Administration (MBA)
-                                </h5>
-                                <p class="card-text mt-3" style="color: rgba(44,44,255,0.78);font-size: 20px">
-                                    Specializations: Marketing, Finance, Human Resources,
-                                    International Business.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
-                            <div class="card-body">
-                                <h5 class="card-title" style="color: black;">Master of Technology (M.Tech)</h5>
-                                <p class="card-text mt-4" style="color: rgba(44,44,255,0.78);font-size: 20px">
-                                    Specializations: Computer Science, Mechanical, Electrical,
-                                    Civil, Electronics & Communication.
-                                </p>
-                            </div>
+    <!-- Courses Section -->
+    <section id="courses" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4" style="color: lightblue; font-size: 70px; font-family: 'Berlin Sans FB'">Courses Offered</h2>
+            <div class="row mt-5">
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: black;">Bachelor of Technology (B.Tech)</h5>
+                            <p class="card-text mt-4" style="color: rgba(44,44,255,0.78); font-size: 20px">
+                                Specializations: Computer Science, Mechanical, Electrical,
+                                Civil, Electronics & Communication.
+                            </p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Student Record Management Section -->
-        <section id="record-management" class="py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h1 style="font-family: 'Bookman Old Style'; color: forestgreen; font-size: 50px">Student Record Management</h1>
-                        <p style="color: white; font-size: 18px">
-                            At S.B. Jain Institute, we prioritize efficient student record
-                            management to ensure seamless academic progression and
-                            administrative efficiency. Our comprehensive system includes:
-                        </p>
-                        <ul style="font-weight: bold; color: white;font-size: 18px">
-                            <li>Centralized student database</li>
-                            <li>Secure access to academic records</li>
-                            <li>Online course registration and grade tracking</li>
-                            <li>Integration with learning management systems</li>
-                            <li>Regular updates and support for students and faculty</li>
-                        </ul>
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: black;">
+                                Master of Business Administration (MBA)
+                            </h5>
+                            <p class="card-text mt-3" style="color: rgba(44,44,255,0.78); font-size: 20px">
+                                Specializations: Marketing, Finance, Human Resources,
+                                International Business.
+                            </p>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <img
-                                th:src="@{/img/record.jpeg}"
-                                class="img-fluid"
-                                alt="Student Record Management"
-                                style="border-radius: 10px"
-                        />
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: black;">Master of Technology (M.Tech)</h5>
+                            <p class="card-text mt-4" style="color: rgba(44,44,255,0.78); font-size: 20px">
+                                Specializations: Computer Science, Mechanical, Electrical,
+                                Civil, Electronics & Communication.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h1 style="color: lightslategrey;font-size: 50px; font-family: 'Droid Sans'">Contact Us</h1>
-                        <ul class="list-unstyled" style="color: white; font-size: 20px; margin-top: 20px">
-                            <li>
-                                <strong>Address:</strong> S.B. Jain Institute of Technology
-                                and Management Research, Nagpur, Maharashtra, India - 440016
-                            </li>
-                            <li><strong>Phone:</strong> +91 1234567890</li>
-                            <li><strong>Email:</strong> info@sbjain.edu.in</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.586565589016!2d79.0836339143983!3d21.132905989185865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd523a33a15c81b%3A0x7b71f0e9610a4df3!2sS.B.%20Jain%20Institute%20of%20Technology%20%26%20Management%20Research!5e0!3m2!1sen!2sin!4v1625606979831!5m2!1sen!2sin"
-                                width="100%"
-                                height="300"
-                                style="border: 0"
-                                allowfullscreen=""
-                                loading="lazy"
-                        ></iframe>
-                    </div>
+    <!-- Student Record Management Section -->
+    <section id="record-management" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 style="font-family: 'Bookman Old Style'; color: forestgreen; font-size: 50px">Student Record Management</h1>
+                    <p style="color: white; font-size: 18px">
+                        At S.B. Jain Institute, we prioritize efficient student record
+                        management to ensure seamless academic progression and
+                        administrative efficiency. Our comprehensive system includes:
+                    </p>
+                    <ul style="font-weight: bold; color: white; font-size: 18px">
+                        <li>Centralized student database</li>
+                        <li>Secure access to academic records</li>
+                        <li>Online course registration and grade tracking</li>
+                        <li>Integration with learning management systems</li>
+                        <li>Regular updates and support for students and faculty</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <img th:src="@{/img/record.jpeg}" class="img-fluid" alt="Student Record Management" style="border-radius: 10px" />
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Footer -->
-        <footer class="bg-dark text-white text-center py-3">
-            <p>
-                &copy; 2024 S.B. Jain Institute of Technology and Management Research.
-                All rights reserved.
-            </p>
-        </footer>
-    </div>
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 style="color: lightslategrey; font-size: 50px; font-family: 'Droid Sans'">Contact Us</h1>
+                    <ul class="list-unstyled" style="color: white; font-size: 20px; margin-top: 20px">
+                        <li>
+                            <strong>Address:</strong> S.B. Jain Institute of Technology
+                            and Management Research, Nagpur, Maharashtra, India - 440016
+                        </li>
+                        <li><strong>Phone:</strong> +91 1234567890</li>
+                        <li><strong>Email:</strong> info@sbjain.edu.in</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.586565589016!2d79.0836339143983!3d21.132905989185865!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd523a33a15c81b%3A0x7b71f0e9610a4df3!2sS.B.%20Jain%20Institute%20of%20Technology%20%26%20Management%20Research!5e0!3m2!1sen!2sin!4v1625606979831!5m2!1sen!2sin"
+                            width="100%" height="300" style="border: 0" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <script>
-
-    </script>
+</div>
+<script></script>
 </body>
 </html>

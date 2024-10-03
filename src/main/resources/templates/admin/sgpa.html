@@ -15,6 +15,11 @@
       margin-top: 5px;
     }
 
+    .file-input {
+      display: none;
+      margin-top: 10px;
+    }
+
     label{
       color: black;
     }
@@ -61,6 +66,8 @@
       </div>
       <div class="card-body" style=" background-color: #e2e2e2">
         <form method="post" th:action="@{/admin/process-add-sgpa}" enctype="multipart/form-data" id="uploadForm">
+          <h2>Add SGPA for Semesters</h2>
+
           <div class="row mb-3">
             <div class="col-12 col-md-6">
               <div class="form-group">
@@ -70,114 +77,26 @@
             </div>
           </div>
 
-          <h4 class="mt-4 text-black">SGPA for Each Semester</h4>
-
-          <div class="row my-3">
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="sgpa1">SGPA 1st Semester</label>
-                <input type="file" class="form-control" id="sgpa1" name="sgpa1" required />
-                <small class="file-size-error" id="sgpa1Error">File size exceeds 2 MB</small>
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="sgpa2">SGPA 2nd Semester</label>
-                <input type="file" class="form-control" id="sgpa2" name="sgpa2" required />
-                <small class="file-size-error" id="sgpa2Error">File size exceeds 2 MB</small>
-              </div>
-            </div>
-          </div>
-          <div class="row my-3">
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="sgpa3">SGPA 3rd Semester</label>
-                <input
-                        type="file"
-                        class="form-control"
-                        id="sgpa3"
-                        required
-                        name="sgpa3"
-                />
-                <small class="file-size-error" id="sgpa3Error">File size exceeds 2 MB</small>
-
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="sgpa4">SGPA 4th Semester</label>
-                <input
-                        type="file"
-                        class="form-control"
-                        id="sgpa4"
-                        required
-                        name="sgpa4"
-                />
-                <small class="file-size-error" id="sgpa4Error">File size exceeds 2 MB</small>
-
-              </div>
+          <div id="semesterContainer">
+            <!-- First semester selection -->
+            <div class="semester-sgpa" id="semester-1">
+              <label for="semester-select-1">Select Semester:</label>
+              <select id="semester-select-1" name="semester" class="semester-select" onchange="handleSemesterChange(1)">
+                <option value="">Select Semester</option>
+                <option value="1">Semester 1</option>
+                <option value="2">Semester 2</option>
+                <option value="3">Semester 3</option>
+                <option value="4">Semester 4</option>
+                <option value="5">Semester 5</option>
+                <option value="6">Semester 6</option>
+                <option value="7">Semester 7</option>
+                <option value="8">Semester 8</option>
+              </select>
+              <input type="file" name="sgpa1" id="file-1" required class="file-input"/>
             </div>
           </div>
-          <div class="row my-3">
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="sgpa5">SGPA 5th Semester</label>
-                <input
-                        type="file"
-                        class="form-control"
-                        id="sgpa5"
-                        required
-                        name="sgpa5"
-                />
-                <small class="file-size-error" id="sgpa5Error">File size exceeds 2 MB</small>
 
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="sgpa6">SGPA 6th Semester</label>
-                <input
-                        type="file"
-                        class="form-control"
-                        id="sgpa6"
-                        required
-                        name="sgpa6"
-                />
-                <small class="file-size-error" id="sgpa6Error">File size exceeds 2 MB</small>
-
-              </div>
-            </div>
-          </div>
-          <div class="row my-3">
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="sgpa7">SGPA 7th Semester</label>
-                <input
-                        type="file"
-                        class="form-control"
-                        id="sgpa7"
-                        required
-                        name="sgpa7"
-                />
-                <small class="file-size-error" id="sgpa7Error">File size exceeds 2 MB</small>
-
-              </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <div class="form-group">
-                <label for="sgpa8">SGPA 8th Semester</label>
-                <input
-                        type="file"
-                        class="form-control"
-                        id="sgpa8"
-                        required
-                        name="sgpa8"
-                />
-                <small class="file-size-error" id="sgpa8Error">File size exceeds 2 MB</small>
-
-              </div>
-            </div>
-          </div>
+          <button type="button" style="background-color: darkslategray;margin: 10px; color: white;border-radius: 5px" class="add-semester-btn" onclick="addSemester()">Add Another Semester</button>
 
           <div class="text-center mt-5">
             <button type="submit" class="btn btn-lg" style="background-color: darkcyan;color: white">Submit</button>
@@ -201,15 +120,79 @@
     }
   }
 
-  document.getElementById('uploadForm').addEventListener('submit', function (event) {
-    let isValid = true;
-    isValid &= validateFileSize(document.getElementById('sgpa1'), document.getElementById('sgpa1Error'));
-    isValid &= validateFileSize(document.getElementById('sgpa2'), document.getElementById('sgpa2Error'));
-    // Repeat for all other SGPA inputs
-    if (!isValid) {
-      event.preventDefault();
+
+  let semesterCount = 1;
+
+  // Function to toggle file input based on semester selection and ensure no repeated selections
+  function handleSemesterChange(semesterId) {
+    const semesterSelect = document.getElementById('semester-select-' + semesterId);
+    const fileInput = document.getElementById('file-' + semesterId);
+
+    if (semesterSelect.value !== '') {
+      fileInput.style.display = 'inline';
+      fileInput.setAttribute('name', 'sgpa' + semesterSelect.value);  // Set the name attribute dynamically
+    } else {
+      fileInput.style.display = 'none';
+      fileInput.removeAttribute('name');  // Remove the name attribute if no semester is selected
     }
-  });
+
+    updateOptions();
+  }
+
+  // Function to update options in all select elements to prevent repeated selections
+  function updateOptions() {
+    // Get all selected semester values
+    const selectedValues = Array.from(document.querySelectorAll('.semester-select'))
+            .map(select => select.value)
+            .filter(value => value !== "");  // Filter out the empty selections
+
+    // Disable selected values in all other select elements
+    document.querySelectorAll('.semester-select').forEach(select => {
+      const currentSelectValue = select.value;
+      Array.from(select.options).forEach(option => {
+        if (selectedValues.includes(option.value) && option.value !== currentSelectValue) {
+          option.disabled = true;  // Disable the option if already selected elsewhere
+        } else {
+          option.disabled = false;  // Re-enable it if not selected elsewhere
+        }
+      });
+    });
+  }
+
+  // Function to add another semester selection
+  function addSemester(event) {
+
+    if (semesterCount >= 8) {
+      alert("You can only add SGPA for up to 8 semesters.");
+      return;
+    }
+
+    semesterCount++;
+
+    const semesterContainer = document.getElementById('semesterContainer');
+    const newSemesterDiv = document.createElement('div');
+    newSemesterDiv.classList.add('semester-sgpa');
+    newSemesterDiv.setAttribute('id', 'semester-' + semesterCount);
+
+    newSemesterDiv.innerHTML = `
+                <label for="semester-select-${semesterCount}">Select Semester:</label>
+                <select id="semester-select-${semesterCount}" name="semester" class="semester-select" onchange="handleSemesterChange(${semesterCount})">
+                    <option value="">Select Semester</option>
+                    <option value="1">Semester 1</option>
+                    <option value="2">Semester 2</option>
+                    <option value="3">Semester 3</option>
+                    <option value="4">Semester 4</option>
+                    <option value="5">Semester 5</option>
+                    <option value="6">Semester 6</option>
+                    <option value="7">Semester 7</option>
+                    <option value="8">Semester 8</option>
+                </select>
+                <input type="file" id="file-${semesterCount}" name="sgpa${semesterCount}" required class="file-input"/>
+            `;
+
+    semesterContainer.appendChild(newSemesterDiv);
+    updateOptions();  // Update options in all selects to prevent duplicate selections
+  }
 
   window.onload = function () {
     const alertBox = document.getElementById('alert');

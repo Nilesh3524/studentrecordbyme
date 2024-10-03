@@ -76,8 +76,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="trow" th:each="s:${students}" id="body" th:data-batch="${s.batch}">
-                        <td class="text-center" th:text="${s.batch}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
+                    <tr class="trow"  th:each="s:${students}" id="body" th:data-batch="${s.batch}">
+                        <td class="text-center" style="font-weight: bold" th:text="${s.batch}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
                             onclick="window.location.href=this.getAttribute('data-url')"></td>
                         <td class="text-center" th:text="${s.year}" th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
                             onclick="window.location.href=this.getAttribute('data-url')"></td>

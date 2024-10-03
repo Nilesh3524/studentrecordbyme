@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" th:fragment="parent(content,title,script,link)"
+<html lang="en" th:fragment="parent(section,title,script,style)"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:replace="${title}">Base</title>
-    <th:block th:replace="${link}"></th:block>
     <style>
         section {
             height: 100vh;
@@ -16,6 +15,7 @@
             align-items: center;
         }
     </style>
+    <style th:replace="${style}"></style>
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -103,7 +103,7 @@
 <!-- navbar end -->
 
 
-<div class="container-fluid" th:replace="${content}"></div>
+<div class="container-fluid" th:replace="${section}"></div>
 
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

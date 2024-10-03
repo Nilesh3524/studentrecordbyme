@@ -35,7 +35,7 @@
 
         .table-center td, .table-center th {
             text-align: start;
-            padding: 0;
+            padding: 2px;
             border: none;
             background-color: lightblue !important;
             color: black !important;
@@ -178,13 +178,18 @@
                             </a>
                         </div>
                         <table class="table table-center table-responsive" th:unless="${sgpa.isEmpty()}">
-                            <tbody th:each="sg : ${sgpa}">
+                            <tbody th:each="sg,iterStat : ${sgpa}">
                             <tr>
                                 <td>
-                                    <p th:text="${sg.name}"></p>
+                                    <p style="font-size: 20px" th:text="${iterStat.index+1}+'.  '+${sg.getName()}"></p>
                                 </td>
                                 <td>
-                                    <a th:href="@{'/admin/sgpa/download/'+ ${s.rollNo} + '/' + ${sg.id}}">Download</a>
+                                    <a th:href="@{'/admin/sgpa/download/'+ ${s.rollNo} + '/' + ${sg.id}}">
+                                        <i class="fa-solid fa-download" style="font-size: 25px;margin: 5px"></i>
+                                    </a>
+                                    <a th:href="@{'/admin/sgpa/delete/'+ ${sg.id}}" onclick="return confirm('Are you sure want to delete this file ?')">
+                                        <i class="fa-regular fa-trash-can" style="font-size: 25px;margin: 5px"></i>
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>

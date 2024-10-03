@@ -104,7 +104,7 @@ public class AdminController {
     // process add student
     @PostMapping("/process-add-student")
     public String addStudent(@Valid @ModelAttribute("s") Student student, BindingResult result,
-            @RequestParam("certificates") MultipartFile certificates, HttpSession session, Model m) throws IOException {
+                             @RequestParam("certificates") MultipartFile certificates, HttpSession session, Model m) throws IOException {
 
         // System.out.println(student);
 
@@ -144,62 +144,233 @@ public class AdminController {
     // process add sgpa
     @PostMapping("/process-add-sgpa")
     public String processAddSgpa(@RequestParam("rollNo") String rollNo,
-            @RequestParam("sgpa1") MultipartFile sgpa1,
-            @RequestParam("sgpa2") MultipartFile sgpa2,
-            @RequestParam("sgpa3") MultipartFile sgpa3,
-            @RequestParam("sgpa4") MultipartFile sgpa4,
-            @RequestParam("sgpa5") MultipartFile sgpa5,
-            @RequestParam("sgpa6") MultipartFile sgpa6,
-            @RequestParam("sgpa7") MultipartFile sgpa7,
-            @RequestParam("sgpa8") MultipartFile sgpa8, HttpSession session) throws IOException {
+                                 @RequestParam(value = "sgpa1", required = false) MultipartFile sgpa1,
+                                 @RequestParam(value = "sgpa2", required = false) MultipartFile sgpa2,
+                                 @RequestParam(value = "sgpa3", required = false) MultipartFile sgpa3,
+                                 @RequestParam(value = "sgpa4", required = false) MultipartFile sgpa4,
+                                 @RequestParam(value = "sgpa5", required = false) MultipartFile sgpa5,
+                                 @RequestParam(value = "sgpa6", required = false) MultipartFile sgpa6,
+                                 @RequestParam(value = "sgpa7", required = false) MultipartFile sgpa7,
+                                 @RequestParam(value = "sgpa8", required = false) MultipartFile sgpa8, HttpSession session) throws IOException {
 
         if (this.studentService.isStudentExits(rollNo)) {
 
             Student student = this.studentService.getStudentByRollNo(rollNo).get();
 
-            if (student.getSgpa().isEmpty()) {
 
-                SgpaFile SGPA1 = new SgpaFile(sgpa1.getOriginalFilename(), sgpa1.getContentType(), sgpa1.getBytes(),
-                        student);
-                SgpaFile SGPA2 = new SgpaFile(sgpa2.getOriginalFilename(), sgpa2.getContentType(), sgpa2.getBytes(),
-                        student);
-                SgpaFile SGPA3 = new SgpaFile(sgpa3.getOriginalFilename(), sgpa3.getContentType(), sgpa3.getBytes(),
-                        student);
-                SgpaFile SGPA4 = new SgpaFile(sgpa4.getOriginalFilename(), sgpa4.getContentType(), sgpa4.getBytes(),
-                        student);
-                SgpaFile SGPA5 = new SgpaFile(sgpa5.getOriginalFilename(), sgpa5.getContentType(), sgpa5.getBytes(),
-                        student);
-                SgpaFile SGPA6 = new SgpaFile(sgpa6.getOriginalFilename(), sgpa6.getContentType(), sgpa6.getBytes(),
-                        student);
-                SgpaFile SGPA7 = new SgpaFile(sgpa7.getOriginalFilename(), sgpa7.getContentType(), sgpa7.getBytes(),
-                        student);
-                SgpaFile SGPA8 = new SgpaFile(sgpa8.getOriginalFilename(), sgpa8.getContentType(), sgpa8.getBytes(),
-                        student);
+            Optional.ofNullable(sgpa1).ifPresent(sg1 -> {
 
-                student.getSgpa().addAll(List.of(SGPA1, SGPA2, SGPA3, SGPA4, SGPA5, SGPA6, SGPA7, SGPA8));
+                Optional.ofNullable(this.sgpaFileService.getSgpaFileByNameAndRollNo(sgpa1.getName(), student.getRollNo())).ifPresentOrElse(pre -> {
 
-                this.sgpaFileService.storeSgpaFile(SGPA1);
-                this.sgpaFileService.storeSgpaFile(SGPA2);
-                this.sgpaFileService.storeSgpaFile(SGPA3);
-                this.sgpaFileService.storeSgpaFile(SGPA4);
-                this.sgpaFileService.storeSgpaFile(SGPA5);
-                this.sgpaFileService.storeSgpaFile(SGPA6);
-                this.sgpaFileService.storeSgpaFile(SGPA7);
-                this.sgpaFileService.storeSgpaFile(SGPA8);
+                    pre.setName(sg1.getName());
+                    try {
+                        pre.setData(sg1.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    pre.setType(sg1.getContentType());
+                    pre.setStudent(student);
+                    this.sgpaFileService.storeSgpaFile(pre);
 
-                session.setAttribute("message",
-                        new Message("alert-success", "SGPA Added successfully for student " + student.getRollNo()));
+                }, () -> {
 
-                return "redirect:/admin/all-students";
+                    SgpaFile SGPA1 = new SgpaFile();
 
-            } else {
+                    SGPA1.setName(sg1.getName());
+                    try {
+                        SGPA1.setData(sg1.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SGPA1.setType(sg1.getContentType());
+                    SGPA1.setStudent(student);
+                    student.getSgpa().add(SGPA1);
+                    this.sgpaFileService.storeSgpaFile(SGPA1);
 
-                session.setAttribute("message", new Message("alert-warning", "Student " + rollNo
-                        + " record Already have Sgpa record !! you can remove record to add again."));
+                });
 
-                return "admin/addSGPA";
+            });
 
-            }
+            Optional.ofNullable(sgpa2).ifPresent(sg2 -> {
+
+                Optional.ofNullable(this.sgpaFileService.getSgpaFileByNameAndRollNo(sg2.getName(), student.getRollNo())).ifPresentOrElse(pre2 -> {
+
+                    pre2.setName(sg2.getName());
+                    pre2.setType(sg2.getContentType());
+                    pre2.setStudent(student);
+                    this.sgpaFileService.storeSgpaFile(pre2);
+
+
+                }, () -> {
+
+                    SgpaFile SGPA2 = new SgpaFile();
+
+                    SGPA2.setName(sg2.getName());
+                    try {
+                        SGPA2.setData(sg2.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SGPA2.setType(sg2.getContentType());
+                    SGPA2.setStudent(student);
+                    student.getSgpa().add(SGPA2);
+                    this.sgpaFileService.storeSgpaFile(SGPA2);
+
+                });
+
+            });
+
+
+            Optional.ofNullable(sgpa3).ifPresent(sg3 -> {
+
+                Optional.ofNullable(this.sgpaFileService.getSgpaFileByNameAndRollNo(sg3.getName(), student.getRollNo())).ifPresentOrElse(pre3 -> {
+
+                    pre3.setName(sg3.getName());
+                    pre3.setType(sg3.getContentType());
+                    pre3.setStudent(student);
+                    this.sgpaFileService.storeSgpaFile(pre3);
+
+
+                }, () -> {
+                    SgpaFile SGPA3 = new SgpaFile();
+                    SGPA3.setName(sg3.getName());
+                    try {
+                        SGPA3.setData(sg3.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SGPA3.setType(sg3.getContentType());
+                    SGPA3.setStudent(student);
+                    student.getSgpa().add(SGPA3);
+                    this.sgpaFileService.storeSgpaFile(SGPA3);
+
+                });
+
+            });
+
+            Optional.ofNullable(sgpa4).ifPresent(sg4 -> {
+
+                Optional.ofNullable(this.sgpaFileService.getSgpaFileByNameAndRollNo(sg4.getName(), student.getRollNo())).ifPresentOrElse(pre4 -> {
+                    pre4.setName(sg4.getName());
+                    pre4.setType(sg4.getContentType());
+                    pre4.setStudent(student);
+                    this.sgpaFileService.storeSgpaFile(pre4);
+                }, () -> {
+                    SgpaFile SGPA4 = new SgpaFile();
+                    SGPA4.setName(sg4.getName());
+                    try {
+                        SGPA4.setData(sg4.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SGPA4.setType(sg4.getContentType());
+                    SGPA4.setStudent(student);
+                    student.getSgpa().add(SGPA4);
+                    this.sgpaFileService.storeSgpaFile(SGPA4);
+
+                });
+
+            });
+
+            Optional.ofNullable(sgpa5).ifPresent(sg5 -> {
+
+                Optional.ofNullable(this.sgpaFileService.getSgpaFileByNameAndRollNo(sg5.getName(), student.getRollNo())).ifPresentOrElse(pre5 -> {
+                    pre5.setName(sg5.getName());
+                    pre5.setType(sg5.getContentType());
+                    pre5.setStudent(student);
+                    this.sgpaFileService.storeSgpaFile(pre5);
+                }, () -> {
+                    SgpaFile SGPA5 = new SgpaFile();
+                    SGPA5.setName(sg5.getName());
+                    try {
+                        SGPA5.setData(sg5.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SGPA5.setType(sg5.getContentType());
+                    SGPA5.setStudent(student);
+                    student.getSgpa().add(SGPA5);
+                    this.sgpaFileService.storeSgpaFile(SGPA5);
+                });
+
+            });
+
+            Optional.ofNullable(sgpa6).ifPresent(sg6 -> {
+
+                Optional.ofNullable(this.sgpaFileService.getSgpaFileByNameAndRollNo(sg6.getName(), student.getRollNo())).ifPresentOrElse(pre6 -> {
+                    pre6.setName(sg6.getName());
+                    pre6.setType(sg6.getContentType());
+                    pre6.setStudent(student);
+                    this.sgpaFileService.storeSgpaFile(pre6);
+                }, () -> {
+                    SgpaFile SGPA6 = new SgpaFile();
+                    SGPA6.setName(sg6.getName());
+                    try {
+                        SGPA6.setData(sg6.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SGPA6.setType(sg6.getContentType());
+                    SGPA6.setStudent(student);
+                    student.getSgpa().add(SGPA6);
+                    this.sgpaFileService.storeSgpaFile(SGPA6);
+
+                });
+
+            });
+
+            Optional.ofNullable(sgpa7).ifPresent(sg7 -> {
+
+                Optional.ofNullable(this.sgpaFileService.getSgpaFileByNameAndRollNo(sg7.getName(), student.getRollNo())).ifPresentOrElse(pre7 -> {
+                    pre7.setName(sg7.getName());
+                    pre7.setType(sg7.getContentType());
+                    pre7.setStudent(student);
+                    this.sgpaFileService.storeSgpaFile(pre7);
+                }, () -> {
+                    SgpaFile SGPA7 = new SgpaFile();
+                    SGPA7.setName(sg7.getName());
+                    try {
+                        SGPA7.setData(sg7.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SGPA7.setType(sg7.getContentType());
+                    SGPA7.setStudent(student);
+                    student.getSgpa().add(SGPA7);
+                    this.sgpaFileService.storeSgpaFile(SGPA7);
+                });
+
+            });
+
+
+            Optional.ofNullable(sgpa8).ifPresent(sg8 -> {
+
+                Optional.ofNullable(this.sgpaFileService.getSgpaFileByNameAndRollNo(sg8.getName(), student.getRollNo())).ifPresentOrElse(pre8 -> {
+                    pre8.setName(sg8.getName());
+                    pre8.setType(sg8.getContentType());
+                    pre8.setStudent(student);
+                    this.sgpaFileService.storeSgpaFile(pre8);
+                }, () -> {
+                    SgpaFile SGPA8 = new SgpaFile();
+                    SGPA8.setName(sg8.getName());
+                    try {
+                        SGPA8.setData(sg8.getBytes());
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    SGPA8.setType(sg8.getContentType());
+                    SGPA8.setStudent(student);
+                    student.getSgpa().add(SGPA8);
+                    this.sgpaFileService.storeSgpaFile(SGPA8);
+                });
+
+            });
+
+
+            session.setAttribute("message",
+                    new Message("alert-success", "SGPA Added successfully for student " + student.getRollNo()));
+
+            return "redirect:/admin/all-students";
 
         } else {
 
@@ -222,7 +393,7 @@ public class AdminController {
     // process add attendence
     @PostMapping("/process-add-attendence")
     public String processAddAttendence(@ModelAttribute("attendence") Attendence attendence,
-            @RequestParam("rollNo") String rollNo, HttpSession session, Model m) {
+                                       @RequestParam("rollNo") String rollNo, HttpSession session, Model m) {
 
         if (this.studentService.isStudentExits(rollNo)) {
 
@@ -383,7 +554,7 @@ public class AdminController {
     @PostMapping("/student/update/attendence")
     @ResponseBody // This ensures the method returns JSON, not a view.
     public Map<String, Object> updateAttendence(@ModelAttribute Attendence attendence,
-            @RequestParam("sRollNo") String rollNo) {
+                                                @RequestParam("sRollNo") String rollNo) {
 
         // Fetch the existing student by roll number
         Optional<Student> optionalStudent = this.studentService.getStudentByRollNo(rollNo);
@@ -436,7 +607,7 @@ public class AdminController {
     // process upload result form
     @PostMapping("/process-upload-result")
     public String uploadResult(@RequestParam("name") String name, @RequestParam("image") MultipartFile file,
-            HttpSession session) {
+                               HttpSession session) {
 
         try {
 
@@ -488,6 +659,19 @@ public class AdminController {
         session.setAttribute("message", new Message("alert-success", "File deleted successfully"));
 
         return "redirect:/admin/dashboard";
+    }
+
+    // delete separate sgpa
+    @GetMapping("/sgpa/delete/{id}")
+    public String deleteSgpaFile(@PathVariable int id, HttpSession session){
+
+        Optional.ofNullable(this.sgpaFileService.getSgpaFileById(id)).ifPresentOrElse(sg->{
+            this.sgpaFileService.deleteSgpaFile(sg);
+        },()->{});
+
+        session.setAttribute("message", new Message("alert-success", "File deleted successfully"));
+
+        return "redirect:/admin/all-students";
     }
 
     // download result

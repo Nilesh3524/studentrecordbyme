@@ -19,6 +19,10 @@ public class SgpaFileService {
         return this.sgpaFileRepo.save(sgpaFile);
     }
 
+    public SgpaFile getSgpaFileById(int id) {
+        return this.sgpaFileRepo.findById(id).get();
+    }
+
 
     public List<SgpaFile> getSgpaFileByRollNo(String rollNo) {
         return this.sgpaFileRepo.findByStudentRollNo(rollNo);
@@ -30,6 +34,10 @@ public class SgpaFileService {
 
     public void deleteSgpaFile(SgpaFile sgpaFile) {
         this.sgpaFileRepo.delete(sgpaFile);
+    }
+
+    public SgpaFile getSgpaFileByNameAndRollNo(String name, String rollNo) {
+        return this.sgpaFileRepo.findByNameAndStudentRollNo(name, rollNo);
     }
 
 }
