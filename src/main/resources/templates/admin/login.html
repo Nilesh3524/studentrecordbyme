@@ -9,36 +9,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Admin Login</title>
     <style>
-        section {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/img/home.jpg") no-repeat center center fixed;
-            background-size: cover;
-            overflow: hidden; /* Prevent scrolling on the background */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+
     </style>
 </head>
 <body>
 
-<section class="vh-100 vw-100" style="background-color: lightgray">
+<section class="vh-100 vw-100" style="background-color: skyblue">
+
     <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col col-xl-8">
-                <div class="card mb-4" style="border-radius: 1rem; background-color: darkslategrey">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col col-md-4">
+                <div class="card mb-4">
                     <div class="row g-0">
-                        <div class="col-md-6 col-lg-5 d-none d-md-block">
-                            <img th:src="@{/img/admin.jpg}"
-                                 alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 500px" />
-                        </div>
-                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
-                            <div class="card-body p-4 p-lg-5 text-white">
+
+                        <div class=" align-items-center" >
+                            <div class="card-body p-4 p-lg-5 text-white" style="background-color: #242e3b; box-shadow: 10px 10px 10px #034f72;border-radius: 10px">
 
                                 <form method="post" th:action="@{/admin/process-login}">
 
                                     <div class="d-flex align-items-center mb-3 pb-1">
-                                        <h2 class="h1 fw-bold mb-0" style="font-family: Cambria;font-size: 50px">Admin Login</h2>
+                                        <span class="h1 fw-bold mb-0" style="font-family: 'Droid Sans'; font-size: 38px">ADMIN LOGIN</span>
                                     </div>
 
                                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; font-family: 'Comic Sans MS'">Sign into your account</h5>
@@ -46,19 +36,18 @@
                                     <p th:if="${param.error}" class="text-danger">Invalid Username or Password</p>
                                     <p th:if="${param.logout}" class="text-success">You have been logout</p>
 
-                                    <div data-mdb-input-init class="form-outline mb-4">
-                                        <input type="text" id="username" name="username" class="form-control form-control-lg text-white" />
-                                        <label class="form-label text-white" for="username">Username</label></div>
+                                    <div  data-mdb-input-init class="form-outline mb-4">
+                                        <input style="color: whitesmoke" type="text" id="username" name="username" class="form-control form-control-lg" />
+                                        <label style="color: whitesmoke" class="form-label" for="username">Username</label></div>
 
                                     <div data-mdb-input-init class="form-outline mb-4">
-                                        <input type="password" id="form2Example27" name="password" class="form-control form-control-lg text-white" />
-                                        <label class="form-label text-white" for="form2Example27">Password</label>
+                                        <input style="color: whitesmoke" type="password" id="form2Example27" name="password" class="form-control form-control-lg" />
+                                        <label style="color: whitesmoke" class="form-label" for="form2Example27">Password</label>
                                     </div>
 
                                     <div class="pt-1 mb-4">
-                                        <button class="btn btn-block" style="background-color: lightyellow; color: black" type="submit">Login</button>
+                                        <button class="btn btn-block" style="background-color: whitesmoke; color: black" type="submit">Login</button>
                                     </div>
-
 
                                 </form>
 
@@ -69,6 +58,7 @@
             </div>
         </div>
     </div>
+
 </section>
 
 <script></script>

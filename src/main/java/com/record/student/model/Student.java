@@ -28,7 +28,7 @@ public class Student implements UserDetails {
     private String rollNo;
 
     @NotBlank(message = "name is not empty !!")
-    @Size(min = 3,message = "name should be greater than 3 characters !!")
+    @Size(min = 3, message = "name should be greater than 3 characters !!")
     private String name;
 
     private String branch;
@@ -43,11 +43,11 @@ public class Student implements UserDetails {
 
     private String password;
 
-    @Size(max = 12,message = "phone must be less than 10 characters !!")
+    @Size(max = 12, message = "phone must be less than 10 characters !!")
     @NotBlank(message = "mention the phone!!")
     private String phone;
 
-    private boolean forum;
+    private String gender;
 
     private boolean backlog;
 
@@ -55,7 +55,7 @@ public class Student implements UserDetails {
 
     private String currentBacklog;
 
-    @Size(max = 12,message = "phone must be less than 10 characters !!")
+    @Size(max = 12, message = "phone must be less than 10 characters !!")
     @NotBlank(message = "mention the parents contact!!")
     private String parents;
 
@@ -63,7 +63,7 @@ public class Student implements UserDetails {
     private String mother;
 
     @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true,mappedBy = "student")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "student")
     private Certificate certificate;
 
     private String batch;
@@ -76,13 +76,16 @@ public class Student implements UserDetails {
 
 
     //attendence
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true,mappedBy = "student")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, mappedBy = "student")
     private Attendence attendence;
 
 
     //sgpa
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "student")
-    private List<SgpaFile> sgpa=new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "student")
+//    private List<SgpaFile> sgpa=new ArrayList<>();
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY,orphanRemoval = true ,mappedBy = "student")
+    private Sgpa sgpa;
 
 
     @Override

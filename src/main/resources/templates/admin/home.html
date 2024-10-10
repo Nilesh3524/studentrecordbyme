@@ -18,14 +18,14 @@
 
         .card {
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            background-color: rgb(219,255,221) !important;
+            background-color: white !important;
         }
 
         .card-title {
             font-weight: 600;
         }
 
-        .table-center tbody td{
+        .table-center tbody td {
             color: black;
         }
 
@@ -41,7 +41,7 @@
             text-align: center;
             padding: 10px;
             border: none;
-            background-color: rgb(219,255,221) !important;
+            background-color: white !important;
         }
 
         .table-center thead th {
@@ -87,6 +87,14 @@
 <body>
 <section>
     <div
+            class="alert my-2 mx-4 text-center d-none"
+            id="my-alert"
+            style="height: 60px"
+            role="alert"
+    >
+        <p></p>
+    </div>
+    <div
             id="alert"
             th:if="${session.message}"
             th:classappend="${session.message.type}"
@@ -99,10 +107,12 @@
     </div>
     <!-- Main Content -->
     <div class="container-fluid p-3">
-        <h1 class="text-black text-center text-white" style="font-family: 'Times New Roman',serif">Department of Electronics And Telecommunication</h1>
+        <h1 class="text-black text-center text-black" style="font-family: 'Times New Roman',serif">Department of
+            Electronics And Telecommunication</h1>
 
-        <h1 class="display-4 text-center text-white mt-4 mb-5">Welcome
-            <th:block th:text="${loggedInUser}"></th:block>!
+        <h1 class="display-4 text-center text-black mt-4 mb-5">Welcome
+            <th:block th:text="${loggedInUser}"></th:block>
+            !
         </h1>
 
         <div class="row">
@@ -145,8 +155,8 @@
 
             <div class="col-md-12 col-lg-4 mb-4">
                 <div class="card" style="border-radius: 10px;">
-                    <div class="card-body overflow-auto" style="max-height: 400px;">
-                        <h5 class="text-center my-2" style="font-size: 20px;color: black">Declared Results</h5>
+                    <div class="card-body overflow-auto" style="max-height: 400px; height: 181px">
+                        <h5 class="text-center my-2" style="font-size: 20px;color: black">CAE/TAE Results</h5>
                         <table class="table table-center" th:if="${files}">
                             <tbody>
                             <tr th:each="file : ${files}">
@@ -155,11 +165,12 @@
                                 <td>
                                     <div>
                                         <a th:href="@{'/admin/files/download/' + ${file.id}}" class="mr-2">
-                                            <i class="fa-solid fa-file-arrow-down" style="font-size: 20px;margin-left: 10px"></i>
+                                            <i class="fa-solid fa-file-arrow-down"
+                                               style="font-size: 20px;margin-left: 10px"></i>
                                         </a>
                                         <a th:href="@{'/admin/file/delete/' + ${file.id}}"
                                            onclick="return confirm('Are you sure you want to delete this?')">
-                                            <i class="fa-solid fa-trash" style="font-size: 20px;margin-left: 10px"></i>
+                                            <i class="fa-solid fa-trash" style="font-size: 20px;margin-left: 10px;color: red"></i>
                                         </a>
                                     </div>
                                 </td>
@@ -171,12 +182,71 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="card mt-3" style="border-radius: 10px; height: 181px">
+                    <div class="container mt-2">
+                        <h5 class="text-center" style="font-size: 20px;color: black">Result Links</h5>
+                    </div>
+                    <div class="card-body overflow-auto" style="max-height: 400px;">
+                        <table class="table table-center" th:if="${links}">
+                            <tbody>
+                            <tr th:each="l : ${links}">
+                                <td>
+                                    <a th:href="@{${l.getLink()}}" th:text="${l.getLink()}"></a>
+                                </td>
+                                <td>
+                                    <div>
+                                        <a th:href="@{'/admin/link/delete/' + ${l.id}}"
+                                           onclick="return confirm('Are you sure you want to delete this?')">
+                                            <i class="fa-solid fa-trash" style="font-size: 20px;margin-left: 10px;color: red"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center" style="margin: 2px; padding: 2px" th:if="${links.isEmpty()}">
+                            <h5 style="font-size: 18px">Not Available</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </section>
 
 <script>
+
+    //display alert
+    document.addEventListener("DOMContentLoaded", function () {
+
+        // Check if there's a message in sessionStorage
+        const alertMessage = sessionStorage.getItem('alertMessage');
+        const alertType = sessionStorage.getItem('alertType');
+
+        if (alertMessage) {
+            const alert = document.getElementById('my-alert');
+            const alertContent = alert.querySelector('p');
+
+            // Display the alert with the stored message and type
+            alert.classList.remove('d-none');
+            alert.classList.add('show', alertType);
+            alertContent.textContent = alertMessage;
+
+            // Remove the message from sessionStorage after displaying
+            sessionStorage.removeItem('alertMessage');
+            sessionStorage.removeItem('alertType');
+
+            // Hide the alert after a few seconds
+            setTimeout(function () {
+                alert.classList.remove('show');
+                alert.classList.add('d-none');
+            }, 3000);
+        }
+
+    });
+
     // Hide alert after 3 seconds
     window.onload = function () {
         const alertBox = document.getElementById('alert');

@@ -16,14 +16,23 @@
             }
         }
 
+        .table1{
+            border: 1px solid black;
+        }
+
         .table1 th {
-            background-color: darkgray;
-            color: black;
+            background-color: cadetblue;
+            color: white;
+            border: 1px solid black;
+        }
+
+        .table1 td{
+            border: 1px solid black;
         }
 
         .table1 tbody td{
-            background-color: #343a40;
-            color: white;
+            background-color: white;
+            color: black;
         }
     </style>
 </head>
@@ -39,11 +48,22 @@
         <button class="btn btn-secondary m-1" onclick="fetchAndDisplayStudents('2025-2029')">2025-2029</button>
     </div>
 
+    <!-- Dropdown for filtering by Year of Study -->
+    <div class="container mb-3">
+        <label for="yearFilter" class="text-black" style="font-size: 20px">Filter by Year:</label>
+        <select id="yearFilter" class="" onchange="yearFilter()">
+            <option value="">All</option>
+            <option value="2nd">2nd Year</option>
+            <option value="3rd">3rd Year</option>
+            <option value="4th">4th Year</option>
+        </select>
+    </div>
+
     <div class="container-fluid">
         <div class="container mt-5">
-            <h2 class="m-4 text-center text-white" style="font-size: 40px">Students With Current Backlog</h2>
+            <h2 class="m-4 text-center text-black" style="font-size: 40px">Students With Current Backlog</h2>
             <div class="table-responsive">
-                <table class="table table-bordered table1">
+                <table class="table table1">
                     <thead class="thead-dark">
                     <tr>
                         <th class="text-center">Batch</th>
@@ -58,7 +78,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="s:${students}" th:if="${s.backlog}" th:data-batch="${s.batch}" style="cursor: pointer;"
+                    <tr th:each="s:${students}" th:if="${s.backlog}" th:data-batch="${s.batch}" th:data-year="${s.year}" style="cursor: pointer;"
                         th:data-url="@{'/admin/student/details/'+${s.rollNo}}"
                         onclick="window.location.href=this.getAttribute('data-url')">
                         <td class="text-center" th:text="${s.batch}"></td>
@@ -91,6 +111,29 @@
                 row.style.display = 'none';  // Hide row if year doesn't match
             }
         });
+    }
+
+    function yearFilter(){
+
+        const rows = document.querySelectorAll('tbody tr');
+
+        const year = document.getElementById('yearFilter').value;
+
+        // console.log(year);
+
+        rows.forEach(row => {
+
+            const studentYear = row.getAttribute('data-year');  // Get the student's year from the data-year attribute
+
+            // console.log(studentYear);
+
+            if (year === '' || studentYear === year) {
+                row.style.display = '';  // Show row if year matches or if 'all' is selected
+            } else {
+                row.style.display = 'none';  // Hide row if year doesn't match
+            }
+        });
+
     }
 </script>
 </body>

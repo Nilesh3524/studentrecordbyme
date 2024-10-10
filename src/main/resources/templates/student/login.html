@@ -11,34 +11,35 @@
     <style>
       section {
         height: 100vh;
-        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("/img/home.jpg") no-repeat center center fixed;
-        background-size: cover;
         overflow: hidden; /* Prevent scrolling on the background */
+        background-color: skyblue;
         display: flex;
         justify-content: center;
         align-items: center;
       }
+
+      .card-body{
+        box-shadow: 10px 10px 10px deepskyblue;
+      }
+
     </style>
     <link rel="stylesheet" href="#">
   </head>
   <body>
   <section class="vh-100 vw-100">
     <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col col-xl-8">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col col-md-4">
           <div class="card mb-4" style="border-radius: 1rem;">
             <div class="row g-0">
-              <div class="col-md-6 col-lg-5 d-none d-md-block">
-                <img th:src="@{/img/student.jpg}"
-                     alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem; height: 500px" />
-              </div>
-              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+
+              <div class=" align-items-center">
                 <div class="card-body p-4 p-lg-5 text-black">
 
                   <form method="post" th:action="@{/student/process-login}">
 
                     <div class="d-flex align-items-center mb-3 pb-1">
-                      <span class="h1 fw-bold mb-0" style="font-family: 'Droid Sans'; font-size: 50px">Student Login</span>
+                      <span class="h1 fw-bold mb-0" style="font-family: 'Droid Sans'; font-size: 38px">STUDENT LOGIN</span>
                     </div>
 
                     <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px; font-family: 'Comic Sans MS'">Sign into your account</h5>
@@ -56,7 +57,7 @@
                     </div>
 
                     <div class="pt-1 mb-4">
-                      <button class="btn btn-block" style="background-color: gray; color: white" type="submit">Login</button>
+                      <button class="btn btn-block" style="background-color: midnightblue; color: white" type="submit">Login</button>
                     </div>
 
                   </form>

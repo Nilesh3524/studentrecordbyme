@@ -132,8 +132,8 @@
                                 <p id="backlog" th:text="${s.backlog?'yes':'no'}">-</p>
                             </div>
                             <div class="col-6">
-                                <label for="forum" class="form-label">Forum Member</label>
-                                <p id="forum" th:text="${s.forum?'yes':'no'}">-</p>
+                                <label for="gender" class="form-label">Gender</label>
+                                <p id="gender" th:text="${s.gender}">-</p>
                             </div>
                         </div>
                         <div class="row mb-3" th:if="${s.backlog}">
@@ -168,35 +168,69 @@
                     <div class="card-header bg-primary text-white">
                         <h5 class="text-center">Results</h5>
                     </div>
-                    <div class="card-body overflow-auto">
-                        <div class="text-end mb-2">
-                            <a th:unless="${sgpa.isEmpty()}"
-                               th:data-rollNo="${s.rollNo}"
-                               onclick="deleteButton()"
-                               id="delete-alert" style="color: red">
-                                <button class="btn btn-danger">Delete Record</button>
-                            </a>
+                    <div class="card-body overflow-auto text-black" >
+
+                        <div class="container" th:unless="${sgpa}">
+                            <p class="text-center text-black my-3" style="font-size: 30px">Not Available</p>
                         </div>
-                        <table class="table table-center table-responsive" th:unless="${sgpa.isEmpty()}">
-                            <tbody th:each="sg,iterStat : ${sgpa}">
-                            <tr>
-                                <td>
-                                    <p style="font-size: 20px" th:text="${iterStat.index+1}+'.  '+${sg.getName()}"></p>
-                                </td>
-                                <td>
-                                    <a th:href="@{'/admin/sgpa/download/'+ ${s.rollNo} + '/' + ${sg.id}}">
-                                        <i class="fa-solid fa-download" style="font-size: 25px;margin: 5px"></i>
-                                    </a>
-                                    <a th:href="@{'/admin/sgpa/delete/'+ ${sg.id}}" onclick="return confirm('Are you sure want to delete this file ?')">
-                                        <i class="fa-regular fa-trash-can" style="font-size: 25px;margin: 5px"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div class="text-center" th:if="${sgpa.isEmpty()}" style="margin-top: 130px">
-                            <p>Not Available</p>
+
+                        <div class="container" th:if="${sgpa}" th:object="${sgpa}">
+
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <p style="font-weight: bold">Semester 1 : </p>
+                                    <p th:text="${sgpa.getSgpa1()}"></p>
+                                </div>
+                                <div class="col-6">
+                                    <p style="font-weight: bold">Semester 2 : </p>
+                                    <p th:text="${sgpa.getSgpa2()}"></p>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <div class="col-6">
+                                    <p style="font-weight: bold">Semester 3 : </p>
+                                    <p th:text="${sgpa.getSgpa3()}"></p>
+                                </div>
+                                <div class="col-6">
+                                    <p style="font-weight: bold">Semester 4 : </p>
+                                    <p th:text="${sgpa.getSgpa4()}"></p>
+                                </div>
+
+                            </div>
+
+
+                             <div class="row mb-3">
+                                <div class="col-6">
+                                    <p style="font-weight: bold">Semester 5 : </p>
+                                    <p th:text="${sgpa.getSgpa5()}"></p>
+                                </div>
+                                <div class="col-6">
+                                    <p style="font-weight: bold">Semester 6 : </p>
+                                    <p th:text="${sgpa.getSgpa6()}"></p>
+                                </div>
+
+                            </div>
+
+
+                             <div class="row">
+                                <div class="col-6">
+                                    <p style="font-weight: bold">Semester 7 : </p>
+                                    <p th:text="${sgpa.getSgpa7()}"></p>
+                                </div>
+                                <div class="col-6">
+                                    <p style="font-weight: bold">Semester 8 : </p>
+                                    <p th:text="${sgpa.getSgpa8()}"></p>
+                                </div>
+
+                            </div>
+
+
+
                         </div>
+
                     </div>
                 </div>
             </div>

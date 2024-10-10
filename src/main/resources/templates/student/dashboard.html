@@ -42,8 +42,12 @@
             color: midnightblue;
         }
 
+        .four{
+            color: black;
+        }
+
         .four:hover {
-            background-color: #0b3d63;
+            background-color: steelblue;
             color: white;
             text-shadow: 2px 2px 2px teal;
         }
@@ -90,12 +94,12 @@
     <div class="main-content">
         <div class="container mt-4">
             <div style="margin-bottom: 90px">
-                <h1 th:text="'Welcome '+${s.name}+' !'" class="name"></h1>
+                <h1 style="font-size: 7rem; color: black" th:text="'Welcome '+${s.name}+' !'" class="name"></h1>
             </div>
             <div class="row mt-5">
-                <div class="col-lg-12">
+                <div class="col-lg-12" >
                     <div class="card mb-4 card-custom">
-                        <div class="card-body" style="background-color: mediumturquoise">
+                        <div class="card-body" style="background-color: cadetblue;border-radius: 10px">
                             <div class="row text-center">
                                 <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                                     <a
@@ -118,7 +122,7 @@
                                         <div class="card four card-custom shadow-sm">
                                             <div class="card-body" style="height: 152px">
                                                 <i class="fas fa-graduation-cap fa-2x mb-3 icon"></i>
-                                                <h5>Declared Result</h5>
+                                                <h5>CAE/TAE Result</h5>
                                             </div>
                                         </div>
                                     </a>
@@ -146,7 +150,7 @@
                                         <div class="card four card-custom shadow-sm">
                                             <div class="card-body" style="height: 152px">
                                                 <i class="fas fa-award fa-2x mb-3 icon"></i>
-                                                <h5>Semester Results</h5>
+                                                <h5>Academic Performance</h5>
                                             </div>
                                         </div>
                                     </a>

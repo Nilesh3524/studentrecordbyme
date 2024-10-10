@@ -20,7 +20,7 @@
 
         .sidebar {
             margin-top: 5px;
-            background-color: teal;
+            background-color: midnightblue;
         }
 
         .sidebar a {
@@ -99,36 +99,56 @@
     <link rel="icon" type="image/ico" th:href="@{/img/favicon.ico}">
 </head>
 
-<body style="background-color: #343a40">
+<body style="background-color: skyblue">
 <!-- navbar start -->
 <nav class="navbar navbar-expand-lg" style="background-color: lightblue;">
     <div class="container-fluid">
         <a th:if="${loggedInUser}" class="navbar-brand" th:href="@{/admin/dashboard}">
             <img th:src="@{/img/sb.jpg}" style="width: 30px" alt=""/>
-            <div class="d-none d-lg-inline " style="color: black">S.B. Jain Institute of Technology and Management Research</div>
+            <div class="d-none d-lg-inline " style="color: black">S.B. Jain Institute of Technology and Management
+                Research
+            </div>
             <span class="d-inline d-lg-none " style="color: black">S.B. Jain Institute</span>
         </a>
         <a th:unless="${loggedInUser}" class="navbar-brand" th:href="@{/}" style="text-decoration: none">
             <img th:src="@{/img/sb.jpg}" style="width: 30px" alt=""/>
-            <div class="d-none d-lg-inline" style="color: black">S.B. Jain Institute of Technology and Management Research</div>
+            <div class="d-none d-lg-inline" style="color: black">S.B. Jain Institute of Technology and Management
+                Research
+            </div>
             <div class="d-inline d-lg-none text-black">S.B. Jain Institute</div>
         </a>
-        <button class="navbar-toggler" style="background-color: white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" style="background-color: white" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li th:unless="${loggedInUser}" class="nav-item">
-                    <a th:href="@{/}" class="nav-link text-white"><button class="btn btn-success">Home</button></a>
+                    <a th:href="@{/}" class="nav-link text-white">
+                        <button class="btn btn-success">Home</button>
+                    </a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
-                    <a th:href="@{/admin/login}" class="text-white nav-link"><button class="btn btn-primary">Admin login</button></a>
+                    <a th:href="@{/admin/login}" class="text-white nav-link">
+                        <button class="btn btn-primary">Admin login</button>
+                    </a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
-                    <a th:href="@{/student/login}" class="text-white nav-link"><button class="btn btn-secondary">Student Login</button></a>
+                    <a th:href="@{/student/login}" class="text-white nav-link">
+                        <button class="btn btn-secondary">Student Login</button>
+                    </a>
                 </li>
                 <li th:if="${loggedInUser}" class="nav-item">
-                    <a th:href="@{/admin/logout}" class="text-white nav-link"><button class="btn btn-danger">Logout</button></a>
+                    <a data-mdb-ripple-init data-mdb-modal-init
+                       data-mdb-target="#result-link" class="text-white nav-link">
+                        <button class="btn btn-secondary">Add Result link</button>
+                    </a>
+                </li>
+                <li th:if="${loggedInUser}" class="nav-item">
+                    <a th:href="@{/admin/logout}" class="text-white nav-link">
+                        <button class="btn btn-danger">Logout</button>
+                    </a>
                 </li>
             </ul>
         </div>
@@ -139,7 +159,8 @@
 <div class="d-flex">
     <!-- Sidebar -->
     <nav id="sidebar" class="sidebar border-end" style="width: 300px;" th:if="${loggedInUser}">
-        <button class="btn btn-secondary d-lg-none mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarContent" aria-expanded="false" aria-controls="sidebarContent">
+        <button class="btn btn-secondary d-lg-none mb-3" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sidebarContent" aria-expanded="false" aria-controls="sidebarContent">
             <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
         </button>
         <div class="collapse d-lg-block" id="sidebarContent">
@@ -148,19 +169,76 @@
             </div>
             <h4 class="mb-4 mt-2 text-center branch">Electronics and Telecommunication</h4>
             <ul class="nav flex-column">
-                <li class="nav-item mt-1"><a class="nav-link" th:href="@{/admin/dashboard}"><i class="fa-solid fa-house"></i>&nbsp; Home</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/all-students}"><i class="fa-solid fa-user"></i>&nbsp; All Students</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-student}"><i class="fa-solid fa-plus"></i>&nbsp; Add Student</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-attendence}"><i class="fa-solid fa-address-card"></i>&nbsp; Add Attendance</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-sgpa}"><i class="fa-solid fa-square-poll-horizontal"></i>&nbsp; Add SGPA</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/cources}"><i class="fa-solid fa-book-open-reader"></i>&nbsp; Courses</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/backlog-students}"><i class="fa-solid fa-clover"></i>&nbsp; Backlog Students</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/upload-result}"><i class="fa-solid fa-chart-simple"></i>&nbsp; Upload Result</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/logout}"><i class="fa-solid fa-right-to-bracket"></i>&nbsp; Logout</a></li>
+                <li class="nav-item mt-1"><a class="nav-link" th:href="@{/admin/dashboard}"><i
+                        class="fa-solid fa-house"></i>&nbsp; Home</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/all-students}"><i
+                        class="fa-solid fa-user"></i>&nbsp; All Students</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-student}"><i
+                        class="fa-solid fa-plus"></i>&nbsp; Add Student</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-attendence}"><i
+                        class="fa-solid fa-address-card"></i>&nbsp; Add Attendance</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-sgpa}"><i
+                        class="fa-solid fa-square-poll-horizontal"></i>&nbsp; Add SGPA</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/cources}"><i
+                        class="fa-solid fa-book-open-reader"></i>&nbsp; Courses</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/backlog-students}"><i
+                        class="fa-solid fa-clover"></i>&nbsp; Backlog Students</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/upload-result}"><i
+                        class="fa-solid fa-chart-simple"></i>&nbsp; CAE/TAE Result</a></li>
+                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/logout}"><i
+                        class="fa-solid fa-right-to-bracket"></i>&nbsp; Logout</a></li>
             </ul>
         </div>
     </nav>
     <!-- Sidebar end -->
+
+
+    <!--    result link model-->
+
+    <div
+            class="modal fade"
+            id="result-link"
+            data-mdb-backdrop="static"
+            data-mdb-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+
+    >
+        <div class="modal-dialog modal-dialog-scrollable text-black">
+            <div class="modal-content" style="background-color: #e2e2e2">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Result link</h4>
+                    <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post" th:action="@{/admin/add-link}" id="edit-from">
+
+                        <textarea name="link" rows="3" class="form-control"></textarea>
+
+                        <div class="text-center">
+
+                            <button type="submit" class="btn mt-3 btn-success">
+                                Add
+                            </button>
+                            <div id="loadingSpinner2" style="display: none;">
+                                <!-- HTML for the spinner -->
+                                <div class="spinner-border text-success mt-1" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!--    result link model end-->
 
 
     <!-- update student Modal -->
@@ -513,6 +591,7 @@
         </div>
     </div>
 
+
     <div class="vw-100 section">
 
         <div th:replace="${section}" class="flex-grow-1"></div>
@@ -521,7 +600,86 @@
 </div>
 </body>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
 
+        const form = document.getElementById('edit-from');
+
+        if (form) {
+
+            form.addEventListener('submit', function (e) {
+
+
+                e.preventDefault(); // Prevent the default form submission
+
+                const formData = new FormData(this);
+
+
+                // Get the modal element
+                const modalElement = document.getElementById('result-link');
+
+                if (modalElement) {
+
+                    document.getElementById('loadingSpinner2').style.display = 'inline';
+
+                    // Use requestAnimationFrame to wait until the modal is closed
+                    requestAnimationFrame(() => {
+                        // After the modal is closed, start the asynchronous operation
+                        fetch('/admin/add-link', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Response from server:', data);
+
+                                if (data.success) {
+                                    console.log('Link Added');
+                                    // Store the success message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'Link Added Successfully');
+                                    sessionStorage.setItem('alertType', 'alert-info');
+
+                                    // Hide the spinner after the response is received
+                                    document.getElementById('loadingSpinner2').style.display = 'none';
+
+                                } else {
+                                    console.log(`Failed to update student: ${data.message}`);
+                                    // Store the error message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'Failed to Add link');
+                                    sessionStorage.setItem('alertType', 'alert-danger');
+
+                                    // Hide the spinner after the response is received
+                                    document.getElementById('loadingSpinner2').style.display = 'none';
+                                }
+
+                                // Reload the page to reflect the update and display the message
+                                location.reload();
+
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                // Store the error message in sessionStorage
+                                sessionStorage.setItem('alertMessage', 'Link is too large !!');
+                                sessionStorage.setItem('alertType', 'alert-danger');
+                                location.reload(); // Reload the page
+                            });
+                    });
+                } else {
+                    console.error('Modal with ID "result-link" not found.');
+                }
+            });
+        } else {
+            console.error('Form with ID "edit-form" not found.');
+        }
+
+
+    });
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

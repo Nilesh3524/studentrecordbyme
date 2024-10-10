@@ -1,9 +1,8 @@
 package com.record.student.controller;
 
 import com.record.student.model.File;
-import com.record.student.model.SgpaFile;
 import com.record.student.sevice.FileService;
-import com.record.student.sevice.SgpaFileService;
+import com.record.student.sevice.SgpaService;
 import com.record.student.sevice.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,7 +28,7 @@ public class StudentController {
     private StudentService studentService;
 
     @Autowired
-    private SgpaFileService sgpaFileService;
+    private SgpaService sgpaService;
 
     @Autowired
     private FileService fileService;
@@ -43,7 +42,7 @@ public class StudentController {
             return;
         }
 
-        model.addAttribute("sgpa",this.sgpaFileService.getSgpaFileByRollNo(principal.getName()));
+        model.addAttribute("sgpa",this.sgpaService.getSgpaByRollNo(principal.getName()));
 
         model.addAttribute("s",this.studentService.getStudentByRollNo(principal.getName()).get());
 
@@ -107,17 +106,6 @@ public class StudentController {
         return "student/declared_result";
     }
 
-    //download sgpa
-    @GetMapping("/sgpa/download/{rollNo}/{id}")
-    public ResponseEntity<byte[]> downloadSgpa(@PathVariable("rollNo") String rollNo, @PathVariable("id") int id) throws IOException {
-
-        SgpaFile sgpa = this.sgpaFileService.getSgpaFileByRollNoAndId(rollNo, id);
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(sgpa.getType()))  // Set the correct content type
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + sgpa.getName() + "\"")
-                .body(sgpa.getData());
-    }
 
     //download result
     @GetMapping("/files/download/{fileId}")

@@ -1,16 +1,74 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: parent(~{::section},~{::title},~{::script},~{::style})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{::section},~{::title},~{::script},~{::style})}">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
     <link th:src="@{/css/home.css}"/>
     <style>
-        .headline-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
+
+        .typing-container {
+            font-size: 4rem;
+            white-space: nowrap;
+            color: #034f72;
+            font-weight: bold;
+            overflow: hidden;
+            border-right: 3px solid white;
+            padding-right: 5px;
+            width: fit-content;
+            animation: blink-caret 0.75s step-end infinite;
         }
+
+        @keyframes blink-caret {
+            50% {
+                border-color: #21252a;
+            }
+        }
+
+        .facts{
+            background-color: #21252a;
+            height: auto;
+        }
+
+        .fact-item {
+            background-color: #2c3a48;
+            padding: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .fact-item img {
+            width: 50px;
+            margin-bottom: 20px;
+        }
+        .fact-item h3 {
+            font-size: 1rem;
+        }
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        .facts i{
+            color: goldenrod;
+            font-size: 40px;
+        }
+
+        .facts h3{
+            color: white;
+        }
+
+
+        img {
+            margin-top: 5px;
+            object-fit: fill;
+            width: 100%;
+        }
+
+        .des{
+            font-size: 1rem;
+        }
+
 
         .headline-container img {
             max-width: 200px;
@@ -23,66 +81,115 @@
             font-family: 'Bookman Old Style';
             color: darkorange;
         }
+
+        .text{
+            font-size: 17px;
+        }
+
+        .image img{
+            align-self: auto;
+        }
+
     </style>
 </head>
 <body>
 <div th:fragment="section">
     <!-- Hero Section -->
-    <section class="jumbotron" style="align-self: auto">
-        <div class="container">
-            <!-- Logo and headline container -->
-            <div class="headline-container">
-                <img th:src="@{/img/logo.png}" alt="SB Jain Logo">
-                <h1>Electronics And Telecommunication</h1>
-            </div>
-            <p class="lead" style="font-family: 'Comic Sans MS', serif; margin: 10px; padding-bottom: 10px; font-size: 40px; color: lightskyblue">Connecting the world, one signal at a time</p>
-            <a href="#about" class="btn" style="margin: 10px; background-color: aqua; color: black; font-size: 15px">About Us</a>
-            <a href="#courses" class="btn" style="margin: 10px; background-color: powderblue; color: black; font-size: 15px">Courses Offered</a>
-            <a href="#contact" class="btn" style="margin: 10px; background-color: rgba(255,138,223,0.77); color: black; font-size: 15px">Contact Us</a>
-        </div>
+
+    <img th:src="@{/img/homepage.png}" alt="image">
+
+
+    <section style="height: 100px; background-color: #21252a;margin-top: 5px">
+        <h3 class="text-white" style="font-family: 'Roboto Light',serif">QUICK FACTS</h3>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h2 style="color: lightgreen; font-size: 50px; font-family: 'Comic Sans MS'">About Us</h2>
-                    <p style="color: white">
-                        S.B. Jain Institute of Technology and Management Research,
-                        located in Nagpur, Maharashtra, aims to provide quality
-                        education in engineering and management disciplines. The
-                        institute focuses on holistic development, innovation, and
-                        research to prepare students for global challenges.
-                    </p>
-                    <h3 style="margin-top: 10px; color: lightgreen; font-family: 'Comic Sans MS'">Vision</h3>
-                    <p style="color: white">
-                        To be a leading institute in technical and management education,
-                        fostering innovation and entrepreneurship.
-                    </p>
-                    <h3 style="margin-top: 10px; color: lightgreen; font-family: 'Comic Sans MS'">Mission</h3>
-                    <p style="color: white">
-                        Empowering students with knowledge and skills through quality
-                        education, research, and industry collaboration.
-                    </p>
+
+    <section class="facts">
+
+        <div class="row g-4 justify-content-center mb-3">
+            <div class="col-md-2 col-sm-6">
+                <div class="fact-item">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>S.B. Jain All India Ranked by NIRF, Govt. of India</h3>
                 </div>
-                <div class="col-md-6">
-                    <img th:src="@{/img/about.png}" class="img-fluid" alt="About Us Image" style="border-radius: 10px; max-height: 500px; margin-left: 80px; object-fit: cover;" />
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <div class="fact-item">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <h3>Awarded Grade 'A' by Govt. of Maharashtra</h3>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <div class="fact-item">
+                    <i class="fa-solid fa-scroll"></i>
+                    <h3>Programmes Accredited by NBA</h3>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <div class="fact-item">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h3>Awarded Grade 'A++' by NAAC, Bangalore</h3>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-6">
+                <div class="fact-item">
+                    <i class="fa-solid fa-user-graduate"></i>
+                    <h3>Recipient of Aid from World Bank through TEQIP</h3>
                 </div>
             </div>
         </div>
+
     </section>
+
+
+    <section style="height: auto; margin-top: 40px">
+
+        <div class="container mt-3">
+            <h2 style="color: black; font-size: 40px">Welcome To &nbsp;</h2>
+            <div class="typing-container" id="typingText">
+            </div>
+        </div>
+
+    </section>
+
+    <section style="height: auto; margin-top: 40px">
+
+        <div class="des d-flex container mt-3 text-black">
+            <div class="row">
+                <div class="image col-6">
+                    <img th:src="@{/img/stu.jpg}" alt="image">
+                </div>
+                <div class="text col-6">
+                    <p>
+                        <strong>S.B. Jain Institute of Technology</strong> is a premier engineering institution located in Nagpur, Maharashtra. Established in 1999, the institute is committed to providing high-quality technical education and fostering innovation among its students.
+
+                        With a focus on holistic development, S.B. Jain offers a wide range of undergraduate and postgraduate programs in various engineering disciplines, including Computer Science, Information Technology, Electronics, and Mechanical Engineering. The institute is known for its strong emphasis on research, practical training, and industry collaboration, ensuring that students are well-prepared to meet the challenges of the ever-evolving technological landscape.
+
+                        S.B. Jain Institute of Technology boasts a state-of-the-art campus equipped with modern facilities, including advanced laboratories, libraries, and a dedicated placement cell that connects students with leading companies. The institute is also recognized for its extracurricular activities, which promote leadership, teamwork, and personal growth among students.
+
+                        With a mission to cultivate a culture of excellence in education, S.B. Jain Institute of Technology aims to develop skilled professionals who contribute positively to society and the global community.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+
+
 
     <!-- Courses Section -->
-    <section id="courses" class="py-5">
+    <section id="courses" class="py-3">
         <div class="container">
-            <h2 class="text-center mb-4" style="color: lightblue; font-size: 70px; font-family: 'Berlin Sans FB'">Courses Offered</h2>
+            <h2 class="text-center mb-4" style="color: darkblue; font-size: 70px; font-family: 'Berlin Sans FB'">
+                Courses Offered</h2>
             <div class="row mt-5">
                 <div class="col-md-4 mb-4">
-                    <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
+                    <div class="card" style="background-color: #2a303c; height: 200px">
                         <div class="card-body">
-                            <h5 class="card-title" style="color: black;">Bachelor of Technology (B.Tech)</h5>
-                            <p class="card-text mt-4" style="color: rgba(44,44,255,0.78); font-size: 20px">
+                            <h5 class="card-title" style="color: white;">Bachelor of Technology (B.Tech)</h5>
+                            <p class="card-text mt-4" style="color: goldenrod; font-size: 20px">
                                 Specializations: Computer Science, Mechanical, Electrical,
                                 Civil, Electronics & Communication.
                             </p>
@@ -90,12 +197,12 @@
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
+                    <div class="card" style="background-color: #2a303c; height: 200px">
                         <div class="card-body">
-                            <h5 class="card-title" style="color: black;">
+                            <h5 class="card-title" style="color: white;">
                                 Master of Business Administration (MBA)
                             </h5>
-                            <p class="card-text mt-3" style="color: rgba(44,44,255,0.78); font-size: 20px">
+                            <p class="card-text mt-3" style="color: goldenrod; font-size: 20px">
                                 Specializations: Marketing, Finance, Human Resources,
                                 International Business.
                             </p>
@@ -103,10 +210,10 @@
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="card" style="background-color: lightgoldenrodyellow; height: 200px">
+                    <div class="card" style="background-color: #2a303c; height: 200px">
                         <div class="card-body">
-                            <h5 class="card-title" style="color: black;">Master of Technology (M.Tech)</h5>
-                            <p class="card-text mt-4" style="color: rgba(44,44,255,0.78); font-size: 20px">
+                            <h5 class="card-title" style="color: white;">Master of Technology (M.Tech)</h5>
+                            <p class="card-text mt-4" style="color: goldenrod; font-size: 20px">
                                 Specializations: Computer Science, Mechanical, Electrical,
                                 Civil, Electronics & Communication.
                             </p>
@@ -117,18 +224,51 @@
         </div>
     </section>
 
+    <!-- About Section -->
+    <section id="about" class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 style="color: #21252a;font-weight: bold ;font-size: 50px; font-family: 'Roboto Light'">About Us</h2>
+                    <p style="color: black">
+                        S.B. Jain Institute of Technology and Management Research,
+                        located in Nagpur, Maharashtra, aims to provide quality
+                        education in engineering and management disciplines. The
+                        institute focuses on holistic development, innovation, and
+                        research to prepare students for global challenges.
+                    </p>
+                    <h3 style="margin-top: 10px; color: #21252a; font-family: 'Comic Sans MS'">Vision</h3>
+                    <p style="color: black">
+                        To be a leading institute in technical and management education,
+                        fostering innovation and entrepreneurship.
+                    </p>
+                    <h3 style="margin-top: 10px; color: #21252a; font-family: 'Comic Sans MS'">Mission</h3>
+                    <p style="color: black">
+                        Empowering students with knowledge and skills through quality
+                        education, research, and industry collaboration.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <img th:src="@{/img/about.png}" class="img-fluid" alt="About Us Image"
+                         style="border-radius: 10px; max-height: 500px; margin-left: 80px; object-fit: cover;"/>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
     <!-- Student Record Management Section -->
     <section id="record-management" class="py-5">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 style="font-family: 'Bookman Old Style'; color: forestgreen; font-size: 50px">Student Record Management</h1>
-                    <p style="color: white; font-size: 18px">
+                    <h1 style="font-family: 'Bookman Old Style'; color: forestgreen; font-size: 50px">Academic Profile Manager</h1>
+                    <p style="color: black; font-size: 18px">
                         At S.B. Jain Institute, we prioritize efficient student record
                         management to ensure seamless academic progression and
                         administrative efficiency. Our comprehensive system includes:
                     </p>
-                    <ul style="font-weight: bold; color: white; font-size: 18px">
+                    <ul style="font-weight: bold; color: black; font-size: 18px">
                         <li>Centralized student database</li>
                         <li>Secure access to academic records</li>
                         <li>Online course registration and grade tracking</li>
@@ -137,7 +277,8 @@
                     </ul>
                 </div>
                 <div class="col-md-6">
-                    <img th:src="@{/img/record.jpeg}" class="img-fluid" alt="Student Record Management" style="border-radius: 10px" />
+                    <img th:src="@{/img/record.jpeg}" class="img-fluid" alt="Student Record Management"
+                         style="border-radius: 10px"/>
                 </div>
             </div>
         </div>
@@ -148,8 +289,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 style="color: lightslategrey; font-size: 50px; font-family: 'Droid Sans'">Contact Us</h1>
-                    <ul class="list-unstyled" style="color: white; font-size: 20px; margin-top: 20px">
+                    <h1 style="color: darkcyan; font-size: 50px; font-family: 'Droid Sans'">Contact Us</h1>
+                    <ul class="list-unstyled" style="color: black; font-size: 20px; margin-top: 20px">
                         <li>
                             <strong>Address:</strong> S.B. Jain Institute of Technology
                             and Management Research, Nagpur, Maharashtra, India - 440016
@@ -168,6 +309,31 @@
     </section>
 
 </div>
-<script></script>
+<script>
+    const text = "S. B. Jain Institute of Technology";
+    let index = 0;
+
+    function type() {
+        // Type the current character
+        if (index < text.length) {
+            document.getElementById("typingText").textContent += text.charAt(index);
+            index++;
+        } else {
+            // After completing the text, wait and then reset
+            setTimeout(() => {
+                document.getElementById("typingText").textContent = ''; // Clear the text
+                index = 0; // Reset index
+                type(); // Start typing again
+            }, 2000); // Pause before restarting (1500ms)
+            return; // Exit the current function to avoid typing more
+        }
+        setTimeout(type, 200); // Typing speed in milliseconds
+    }
+
+    // Start typing when the page loads
+    window.onload = function() {
+        type();
+    };
+</script>
 </body>
 </html>

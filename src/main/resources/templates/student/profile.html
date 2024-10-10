@@ -36,8 +36,8 @@
             <div class="container">
                 <!-- Student Personal Information Section -->
                 <div class="my-card card mb-4" style="width: 1200px">
-                    <div class="card-header text-white" style="background-color: crimson">
-                        <h5 class="text-center">Personal Information</h5>
+                    <div class="card-header text-white" style="background-color: cadetblue">
+                        <h5 class="text-center" style="font-size: 30px">Personal Information</h5>
                     </div>
                     <div class="card-body c-body">
                         <div class="row mb-3">
@@ -103,8 +103,8 @@
                                 <p id="backlog" th:text="${s.backlog?'yes':'no'}">-</p>
                             </div>
                             <div class="col-md-6 col-12">
-                                <label for="forum" class="form-label">Forum Member</label>
-                                <p id="forum" th:text="${s.forum?'yes':'no'}">-</p>
+                                <label for="forum" class="form-label">Gender</label>
+                                <p id="forum" th:text="${s.gender}">-</p>
                             </div>
                         </div>
                         <div class="row mb-3" th:if="${s.backlog}">

@@ -29,7 +29,7 @@
         <p class="text-center" th:text="${session.message.content}"></p>
         <th:block th:text="${@sessionHelper.removeMessage()}"></th:block>
     </div>
-    <div class="card mx-3 mt-2" style="width: auto;background-color: #343a40">
+    <div class="card mx-3 mt-2" style="width: auto;background-color: skyblue">
         <div class="container flex-fill mt-2" >
             <div class="card-header text-center text-white" style="background-color: rgb(0,112,145)">
                 <h3 class="mb-0">Add Student Form</h3>
@@ -199,16 +199,16 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="forum">Forum Member</label>
+                            <label for="forum">Gender</label>
                             <select
-                                    name="forum"
+                                    name="gender"
                                     class="form-control"
                                     id="forum"
                                     required
                             >
-                                <option value="" th:selected="${s.forum == null}">Select</option>
-                                <option value="yes" th:selected="${s.forum == true}">Yes</option>
-                                <option value="no">No</option>
+                                <option value="" selected>Select</option>
+                                <option value="male" >Male</option>
+                                <option value="female" >Female</option>
                             </select>
                         </div>
                     </div>

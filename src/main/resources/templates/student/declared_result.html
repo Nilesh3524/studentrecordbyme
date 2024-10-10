@@ -18,11 +18,19 @@
         .my-table{
             width: 1200px;
             margin-top: 20px;
+            border: 1px solid black ;
         }
 
-        .my-table th, .my-table tbody td{
-            background-color: darkcyan;
+        .my-table th{
+            background-color: cadetblue;
+            color: white;
+            border: 1px solid black;
+        }
+
+        .my-table td{
+            background-color: #e2e2e2;
             color: black;
+            border: 1px solid black;
         }
 
         .msg{
@@ -39,10 +47,10 @@
 <section>
     <div class="main-content">
         <div class="container">
-            <div class="text-center text-white">
+            <div class="text-center text-black">
                 <h2  style="font-size: 50px">Declared Results</h2>
             </div>
-            <table class="table table-bordered my-table" th:if="${files}">
+            <table class="table my-table" th:if="${files}">
                 <thead>
                     <tr class="text-center">
                         <th>Sr.No</th>
@@ -58,7 +66,7 @@
                         <td th:text="${file.date}">1</td>
                         <td>
                             <a th:href="@{'/student/files/download/'+${file.id}}">
-                                <button class="btn btn-warning">
+                                <button class="btn btn-success">
                                     Download
                                 </button>
                             </a>
