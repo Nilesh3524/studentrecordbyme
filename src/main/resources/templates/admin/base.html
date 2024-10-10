@@ -122,27 +122,28 @@
                 aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li th:unless="${loggedInUser}" class="nav-item">
                     <a th:href="@{/}" class="nav-link text-white">
-                        <button class="btn btn-success">Home</button>
+                        <button class="btn" style="background-color: white;color: black">Home</button>
                     </a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
                     <a th:href="@{/admin/login}" class="text-white nav-link">
-                        <button class="btn btn-primary">Admin login</button>
+                        <button id="home-btn" class=" btn" th:data-url="${currentUrl}" style="background-color: white;color: black">Admin login</button>
                     </a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
                     <a th:href="@{/student/login}" class="text-white nav-link">
-                        <button class="btn btn-secondary">Student Login</button>
+                        <button class="btn" style="background-color: white;color: black">Student Login</button>
                     </a>
                 </li>
                 <li th:if="${loggedInUser}" class="nav-item">
                     <a data-mdb-ripple-init data-mdb-modal-init
                        data-mdb-target="#result-link" class="text-white nav-link">
-                        <button class="btn btn-secondary">Add Result link</button>
+                        <button class="btn" style="background-color: white;color: black">Add Result link</button>
                     </a>
                 </li>
                 <li th:if="${loggedInUser}" class="nav-item">
@@ -679,6 +680,36 @@
 
 
     });
+
+
+    document.addEventListener('DOMContentLoaded',function (){
+
+
+        const button = document.getElementById('home-btn');
+
+        if (button) {
+
+            const url = button.getAttribute('data-url');
+
+
+            if (url === '/admin/login') {
+
+                button.style.backgroundColor = '#2a303c';
+                button.style.color = 'white';
+
+            } else {
+
+                button.style.backgroundColor = 'white';
+                button.style.color = 'black';
+
+            }
+
+        }
+
+
+
+    })
+
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script

@@ -106,7 +106,7 @@
                 <li th:unless="${loggedInUser}" class="nav-item">
                     <a th:href="@{/}" class=" nav-link text-white"
                     >
-                        <button class="btn btn-success">
+                        <button class="btn" style="background-color: white;color: black">
                             Home
                         </button>
                     </a
@@ -117,7 +117,7 @@
                             th:href="@{/admin/login}"
                             class=" text-white nav-link"
                     >
-                        <button class="btn btn-primary">
+                        <button class="btn" style="background-color: white;color: black">
                             Admin Login
                         </button>
                     </a
@@ -129,7 +129,7 @@
                             th:href="@{/student/student-login}"
                             class=" text-white nav-link"
                     >
-                        <Button class="btn btn-secondary">
+                        <Button id="home-btn" class=" btn" th:data-url="${currentUrl}" style="background-color: white;color: black">
                             Student Login
                         </Button>
                     </a
@@ -219,6 +219,38 @@
 
     <div class="flex-grow-1" th:replace="${section}"></div>
 </div>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded',function (){
+
+
+        const button = document.getElementById('home-btn');
+
+        if (button) {
+
+            const url = button.getAttribute('data-url');
+
+
+            if (url === '/student/login') {
+
+                button.style.backgroundColor = '#2a303c';
+                button.style.color = 'white';
+
+            } else {
+
+                button.style.backgroundColor = 'white';
+                button.style.color = 'black';
+
+            }
+
+        }
+
+
+
+    })
+
+</script>
 
 <script th:replace="${script}"></script>
 <script

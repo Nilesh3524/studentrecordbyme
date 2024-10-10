@@ -45,7 +45,11 @@
                 <div class="card-header bg-primary text-white text-center">
                     <h3 class="mb-0">Student Academic Results</h3>
                 </div>
-                <div class="card-body overflow-auto text-black" th:object="${sgpa}">
+
+                <div class="container" th:unless="${sgpa}">
+                    <p class="text-center text-black my-3" style="font-size: 30px">Not Available</p>
+                </div>
+                <div class="card-body overflow-auto text-black" th:if="${sgpa}" th:object="${sgpa}">
 
                     <div class="container">
 

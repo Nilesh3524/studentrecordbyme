@@ -12,6 +12,12 @@
             justify-content: center;
             align-items: center;
         }
+
+        .active{
+            background-color: #2a303c;
+            color: white;
+        }
+
     </style>
     <style th:replace="${style}"></style>
     <link
@@ -73,22 +79,23 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
+
         <!-- Navbar collapse -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-                <li th:unless="${loggedInUser}" class="nav-item">
-                    <a th:href="@{/}" class="nav-link text-white">
-                        <button class="btn btn-success">HOME</button>
+                <li th:unless="${loggedInUser}" class="nav-item" >
+                    <a th:href="@{/}" class="nav-link text-white" >
+                        <button id="home-btn" class=" btn" th:data-url="${currentUrl}" style="background-color: white;color: black">HOME</button>
                     </a>
                 </li>
-                <li th:unless="${loggedInUser}" class="nav-item">
+                <li th:unless="${loggedInUser}" class="nav-item" >
                     <a th:href="@{/admin/login}" class="text-white nav-link">
-                        <button class="btn btn-primary">ADMIN LOGIN</button>
+                        <button class="btn" th:classappend="${currentUrl == '/admin/login' ? 'active' : ''}"  style="background-color: white;color: black">ADMIN LOGIN</button>
                     </a>
                 </li>
-                <li th:unless="${loggedInUser}" class="nav-item">
-                    <a th:href="@{/student/login}" class="text-white nav-link">
-                        <button class="btn btn-secondary">Student login</button>
+                <li th:unless="${loggedInUser}" class="nav-item" >
+                    <a th:href="@{/student/login}"  class="text-white nav-link">
+                        <button class="btn" th:classappend="${currentUrl == '/student/login' ? 'active' : ''}" style="background-color: white;color: black">Student login</button>
                     </a>
                 </li>
                 <li th:if="${loggedInUser}" class="nav-item">
@@ -101,7 +108,44 @@
 <!-- navbar end -->
 
 
+
 <div class="container-fluid" th:replace="${section}"></div>
+
+
+<script>
+
+
+    document.addEventListener('DOMContentLoaded',function (){
+
+
+            const button = document.getElementById('home-btn');
+
+            if (button) {
+
+                const url = button.getAttribute('data-url');
+
+
+                if (url === '/') {
+
+                    button.style.backgroundColor = '#2a303c';
+                    button.style.color = 'white';
+
+                } else {
+
+                    button.style.backgroundColor = 'white';
+                    button.style.color = 'black';
+
+                }
+
+            }
+
+
+
+    })
+
+
+
+</script>
 
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
