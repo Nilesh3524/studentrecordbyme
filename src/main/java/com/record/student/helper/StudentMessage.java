@@ -17,6 +17,7 @@ public class ResultMessage {
                Your Result has been declared. You can see by clicking following link:
                
                """+link+"""
+               
 
                We hope you're having a great day!
                
