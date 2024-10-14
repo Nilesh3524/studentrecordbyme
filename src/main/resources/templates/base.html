@@ -90,12 +90,12 @@
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item" >
                     <a th:href="@{/admin/login}" class="text-white nav-link">
-                        <button class="btn" th:classappend="${currentUrl == '/admin/login' ? 'active' : ''}"  style="background-color: white;color: black">ADMIN LOGIN</button>
+                        <button class="btn" style="background-color: white;color: black">ADMIN LOGIN</button>
                     </a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item" >
                     <a th:href="@{/student/login}"  class="text-white nav-link">
-                        <button class="btn" th:classappend="${currentUrl == '/student/login' ? 'active' : ''}" style="background-color: white;color: black">Student login</button>
+                        <button class="btn" style="background-color: white;color: black">Student login</button>
                     </a>
                 </li>
                 <li th:if="${loggedInUser}" class="nav-item">
@@ -120,9 +120,13 @@
 
             const button = document.getElementById('home-btn');
 
+            console.log(button)
+
             if (button) {
 
                 const url = button.getAttribute('data-url');
+
+                console.log(url)
 
 
                 if (url === '/') {
