@@ -177,39 +177,39 @@
             <h4 class="mb-4 mt-2 text-center" style="color: skyblue">
                 Electronics and Telecommunication
             </h4>
-            <ul class="nav flex-column">
+            <ul id="ul" class="nav flex-column" th:data-url="${currentUrl}">
                 <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/student/dashboard}"
+                    <a class=" nav-link" id="dashboard" th:href="@{/student/dashboard}"
                     ><i class="fa-solid fa-house"></i>&nbsp; Dashboard</a
                     >
                 </li>
                 <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/student/profile}"
+                    <a class=" nav-link" id="profile" th:href="@{/student/profile}"
                     ><i class="fas fa-user"></i>&nbsp; Profile</a
                     >
                 </li>
                 <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/student/declared-result}"
+                    <a class=" nav-link" id="declared-result" th:href="@{/student/declared-result}"
                     ><i class="fas fa-graduation-cap"></i>&nbsp; CAE/TAE Result</a
                     >
                 </li>
                 <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/student/attendance}"
+                    <a class=" nav-link" id="attendance" th:href="@{/student/attendance}"
                     ><i class="fas fa-calendar-check "></i>&nbsp; Attendance Check</a
                     >
                 </li>
                 <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/student/sem-result}"
+                    <a class=" nav-link" id="sem-result" th:href="@{/student/sem-result}"
                     ><i class="fa-solid fa-address-card"></i>&nbsp; Academics Check</a
                     >
                 </li>
                 <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/student/courses}"
+                    <a class=" nav-link" id="courses" th:href="@{/student/courses}"
                     ><i class="fa-solid fa-book-open-reader"></i>&nbsp; Courses</a
                     >
                 </li>
                 <li class="nav-item my-1">
-                    <a class=" nav-link" th:href="@{/student/logout}"
+                    <a class=" nav-link" id="logout" th:href="@{/student/logout}"
                     ><i class="fa-solid fa-right-to-bracket"></i>&nbsp; Logout</a
                     >
                 </li>
@@ -247,6 +247,43 @@
 
         }
 
+
+    })
+
+    document.addEventListener('DOMContentLoaded',function (){
+
+        const url = document.getElementById('ul').getAttribute('data-url');
+
+        if (url){
+
+            const dashboard = document.getElementById('dashboard');
+            const profile = document.getElementById('profile');
+            const result = document.getElementById('declared-result');
+            const sgpa = document.getElementById('sem-result');
+            const courses = document.getElementById('courses');
+            const logout = document.getElementById('logout');
+
+            if (url === '/student/dashboard'){
+                dashboard.style.color = 'gold';
+            }
+            if (url === '/student/profile'){
+                profile.style.color = 'gold';
+            }
+            if (url === '/student/declared-result'){
+                result.style.color = 'gold';
+            }
+            if (url === '/student/sem-result'){
+                sgpa.style.color = 'gold';
+            }
+            if (url === '/student/courses'){
+                courses.style.color = 'gold';
+            }
+            if (url === '/student/logout'){
+                logout.style.color = 'gold';
+            }
+
+
+        }
 
     })
 

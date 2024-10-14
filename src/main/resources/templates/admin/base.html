@@ -35,10 +35,9 @@
         }
 
         .sidebar a:hover {
-            color: black;
-            background-color: #b3c7ff;
+            color: darkturquoise;
+            text-shadow: 3px 3px 4px darkblue;
         }
-
 
 
         .card2 div h5 {
@@ -171,24 +170,24 @@
                 <img th:src="@{/img/sb.jpg}" alt="Profile Picture" style="width: 100px; border-radius: 100px"/>
             </div>
             <h4 class="mb-4 mt-2 text-center branch">Electronics and Telecommunication</h4>
-            <ul class="nav flex-column">
-                <li class="nav-item mt-1"><a class="nav-link" th:href="@{/admin/dashboard}"><i
+            <ul id="url" class="nav flex-column" th:data-url="${currentUrl}">
+                <li class="nav-item mt-1"><a class="nav-link" id="home" th:href="@{/admin/dashboard}"><i
                         class="fa-solid fa-house"></i>&nbsp; Home</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/all-students}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="all-students" th:href="@{/admin/all-students}"><i
                         class="fa-solid fa-user"></i>&nbsp; All Students</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-student}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="add-student" th:href="@{/admin/add-student}"><i
                         class="fa-solid fa-plus"></i>&nbsp; Add Student</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-attendence}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="add-attendance" th:href="@{/admin/add-attendence}"><i
                         class="fa-solid fa-address-card"></i>&nbsp; Add Attendance</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/add-sgpa}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="add-sgpa" th:href="@{/admin/add-sgpa}"><i
                         class="fa-solid fa-square-poll-horizontal"></i>&nbsp; Add SGPA</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/cources}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="courses" th:href="@{/admin/cources}"><i
                         class="fa-solid fa-book-open-reader"></i>&nbsp; Courses</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/backlog-students}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="backlog-students" th:href="@{/admin/backlog-students}"><i
                         class="fa-solid fa-clover"></i>&nbsp; Backlog Students</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/upload-result}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="upload-result" th:href="@{/admin/upload-result}"><i
                         class="fa-solid fa-chart-simple"></i>&nbsp; CAE/TAE Result</a></li>
-                <li class="nav-item my-1"><a class="nav-link" th:href="@{/admin/logout}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="logout" th:href="@{/admin/logout}"><i
                         class="fa-solid fa-right-to-bracket"></i>&nbsp; Logout</a></li>
             </ul>
         </div>
@@ -705,6 +704,87 @@
                 button.style.color = 'black';
 
             }
+
+        }
+
+
+
+    })
+
+    document.addEventListener('DOMContentLoaded',function (){
+
+
+        const url = document.getElementById('url').getAttribute('data-url');
+
+        console.log(url)
+
+        if (url) {
+
+            const home = document.getElementById('home');
+            const students = document.getElementById('all-students');
+            const addStudent = document.getElementById('add-student');
+            const addAttendance = document.getElementById('add-attendance');
+            const sgpa = document.getElementById('add-sgpa');
+            const courses = document.getElementById('courses');
+            const backlog = document.getElementById('backlog-students');
+            const result = document.getElementById('upload-result');
+            const logout = document.getElementById('logout');
+
+
+            if (url === '/admin/dashboard') {
+
+                home.style.color = 'darkturquoise';
+
+            }
+
+            if (url === '/admin/all-students') {
+
+                students.style.color = 'darkturquoise';
+
+            }
+
+            if (url === '/admin/add-student') {
+
+                addStudent.style.color = 'darkturquoise';
+
+            }
+
+            if (url === '/admin/add-attendence') {
+
+                addAttendance.style.color = 'darkturquoise';
+
+            }
+
+            if (url === '/admin/add-sgpa') {
+
+                sgpa.style.color = 'darkturquoise';
+
+            }
+
+            if (url === '/admin/cources') {
+
+                courses.style.color = 'darkturquoise';
+
+            }
+
+            if (url === '/admin/backlog-students') {
+
+                backlog.style.color = 'darkturquoise';
+
+            }
+
+            if (url === '/admin/upload-result') {
+
+                result.style.color = 'darkturquoise';
+
+            }
+
+            if (url === '/admin/logout') {
+
+                logout.style.color = 'darkturquoise';
+
+            }
+
 
         }
 
