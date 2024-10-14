@@ -1,9 +1,7 @@
 package com.record.student.helper;
 
-import lombok.Data;
 
-
-public class ResultMessage {
+public class StudentMessage {
 
     public static String getMessage(String name,String link){
 

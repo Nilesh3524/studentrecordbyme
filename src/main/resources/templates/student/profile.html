@@ -94,7 +94,17 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="parentsContact" class="form-label">Parent's Contact No</label>
-                                <p id="parentsContact" th:text="${s.parents}">+0987654321</p>
+                                <p id="parentsContact" th:text="${s.parentPhone}">+0987654321</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6 col-12">
+                                <label for="cgpa" class="form-label">CGPA</label>
+                                <p id="cgpa" th:text="${s.cgpa}">Jane Doe</p>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="parentsEmail" class="form-label">Parent's Email</label>
+                                <p id="parentsEmail" th:text="${s.parentEmail}">+0987654321</p>
                             </div>
                         </div>
                         <div class="row mb-3">

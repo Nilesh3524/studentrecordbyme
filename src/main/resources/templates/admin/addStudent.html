@@ -243,20 +243,20 @@
                                 2 MB</small>
                         </div>
                         <div class="col-md-6">
-                            <label for="parents">Parents Contact</label>
+                            <label for="parentPhone">Parents Contact</label>
                             <input
                                     type="text"
                                     class="form-control"
-                                    id="parents"
+                                    id="parentPhone"
                                     placeholder="Enter here "
                                     required
-                                    name="parents"
-                                    th:field="*{parents}"
-                                    th:classappend="${#fields.hasErrors('parents')?'is-invalid':''}"
+                                    name="parentNumber"
+                                    th:field="*{parentPhone}"
+                                    th:classappend="${#fields.hasErrors('parentPhone')?'is-invalid':''}"
                             />
                             <div
                                     class="invalid-feedback text-danger"
-                                    th:errors="*{parents}"
+                                    th:errors="*{parentPhone}"
                             ></div>
                         </div>
                     </div>
@@ -280,7 +280,23 @@
                                     th:errors="*{mother}"
                             ></div>
                         </div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            <label for="parentEmail">Parents Email</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="parentEmail"
+                                    placeholder="Enter here "
+                                    required
+                                    name="parentEmail"
+                                    th:field="*{parentEmail}"
+                                    th:classappend="${#fields.hasErrors('parentEmail')?'is-invalid':''}"
+                            />
+                            <div
+                                    class="invalid-feedback text-danger"
+                                    th:errors="*{parentEmail}"
+                            ></div>
+                        </div>
                     </div>
 
                     <!-- Submit Button -->

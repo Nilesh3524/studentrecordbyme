@@ -57,7 +57,11 @@ public class Student implements UserDetails {
 
     @Size(max = 12, message = "phone must be less than 10 characters !!")
     @NotBlank(message = "mention the parents contact!!")
-    private String parents;
+    private String parentPhone;
+
+    @NotBlank(message = "mention the parents contact!!")
+    @Email(message = "Enter valid email !!")
+    private String parentEmail;
 
     @NotBlank(message = "mention mother name !!")
     private String mother;
@@ -73,6 +77,8 @@ public class Student implements UserDetails {
     private double avgAttendence;
 
     private String role;
+
+    private double cgpa;
 
 
     //attendence

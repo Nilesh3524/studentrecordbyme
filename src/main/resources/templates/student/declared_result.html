@@ -34,7 +34,7 @@
         }
 
         .msg{
-            position: absolute;
+            padding-top: 20px;
             left: 50%;
             top: 50%;
             margin-left: -10px;
@@ -48,9 +48,9 @@
     <div class="main-content">
         <div class="container">
             <div class="text-center text-black">
-                <h2  style="font-size: 50px">Declared Results</h2>
+                <h2  style="font-size: 50px">CAE/TAE Result</h2>
             </div>
-            <table class="table my-table" th:if="${files}">
+            <table class="table my-table">
                 <thead>
                     <tr class="text-center">
                         <th>Sr.No</th>
@@ -59,7 +59,7 @@
                         <th>Download</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody  th:if="${!files.isEmpty()}">
                     <tr th:each="file, iterStat: ${files}" class="text-center" >
                         <td th:text="${iterStat.index + 1}">1</td>
                         <td th:text="${file.getName()}">1</td>
@@ -74,9 +74,12 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="text-center msg" th:unless="${files}">
-                <h4 class="text-black">Results are not declared yet...</h4>
+            <div th:if="${files.isEmpty()}" class="text-center msg">
+
+                <h4 style="color: red">Results are not declared yet...</h4>
+
             </div>
+
         </div>
     </div>
 </section>

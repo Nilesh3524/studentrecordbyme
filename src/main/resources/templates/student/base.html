@@ -129,7 +129,8 @@
                             th:href="@{/student/student-login}"
                             class=" text-white nav-link"
                     >
-                        <Button id="home-btn" class=" btn" th:data-url="${currentUrl}" style="background-color: white;color: black">
+                        <Button id="home-btn" class=" btn" th:data-url="${currentUrl}"
+                                style="background-color: white;color: black">
                             Student Login
                         </Button>
                     </a
@@ -153,7 +154,7 @@
 
 <div class="d-flex">
     <!-- Sidebar -->
-    <nav id="sidebar" class="sidebar border-end text-white" style="width: 250px;background-color: midnightblue"
+    <nav id="sidebar" class="sidebar border-end text-white" style="width: 250px;background-color: #13111c"
          th:if="${loggedInUser}">
         <button
                 class="btn btn-secondary d-lg-none mb-3"
@@ -173,7 +174,7 @@
                         style="width: 100px; border-radius: 100px"
                 />
             </div>
-            <h4 class="mb-4 mt-2 text-center" style="color: #dee2e6">
+            <h4 class="mb-4 mt-2 text-center" style="color: skyblue">
                 Electronics and Telecommunication
             </h4>
             <ul class="nav flex-column">
@@ -189,7 +190,7 @@
                 </li>
                 <li class="nav-item my-1">
                     <a class=" nav-link" th:href="@{/student/declared-result}"
-                    ><i class="fas fa-graduation-cap"></i>&nbsp; CAE/TAE Results</a
+                    ><i class="fas fa-graduation-cap"></i>&nbsp; CAE/TAE Result</a
                     >
                 </li>
                 <li class="nav-item my-1">
@@ -222,7 +223,7 @@
 
 <script>
 
-    document.addEventListener('DOMContentLoaded',function (){
+    document.addEventListener('DOMContentLoaded', function () {
 
 
         const button = document.getElementById('home-btn');
@@ -245,7 +246,6 @@
             }
 
         }
-
 
 
     })
