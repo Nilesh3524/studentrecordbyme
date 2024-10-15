@@ -1,14 +1,8 @@
 package com.record.student.controller;
 
 import com.record.student.helper.*;
-import com.record.student.helper.parent.AttendanceUpdateMessageForParent;
-import com.record.student.helper.parent.ResultLinkMessageForParent;
-import com.record.student.helper.parent.SgpaUpdateMessageForParent;
-import com.record.student.helper.parent.StudentUpdateMessageForParent;
-import com.record.student.helper.student.AttendanceUpdateMessageForStudent;
-import com.record.student.helper.student.ResultLinkMessageForStudent;
-import com.record.student.helper.student.SgpaUpdateMessageForStudent;
-import com.record.student.helper.student.StudentUpdateMessageForStudent;
+import com.record.student.helper.parent.*;
+import com.record.student.helper.student.*;
 import com.record.student.model.*;
 import com.record.student.sevice.*;
 import jakarta.servlet.http.HttpSession;
@@ -516,20 +510,37 @@ public class AdminController {
 
     // process upload result form
     @PostMapping("/process-upload-result")
-    public String uploadResult(@RequestParam("name") String name, @RequestParam("image") MultipartFile file,
+    @ResponseBody
+    public Map<String,Object> uploadResult(@RequestParam("name") String name, @RequestParam("image") MultipartFile file,
                                HttpSession session) {
+
+        Map<String, Object> response = new HashMap<>();
 
         try {
 
             this.fileService.storeFile(file, name);
 
-            session.setAttribute("message", new Message("alert-success", "Result uploaded Successfully"));
+            List<Student> students = this.studentService.getAllStudents();
 
-            return "redirect:dashboard";
+            for (Student s : students) {
+
+                this.emailService.sendEmail(s.getEmail(), "CAE/TAE Result Has Been Declared", UploadResultMessageForStudent.getMessage(s.getName(), Website.link));
+                this.emailService.sendEmail(s.getParentEmail(), "CAE/TAE Result Has Been Declared", UploadResultMessageForParent.getMessage("parents", Website.link));
+
+            }
+
+            // Return success response
+            response.put("success", true);
+
+            response.put("message", "Result Added successfully.");
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            // If student is not found, return failure response
+            response.put("success", false);
+            response.put("message", "failed to add result !!");
         }
+
+        return response;
 
     }
 

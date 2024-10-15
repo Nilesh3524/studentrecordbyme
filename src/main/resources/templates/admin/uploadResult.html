@@ -22,21 +22,29 @@
                         <h1 class="text-center">CAE/TAE Result</h1>
                     </div>
                     <div class="card-body">
-                        <form enctype="multipart/form-data" th:action="@{/admin/process-upload-result}" method="post" id="uploadForm">
+                        <form enctype="multipart/form-data" th:action="@{/admin/process-upload-result}" method="post"
+                              id="uploadForm">
 
                             <div class="form-group my-3">
                                 <h5>Result Name:</h5>
-                                <input type="text" name="name" class="form-control" placeholder="Enter result name" required/>
+                                <input type="text" name="name" class="form-control" placeholder="Enter result name"
+                                       required/>
                             </div>
 
                             <div class="form-group my-4">
                                 <label for="fileInput">Upload File:</label>
                                 <input type="file" id="fileInput" name="image" class="form-control-file" required/>
-                                <small class="text-danger mt-2" id="fileSizeError" style="display: none;">File size exceeds 2 MB</small>
+                                <small class="text-danger mt-2" id="fileSizeError" style="display: none;">File size
+                                    exceeds 2 MB</small>
                             </div>
 
                             <div class="text-center my-3">
                                 <button type="submit" class="btn btn-primary">Upload</button>
+                                <div id="loadingSpinner4" style="display: none;">
+                                    <div class="spinner-border text-primary mt-1" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
                             </div>
 
                         </form>
@@ -47,11 +55,14 @@
     </div>
 </section>
 <script>
+
+
     document.getElementById('uploadForm').addEventListener('submit', function (event) {
         const fileInput = document.getElementById('fileInput');
         const fileSizeError = document.getElementById('fileSizeError');
 
         if (fileInput.files.length > 0) {
+            event.preventDefault();
             const file = fileInput.files[0];
             const maxFileSize = 2 * 1024 * 1024; // 2 MB in bytes
 
@@ -59,9 +70,82 @@
                 event.preventDefault(); // Prevent form submission
                 fileSizeError.style.display = 'block'; // Show error message
             } else {
-                fileSizeError.style.display = 'none'; // Hide error message if the file size is valid
+                fileSizeError.style.display = 'none';
+
+                const form = document.getElementById('uploadForm');
+
+                if (form) {
+
+                    form.addEventListener('submit', function (e) {
+
+
+                        e.preventDefault(); // Prevent the default form submission
+
+
+                        const formData = new FormData(this);
+
+
+                        document.getElementById('loadingSpinner4').style.display = 'inline';
+
+                        // Use requestAnimationFrame to wait until the modal is closed
+                        requestAnimationFrame(() => {
+
+                            fetch('/admin/process-upload-result', {
+                                method: 'POST',
+                                body: formData
+                            })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error(`HTTP error! status: ${response.status}`);
+                                    }
+                                    return response.json();
+                                })
+                                .then(data => {
+                                    console.log('Response from server:', data);
+
+                                    if (data.success) {
+                                        console.log('Result Added successfully!');
+                                        // Store the success message in sessionStorage
+                                        sessionStorage.setItem('alertMessage', 'Result Added successfully');
+                                        sessionStorage.setItem('alertType', 'alert-info');
+                                        // Hide the spinner after the response is received
+                                        document.getElementById('loadingSpinner4').style.display = 'none';
+                                        location.reload(); // Reload the page to see the updated student data
+
+                                    } else {
+                                        console.log(`Failed to add result: ${data.message}`);
+                                        // Store the error message in sessionStorage
+                                        sessionStorage.setItem('alertMessage', 'Something went wrong');
+                                        sessionStorage.setItem('alertType', 'alert-danger');
+                                        // Hide the spinner after the response is received
+                                        document.getElementById('loadingSpinner4').style.display = 'none';
+
+                                        location.reload(); // Reload the page
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                    console.log('An error occurred. Please try again.');
+                                    // Store the error message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'An error occurred. Please try again');
+                                    sessionStorage.setItem('alertType', 'alert-danger');
+
+                                    location.reload(); // Reload the page
+                                });
+                        });
+
+                    });
+
+                }
             }
         }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+
+
+
     });
 </script>
 </body>
