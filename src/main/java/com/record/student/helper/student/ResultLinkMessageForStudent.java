@@ -1,7 +1,7 @@
-package com.record.student.helper;
+package com.record.student.helper.student;
 
 
-public class StudentMessage {
+public class ResultLinkMessageForStudent {
 
     public static String getMessage(String name,String link){
 

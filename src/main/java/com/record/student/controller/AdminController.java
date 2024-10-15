@@ -1,9 +1,14 @@
 package com.record.student.controller;
 
-import com.record.student.helper.EmailMessage;
-import com.record.student.helper.Message;
-import com.record.student.helper.ParentMessage;
-import com.record.student.helper.StudentMessage;
+import com.record.student.helper.*;
+import com.record.student.helper.parent.AttendanceUpdateMessageForParent;
+import com.record.student.helper.parent.ResultLinkMessageForParent;
+import com.record.student.helper.parent.SgpaUpdateMessageForParent;
+import com.record.student.helper.parent.StudentUpdateMessageForParent;
+import com.record.student.helper.student.AttendanceUpdateMessageForStudent;
+import com.record.student.helper.student.ResultLinkMessageForStudent;
+import com.record.student.helper.student.SgpaUpdateMessageForStudent;
+import com.record.student.helper.student.StudentUpdateMessageForStudent;
 import com.record.student.model.*;
 import com.record.student.sevice.*;
 import jakarta.servlet.http.HttpSession;
@@ -92,8 +97,8 @@ public class AdminController {
 
         for (Student s : students) {
 
-            this.emailService.sendEmail(s.getEmail(), "Result Has Been Declared", StudentMessage.getMessage(s.getName(), link.getLink()));
-            this.emailService.sendEmail(s.getParentEmail(), "Result Has Been Declared", ParentMessage.getMessage("parents", link.getLink()));
+            this.emailService.sendEmail(s.getEmail(), "Result Has Been Declared", ResultLinkMessageForStudent.getMessage(s.getName(), link.getLink()));
+            this.emailService.sendEmail(s.getParentEmail(), "Result Has Been Declared", ResultLinkMessageForParent.getMessage("parents", link.getLink()));
 
         }
 
@@ -155,7 +160,11 @@ public class AdminController {
 
     // add sgpa page
     @GetMapping("/add-sgpa")
-    public String addSGPAForm() {
+    public String addSGPAForm(Model m) {
+
+        m.addAttribute("sgpa",new Sgpa());
+        m.addAttribute("rollNo","");
+        m.addAttribute("avg",0);
 
         return "admin/sgpa";
     }
@@ -202,7 +211,11 @@ public class AdminController {
 
     //add sgpa
     @PostMapping("/process-add-sgpa")
-    public String addSgpa(@RequestParam String rollNo, @ModelAttribute Sgpa sgpa, HttpSession session) {
+    public String addSgpa(@RequestParam("rollNo") String rollNo,
+                          @RequestParam("avg-sgpa") double cgpa,
+                          @ModelAttribute Sgpa sgpa,
+                          Model m,
+                          HttpSession session) {
 
 
         if (this.studentService.isStudentExits(rollNo)) {
@@ -210,46 +223,34 @@ public class AdminController {
             Student student = this.studentService.getStudentByRollNo(rollNo)
                     .get();
 
-            if (student.getSgpa() != null){
-
-
-                double cgpa = sgpa.getSgpa1() + sgpa.getSgpa2() + sgpa.getSgpa3() + sgpa.getSgpa4() + sgpa.getSgpa5() + sgpa.getSgpa6() + sgpa.getSgpa7() + sgpa.getSgpa8();
-
-                cgpa = cgpa / 8;
-
-                student.setCgpa(cgpa);
+            if (student.getSgpa() == null){
 
                 sgpa.setStudent(student);
+
+                student.setCgpa(cgpa);
 
                 student.setSgpa(sgpa);
 
                 this.sgpaService.saveSgpa(sgpa);
 
+                this.studentService.addStudent(student);
+
                 session.setAttribute("message",
-                        new Message("alert-success", "Sgpa updated Successfully."));
+                        new Message("alert-success", "Sgpa Added Successfully."));
 
                 return "redirect:/admin/all-students";
 
 
             }else {
 
-                sgpa.setStudent(student);
-
-
-                double cgpa = sgpa.getSgpa1() + sgpa.getSgpa2() + sgpa.getSgpa3() + sgpa.getSgpa4() + sgpa.getSgpa5() + sgpa.getSgpa6() + sgpa.getSgpa7() + sgpa.getSgpa8();
-
-                cgpa = cgpa / 8;
-
-                student.setCgpa(cgpa);
-
-                student.setSgpa(sgpa);
-
-                this.sgpaService.saveSgpa(sgpa);
+                m.addAttribute("sgpa",sgpa);
+                m.addAttribute("rollNo",rollNo);
+                m.addAttribute("avg",cgpa);
 
                 session.setAttribute("message",
-                        new Message("alert-success", "Sgpa Added Successfully."));
+                        new Message("alert-danger", "Sgpa already Added for student with roll no '"+rollNo+"' !!"));
 
-                return "redirect:/admin/all-students";
+                return "admin/sgpa";
             }
 
         }
@@ -387,7 +388,10 @@ public class AdminController {
             this.studentService.addStudent(oldStudent);
 
             this.emailService.sendEmail(oldStudent.getEmail(), "Studentrecordbyme | Update On Your Record",
-                    EmailMessage.getMessage(student));
+                    StudentUpdateMessageForStudent.getMessage(student,Website.link));
+
+            this.emailService.sendEmail(oldStudent.getParentEmail(), "Studentrecordbyme | Update On Student Record",
+                    StudentUpdateMessageForParent.getMessage("parents",Website.link));
 
             // Return success response
             response.put("success", true);
@@ -403,7 +407,6 @@ public class AdminController {
     }
 
     // update attendence
-
     @PostMapping("/student/update/attendence")
     @ResponseBody // This ensures the method returns JSON, not a view.
     public Map<String, Object> updateAttendence(@ModelAttribute Attendence attendence,
@@ -433,13 +436,67 @@ public class AdminController {
             // Save the updated student back to the database
             this.studentService.addStudent(oldStudent);
 
-            this.emailService.sendEmail(oldStudent.getEmail(), "Studentrecordbyme | Update On Your Record",
-                    EmailMessage.getMessage(oldStudent));
+            this.emailService.sendEmail(oldStudent.getEmail(), "Studentrecordbyme | Update On Your Attendance",
+                    AttendanceUpdateMessageForStudent.getMessage(oldStudent,Website.link));
+
+            this.emailService.sendEmail(oldStudent.getParentEmail(), "Studentrecordbyme | Update On Student Attendance",
+                    AttendanceUpdateMessageForParent.getMessage("parents",Website.link));
 
             // Return success response
             response.put("success", true);
 
             response.put("message", "Attendence updated successfully.");
+
+        } else {
+            // If student is not found, return failure response
+            response.put("success", false);
+            response.put("message", "Student not found.");
+        }
+
+        return response; // Returning JSON response
+    }
+
+
+    // update sgpa
+    @PostMapping("/student/update/sgpa")
+    @ResponseBody // This ensures the method returns JSON, not a view.
+    public Map<String, Object> updateSgpa(@ModelAttribute Sgpa sgpa,
+                                                @RequestParam("cgpa") double cgpa,
+                                                @RequestParam("studentRollNo") String rollNo) {
+
+        // Fetch the existing student by roll number
+        Optional<Student> optionalStudent = this.studentService.getStudentByRollNo(rollNo);
+
+        // Prepare a response map
+        Map<String, Object> response = new HashMap<>();
+
+        if (optionalStudent.isPresent()) {
+
+            Student oldStudent = optionalStudent.get();
+
+            sgpa.setStudent(oldStudent);
+
+            // Update the attendence details
+            oldStudent.setSgpa(sgpa);
+
+            System.out.println(cgpa);
+
+            oldStudent.setCgpa(cgpa);
+
+            this.sgpaService.saveSgpa(sgpa);
+
+            this.studentService.addStudent(oldStudent);
+
+            this.emailService.sendEmail(oldStudent.getEmail(), "Studentrecordbyme | Update On Your SGPA Record",
+                    SgpaUpdateMessageForStudent.getMessage(oldStudent,Website.link));
+
+            this.emailService.sendEmail(oldStudent.getParentEmail(), "Studentrecordbyme | Update On Student SGPA Record",
+                    SgpaUpdateMessageForParent.getMessage("parents",Website.link));
+
+            // Return success response
+            response.put("success", true);
+
+            response.put("message", "Sgpa updated successfully.");
 
         } else {
             // If student is not found, return failure response

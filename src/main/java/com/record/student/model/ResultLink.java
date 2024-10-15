@@ -15,7 +15,7 @@ public class ResultLink {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String link;
 
 }

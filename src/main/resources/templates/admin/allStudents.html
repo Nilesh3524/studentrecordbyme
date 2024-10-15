@@ -139,6 +139,21 @@
                                th:data-tday8="${s.attendence.getTday8()}" th:data-avg8="${s.attendence.getA8()}">
                                 <i class="fa-solid fa-calendar-days"></i>
                             </a>
+                            <a th:if="${s.sgpa}" data-mdb-ripple-init data-mdb-modal-init
+                               data-mdb-target="#update-sgpa" class="mx-2 edit-sgpa"
+                               style="color: blue" th:data-rollNo="${s.rollNo}"
+                               th:data-sgpa1="${s.getSgpa().getSgpa1()}"
+                               th:data-sgpa2="${s.getSgpa().getSgpa2()}"
+                               th:data-sgpa3="${s.getSgpa().getSgpa3()}"
+                               th:data-sgpa4="${s.getSgpa().getSgpa4()}"
+                               th:data-sgpa5="${s.getSgpa().getSgpa5()}"
+                               th:data-sgpa6="${s.getSgpa().getSgpa6()}"
+                               th:data-sgpa7="${s.getSgpa().getSgpa7()}"
+                               th:data-sgpa8="${s.getSgpa().getSgpa8()}"
+                               th:data-cgpa="${s.getCgpa()}"
+                              >
+                                <i class="fa-solid fa-graduation-cap" style="color: goldenrod"></i>
+                            </a>
                         </td>
                     </tr>
                     </tbody>
@@ -525,6 +540,157 @@
 
 
     });
+
+    //  sgpa update  model
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        document.body.addEventListener('click', function (e) {
+
+
+            const button = e.target.closest('.edit-sgpa');
+
+
+            if (button) {
+
+                e.preventDefault();
+
+                const rollNo = button.getAttribute('data-rollNo');
+
+                const sgpa1 = button.getAttribute('data-sgpa1');
+                const sgpa2 = button.getAttribute('data-sgpa2');
+                const sgpa3 = button.getAttribute('data-sgpa3');
+                const sgpa4 = button.getAttribute('data-sgpa4');
+                const sgpa5 = button.getAttribute('data-sgpa5');
+                const sgpa6 = button.getAttribute('data-sgpa6');
+                const sgpa7 = button.getAttribute('data-sgpa7');
+                const sgpa8 = button.getAttribute('data-sgpa8');
+
+                const cgpa = button.getAttribute('data-cgpa');
+
+
+                document.getElementById('studentRollNo').value = rollNo;
+
+                document.getElementById('sgpa1').value = sgpa1;
+                document.getElementById('sgpa2').value = sgpa2;
+                document.getElementById('sgpa3').value = sgpa3;
+                document.getElementById('sgpa4').value = sgpa4;
+                document.getElementById('sgpa5').value = sgpa5;
+                document.getElementById('sgpa6').value = sgpa6;
+                document.getElementById('sgpa7').value = sgpa7;
+                document.getElementById('sgpa8').value = sgpa8;
+                document.getElementById('avgSgpa').value = cgpa;
+            }
+
+        });
+
+    });
+
+    //sgpa function
+    function calculateAverageSGPA() {
+        let total = 0;
+        let count = 0;
+
+        for (let i = 1; i <= 8; i++) {
+            const sgpaInput = document.getElementById("sgpa" + i);
+
+            const sgpa = parseFloat(sgpaInput.value);
+
+            // Only include the SGPA if the value is greater than 0 and valid
+            if (!isNaN(sgpa) && sgpa >= 1 && sgpa <= 10) {
+                total += sgpa;
+                count++;
+            }
+        }
+
+        // Calculate the average if any SGPA fields were filled out
+        const averageSGPA = count > 0 ? (total / count).toFixed(2) : 0;
+        console.log(averageSGPA)
+        document.getElementById("avgSgpa").value = averageSGPA;
+        return averageSGPA;
+    }
+
+    // sgpa form submit
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const editForm1 = document.getElementById('editSgpaForm');
+
+        if (editForm1) {
+
+            editForm1.addEventListener('submit', function (e) {
+
+
+                e.preventDefault(); // Prevent the default form submission
+
+
+                const formData = new FormData(this);
+
+                // Get the modal element
+                const modalElement = document.getElementById('update-sgpa');
+
+                if (modalElement) {
+
+                    document.getElementById('loadingSpinner3').style.display = 'block';
+
+                    // Use requestAnimationFrame to wait until the modal is closed
+                    requestAnimationFrame(() => {
+
+                        fetch('/admin/student/update/sgpa', {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                return response.json();
+                            })
+                            .then(data => {
+                                console.log('Response from server:', data);
+
+                                if (data.success) {
+                                    console.log('Sgpa updated successfully!');
+                                    // Store the success message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'Sgpa updated successfully');
+                                    sessionStorage.setItem('alertType', 'alert-info');
+                                    // Hide the spinner after the response is received
+                                    document.getElementById('loadingSpinner3').style.display = 'none';
+                                    location.reload(); // Reload the page to see the updated student data
+
+                                } else {
+                                    console.log(`Failed to update Sgpa: ${data.message}`);
+                                    // Store the error message in sessionStorage
+                                    sessionStorage.setItem('alertMessage', 'Something went wrong');
+                                    sessionStorage.setItem('alertType', 'alert-danger');
+                                    // Hide the spinner after the response is received
+                                    document.getElementById('loadingSpinner3').style.display = 'none';
+
+                                    location.reload(); // Reload the page
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                console.log('An error occurred. Please try again.');
+                                // Store the error message in sessionStorage
+                                sessionStorage.setItem('alertMessage', 'An error occurred. Please try again');
+                                sessionStorage.setItem('alertType', 'alert-danger');
+
+                                location.reload(); // Reload the page
+                            });
+                    });
+                } else {
+                    console.error('Form with ID "update-sgpa" not found.');
+                }
+
+            });
+
+        }
+
+
+    });
+
+
 
 
     //delete alert

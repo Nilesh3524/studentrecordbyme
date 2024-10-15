@@ -68,13 +68,13 @@
             </div>
             <div class="card-body" style="color: black ;background-color: #e2e2e2">
 
-                <form method="post" th:action="@{/admin/process-add-sgpa}">
+                <form method="post" th:action="@{/admin/process-add-sgpa}" th:object="${sgpa}">
 
                     <div class="row mb-3">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label for="rollNo">Enter Student ID:</label>
-                                <input type="text" class="form-control" id="rollNo" name="rollNo" required />
+                                <input type="text" th:value="${rollNo}" class="form-control" id="rollNo" name="rollNo" required />
                             </div>
                         </div>
                     </div>
@@ -83,35 +83,33 @@
                     <div class="row my-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="sgpa1">SGPA 1st Semester</label>
+                                <label for="sgpa-1">SGPA 1st Semester</label>
 
                                 <input
                                         type="number"
                                         class="form-control"
-                                        id="sgpa1"
-                                        placeholder="Enter SGPA for 1st Semester"
-                                        min="0"
+                                        id="sgpa-1"
                                         max="10"
-                                        step="0.01"
-                                        value="0"
+                                        step="1"
+                                        th:value="${sgpa.sgpa1}"
                                         required
                                         name="sgpa1"
+                                        oninput="calculateAverageSGPA()"
                                 />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="sgpa2">SGPA 2nd Semester</label>
+                                <label for="sgpa-2">SGPA 2nd Semester</label>
 
                                 <input
                                         type="number"
                                         class="form-control"
-                                        id="sgpa2"
-                                        placeholder="Enter SGPA for 2nd Semester"
-                                        min="0"
+                                        id="sgpa-2"
+                                        oninput="calculateAverageSGPA()"
                                         max="10"
-                                        step="0.01"
-                                        value="0"
+                                        step="1"
+                                        th:value="${sgpa.sgpa2}"
                                         required
                                         name="sgpa2"
                                 />
@@ -121,16 +119,15 @@
                     <div class="row my-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="sgpa3">SGPA 3rd Semester</label>
+                                <label for="sgpa-3">SGPA 3rd Semester</label>
                                 <input
                                         type="number"
                                         class="form-control"
-                                        id="sgpa3"
-                                        placeholder="Enter SGPA for 3rd Semester"
-                                        min="0"
+                                        id="sgpa-3"
+                                        oninput="calculateAverageSGPA()"
                                         max="10"
-                                        step="0.01"
-                                        value="0"
+                                        step="1"
+                                        th:value="${sgpa.sgpa3}"
                                         required
                                         name="sgpa3"
                                 />
@@ -138,16 +135,15 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="sgpa4">SGPA 4th Semester</label>
+                                <label for="sgpa-4">SGPA 4th Semester</label>
                                 <input
                                         type="number"
                                         class="form-control"
-                                        id="sgpa4"
-                                        placeholder="Enter SGPA for 4th Semester"
-                                        min="0"
+                                        id="sgpa-4"
+                                        oninput="calculateAverageSGPA()"
                                         max="10"
-                                        step="0.01"
-                                        value="0"
+                                        step="1"
+                                        th:value="${sgpa.sgpa4}"
                                         required
                                         name="sgpa4"
                                 />
@@ -157,16 +153,15 @@
                     <div class="row my-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="sgpa5">SGPA 5th Semester</label>
+                                <label for="sgpa-5">SGPA 5th Semester</label>
                                 <input
                                         type="number"
                                         class="form-control"
-                                        id="sgpa5"
-                                        placeholder="Enter SGPA for 5th Semester"
-                                        min="0"
+                                        id="sgpa-5"
                                         max="10"
-                                        step="0.01"
-                                        value="0"
+                                        oninput="calculateAverageSGPA()"
+                                        step="1"
+                                        th:value="${sgpa.sgpa5}"
                                         required
                                         name="sgpa5"
                                 />
@@ -174,16 +169,15 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="sgpa6">SGPA 6th Semester</label>
+                                <label for="sgpa-6">SGPA 6th Semester</label>
                                 <input
                                         type="number"
                                         class="form-control"
-                                        id="sgpa6"
-                                        placeholder="Enter SGPA for 6th Semester"
-                                        min="0"
+                                        id="sgpa-6"
+                                        oninput="calculateAverageSGPA()"
                                         max="10"
-                                        step="0.01"
-                                        value="0"
+                                        step="1"
+                                        th:value="${sgpa.sgpa6}"
                                         required
                                         name="sgpa6"
                                 />
@@ -193,16 +187,15 @@
                     <div class="row my-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="sgpa7">SGPA 7th Semester</label>
+                                <label for="sgpa-7">SGPA 7th Semester</label>
                                 <input
                                         type="number"
                                         class="form-control"
-                                        id="sgpa7"
-                                        placeholder="Enter SGPA for 7th Semester"
-                                        min="0"
+                                        id="sgpa-7"
                                         max="10"
-                                        step="0.01"
-                                        value="0"
+                                        oninput="calculateAverageSGPA()"
+                                        step="1"
+                                        th:value="${sgpa.sgpa7}"
                                         required
                                         name="sgpa7"
                                 />
@@ -210,20 +203,26 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="sgpa8">SGPA 8th Semester</label>
+                                <label for="sgpa-8">SGPA 8th Semester</label>
                                 <input
                                         type="number"
                                         class="form-control"
-                                        id="sgpa8"
-                                        placeholder="Enter SGPA for 8th Semester"
-                                        min="0"
+                                        id="sgpa-8"
                                         max="10"
-                                        step="0.01"
-                                        value="0"
+                                        oninput="calculateAverageSGPA()"
+                                        step="1"
+                                        th:value="${sgpa.sgpa8}"
                                         required
                                         name="sgpa8"
                                 />
                             </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row my-3">
+                        <div class="col-6">
+                            <input type="number" th:value="${avg}" name="avg-sgpa" class="form-control" id="avg-sgpa" readonly/>
                         </div>
                     </div>
 
@@ -238,91 +237,33 @@
 </section>
 
 <script>
-    // const maxFileSize = 2 * 1024 * 1024;
-    // function validateFileSize(inputElement, errorElement) {
-    //   const file = inputElement.files[0];
-    //   if (file && file.size > maxFileSize) {
-    //     errorElement.style.display = 'block';
-    //     return false;
-    //   } else {
-    //     errorElement.style.display = 'none';
-    //     return true;
-    //   }
-    // }
+    function calculateAverageSGPA() {
+        let total = 0;
+        let count = 0;
 
+        for (let i = 1; i <= 8; i++) {
 
-    // let semesterCount = 1;
-    //
-    // // Function to toggle file input based on semester selection and ensure no repeated selections
-    // function handleSemesterChange(semesterId) {
-    //   const semesterSelect = document.getElementById('semester-select-' + semesterId);
-    //   const fileInput = document.getElementById('file-' + semesterId);
-    //
-    //   if (semesterSelect.value !== '') {
-    //     fileInput.style.display = 'inline';
-    //     fileInput.setAttribute('name', 'sgpa' + semesterSelect.value);  // Set the name attribute dynamically
-    //   } else {
-    //     fileInput.style.display = 'none';
-    //     fileInput.removeAttribute('name');  // Remove the name attribute if no semester is selected
-    //   }
-    //
-    //   updateOptions();
-    // }
+            const sgpaInput = document.getElementById("sgpa-" + i);
 
-    // Function to update options in all select elements to prevent repeated selections
-    // function updateOptions() {
-    //   // Get all selected semester values
-    //   const selectedValues = Array.from(document.querySelectorAll('.semester-select'))
-    //           .map(select => select.value)
-    //           .filter(value => value !== "");  // Filter out the empty selections
-    //
-    //   // Disable selected values in all other select elements
-    //   document.querySelectorAll('.semester-select').forEach(select => {
-    //     const currentSelectValue = select.value;
-    //     Array.from(select.options).forEach(option => {
-    //       if (selectedValues.includes(option.value) && option.value !== currentSelectValue) {
-    //         option.disabled = true;  // Disable the option if already selected elsewhere
-    //       } else {
-    //         option.disabled = false;  // Re-enable it if not selected elsewhere
-    //       }
-    //     });
-    //   });
-    // }
+            const sgpa = sgpaInput.value.trim() !== "" ? parseFloat(sgpaInput.value) : NaN;
 
-    // Function to add another semester selection
-    // function addSemester(event) {
-    //
-    //   if (semesterCount >= 8) {
-    //     alert("You can only add SGPA for up to 8 semesters.");
-    //     return;
-    //   }
-    //
-    //   semesterCount++;
-    //
-    //   const semesterContainer = document.getElementById('semesterContainer');
-    //   const newSemesterDiv = document.createElement('div');
-    //   newSemesterDiv.classList.add('semester-sgpa');
-    //   newSemesterDiv.setAttribute('id', 'semester-' + semesterCount);
-    //
-    //   newSemesterDiv.innerHTML = `
-    //               <label for="semester-select-${semesterCount}">Select Semester:</label>
-    //               <select id="semester-select-${semesterCount}" name="semester" class="semester-select" onchange="handleSemesterChange(${semesterCount})">
-    //                   <option value="">Select Semester</option>
-    //                   <option value="1">Semester 1</option>
-    //                   <option value="2">Semester 2</option>
-    //                   <option value="3">Semester 3</option>
-    //                   <option value="4">Semester 4</option>
-    //                   <option value="5">Semester 5</option>
-    //                   <option value="6">Semester 6</option>
-    //                   <option value="7">Semester 7</option>
-    //                   <option value="8">Semester 8</option>
-    //               </select>
-    //               <input type="text" id="file-${semesterCount}" name="sgpa${semesterCount}" required class="file-input"/>
-    //           `;
-    //
-    //   semesterContainer.appendChild(newSemesterDiv);
-    //   updateOptions();  // Update options in all selects to prevent duplicate selections
-    // }
+            console.log(sgpa)
+
+            // Only include the SGPA if the value is greater than 0 and valid
+            if (!isNaN(sgpa) && sgpa >= 1 && sgpa <= 10) {
+                total += sgpa;
+                count++;
+            }
+        }
+
+        // Calculate the average if any SGPA fields were filled out
+        const averageSGPA = count > 0 ? (total / count).toFixed(2) : 0;
+
+        console.log('avg',averageSGPA)
+
+        document.getElementById("avg-sgpa").value = averageSGPA;
+    }
+
 
     window.onload = function () {
         const alertBox = document.getElementById('alert');

@@ -18,6 +18,14 @@
             padding: 0;
         }
 
+        #update-sgpa p {
+            color: black;
+        }
+
+        #updateAttendence p, #updateAttendence h5 {
+            color: black;
+        }
+
         .sidebar {
             margin-top: 5px;
             background-color: #13111c;
@@ -133,7 +141,9 @@
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
                     <a th:href="@{/admin/login}" class="text-white nav-link">
-                        <button id="home-btn" class=" btn" th:data-url="${currentUrl}" style="background-color: white;color: black">Admin login</button>
+                        <button id="home-btn" class=" btn" th:data-url="${currentUrl}"
+                                style="background-color: white;color: black">Admin login
+                        </button>
                     </a>
                 </li>
                 <li th:unless="${loggedInUser}" class="nav-item">
@@ -183,7 +193,8 @@
                         class="fa-solid fa-square-poll-horizontal"></i>&nbsp; Add SGPA</a></li>
                 <li class="nav-item my-1"><a class="nav-link" id="courses" th:href="@{/admin/cources}"><i
                         class="fa-solid fa-book-open-reader"></i>&nbsp; Courses</a></li>
-                <li class="nav-item my-1"><a class="nav-link" id="backlog-students" th:href="@{/admin/backlog-students}"><i
+                <li class="nav-item my-1"><a class="nav-link" id="backlog-students"
+                                             th:href="@{/admin/backlog-students}"><i
                         class="fa-solid fa-clover"></i>&nbsp; Backlog Students</a></li>
                 <li class="nav-item my-1"><a class="nav-link" id="upload-result" th:href="@{/admin/upload-result}"><i
                         class="fa-solid fa-chart-simple"></i>&nbsp; CAE/TAE Result</a></li>
@@ -254,7 +265,7 @@
             aria-hidden="true"
     >
         <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
+            <div class="modal-content text-black">
                 <div class="modal-header">
                     <h4 class="modal-title" id="staticBackdropLabel">Edit Student</h4>
                     <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
@@ -280,7 +291,7 @@
 
                         <div class="form-group row text-center my-1">
                             <div class="col">
-                                <p style="font-weight: bold">Name :</p>
+                                <p>Name :</p>
                             </div>
                             <div class="col">
                                 <input class="form-control" type="text" id="name" name="name" readonly>
@@ -290,7 +301,7 @@
 
                         <div class="form-group row text-center my-1">
                             <div class="col">
-                                <p style="font-weight: bold">Year :</p>
+                                <p>Year :</p>
                             </div>
                             <div class="col">
                                 <select
@@ -310,7 +321,7 @@
 
                         <div class="form-group row text-center my-1">
                             <div class="col">
-                                <p style="font-weight: bold">Backlog :</p>
+                                <p>Backlog :</p>
                             </div>
                             <div class="col">
                                 <select
@@ -329,7 +340,7 @@
 
                         <div class="form-group row text-center my-1" id="backlogsub">
                             <div class="col">
-                                <p style="font-weight: bold">Backlog Subjects :</p>
+                                <p>Backlog Subjects :</p>
                             </div>
                             <div class="col">
 
@@ -343,7 +354,7 @@
 
                         <div class="form-group row text-center mt-3" id="backlogsub2">
                             <div class="col">
-                                <p style="font-weight: bold">Current Backlog :</p>
+                                <p>Current Backlog :</p>
                             </div>
                             <div class="col">
 
@@ -385,10 +396,10 @@
             aria-labelledby="staticBackdropLabel"
             aria-hidden="true"
     >
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="">Update Attendence</h4>
+                    <h4 class="modal-title text-black">Update Attendence</h4>
                     <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
                             aria-label="Close"></button>
                 </div>
@@ -396,12 +407,12 @@
                     <form method="post" th:action="@{/admin/student/update/attendence}" id="editAttendenceForm">
 
 
-                        <div class="form-group row text-center">
-                            <div class="col">
+                        <div class="form-group row">
+                            <div class="col text-end">
                                 <p style="font-weight: bold">Student ID :</p>
                             </div>
-                            <div class="col">
-                                <input class="form-control" type="text" id="sRollNo" name="sRollNo" readonly>
+                            <div class="col text-start">
+                                <input class="" type="text" id="sRollNo" name="sRollNo" readonly>
 
                             </div>
                         </div>
@@ -411,12 +422,12 @@
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 1 :</h5>
                             <div class="col m-2">
-                                <p>Present days: </p>
+                                <p>Attended Lectures and labs: </p>
                                 <input type="number" name="pday1" id="pdays1">
                             </div>
 
                             <div class="col m-2">
-                                <p>Total days: </p>
+                                <p>Total Lectures and labs: </p>
                                 <input type="number" name="tday1" id="tdays1">
                             </div>
 
@@ -432,12 +443,12 @@
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 2 :</h5>
                             <div class="col m-2">
-                                <p>Present days: </p>
+                                <p>Attended Lectures and labs: </p>
                                 <input type="number" name="pday2" id="pdays2">
                             </div>
 
                             <div class="col m-2">
-                                <p>Total days: </p>
+                                <p>Total Lectures and labs: </p>
                                 <input type="number" name="tday2" id="tdays2">
                             </div>
 
@@ -453,12 +464,12 @@
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 3 :</h5>
                             <div class="col m-2">
-                                <p>Present days: </p>
+                                <p>Attended Lectures and labs: </p>
                                 <input type="number" name="pday3" id="pdays3">
                             </div>
 
                             <div class="col m-2">
-                                <p>Total days: </p>
+                                <p>Total Lectures and labs: </p>
                                 <input type="number" name="tday3" id="tdays3">
                             </div>
 
@@ -474,12 +485,12 @@
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 4 :</h5>
                             <div class="col m-2">
-                                <p>Present days: </p>
+                                <p>Attended Lectures and labs: </p>
                                 <input type="number" name="pday4" id="pdays4">
                             </div>
 
                             <div class="col m-2">
-                                <p>Total days: </p>
+                                <p>Total Lectures and labs: </p>
                                 <input type="number" name="tday4" id="tdays4">
                             </div>
 
@@ -495,12 +506,12 @@
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 5 :</h5>
                             <div class="col m-2">
-                                <p>Present days: </p>
+                                <p>Attended Lectures and labs: </p>
                                 <input type="number" name="pday5" id="pdays5">
                             </div>
 
                             <div class="col m-2">
-                                <p>Total days: </p>
+                                <p>Total Lectures and labs: </p>
                                 <input type="number" name="tday5" id="tdays5">
                             </div>
 
@@ -516,12 +527,12 @@
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 6 :</h5>
                             <div class="col m-2">
-                                <p>Present days: </p>
+                                <p>Attended Lectures and labs: </p>
                                 <input type="number" name="pday6" id="pdays6">
                             </div>
 
                             <div class="col m-2">
-                                <p>Total days: </p>
+                                <p>Total Lectures and labs: </p>
                                 <input type="number" name="tday6" id="tdays6">
                             </div>
 
@@ -536,12 +547,12 @@
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 7 :</h5>
                             <div class="col m-2">
-                                <p>Present days: </p>
+                                <p>Attended Lectures and labs: </p>
                                 <input type="number" name="pday7" id="pdays7">
                             </div>
 
                             <div class="col m-2">
-                                <p>Total days: </p>
+                                <p>Total Lectures and labs: </p>
                                 <input type="number" name="tday7" id="tdays7">
                             </div>
 
@@ -557,12 +568,12 @@
                         <div class="form-group row mt-3">
                             <h5 class="">Attendence for Semester 8 :</h5>
                             <div class="col m-2">
-                                <p>Present days: </p>
+                                <p>Attended Lectures and labs: </p>
                                 <input type="number" name="pday8" id="pdays8">
                             </div>
 
                             <div class="col m-2">
-                                <p>Total days: </p>
+                                <p>Total Lectures and labs: </p>
                                 <input type="number" name="tday8" id="tdays8">
                             </div>
 
@@ -592,6 +603,172 @@
             </div>
         </div>
     </div>
+
+    <!--    update attendence model end-->
+
+
+    <!--    update sgpa model-->
+
+    <div
+            class="modal fade"
+            id="update-sgpa"
+            data-mdb-backdrop="static"
+            data-mdb-keyboard="false"
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel"
+            aria-hidden="true"
+    >
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="">Update SGPA</h4>
+                    <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" th:action="@{/admin/student/update/sgpa}" id="editSgpaForm">
+
+
+                        <div class="form-group row text-center">
+                            <div class="col">
+                                <p style="font-weight: bold">Student ID :</p>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="text" id="studentRollNo" name="studentRollNo"
+                                       readonly>
+
+                            </div>
+                        </div>
+
+                        <!-- Row 1 - sgpa semester 1 -->
+
+                        <div class="form-group row mt-3">
+                            <div class="col m-2">
+                                <p class="">Sgpa for Semester 1 :</p>
+                                <input type="number" name="sgpa1"
+                                       value="0"
+                                       max="10"
+                                       step="1"
+                                       oninput="calculateAverageSGPA()"
+                                       class="form-control"
+                                       id="sgpa1">
+                            </div>
+
+                            <div class="col m-2">
+                                <p class="">Sgpa for Semester 2 :</p>
+                                <input type="number" name="sgpa2"
+                                       max="10"
+                                       value="0"
+                                       step="1"
+                                       class="form-control"
+                                       oninput="calculateAverageSGPA()" id="sgpa2">
+                            </div>
+
+                        </div>
+
+                        <!-- Row 2 - sgpa semester 2 -->
+
+                        <div class="form-group row mt-3">
+                            <div class="col m-2">
+                                <p class="">Sgpa for Semester 3 :</p>
+                                <input type="number" name="sgpa3"
+                                       value="0"
+                                       max="10"
+                                       step="1"
+                                       class="form-control"
+                                       oninput="calculateAverageSGPA()" id="sgpa3">
+                            </div>
+
+                            <div class="col m-2">
+                                <p class="">Sgpa for Semester 4 :</p>
+                                <input type="number" name="sgpa4"
+                                       value="0"
+                                       max="10"
+                                       step="1"
+                                       class="form-control"
+                                       oninput="calculateAverageSGPA()" id="sgpa4">
+                            </div>
+
+
+                        </div>
+
+                        <!-- Row 3 - Attendence semester 3 -->
+
+                        <div class="form-group row mt-3">
+                            <div class="col m-2">
+                                <p class="">Sgpa for Semester 5 :</p>
+                                <input type="number" name="sgpa5"
+                                       value="0"
+                                       max="10"
+                                       step="1"
+                                       class="form-control"
+                                       oninput="calculateAverageSGPA()" id="sgpa5">
+                            </div>
+
+                            <div class="col m-2">
+                                <p class="">Sgpa for Semester 6 :</p>
+                                <input type="number" name="sgpa6"
+                                       value="0"
+                                       max="10"
+                                       step="1"
+                                       class="form-control"
+                                       oninput="calculateAverageSGPA()" id="sgpa6">
+                            </div>
+
+                        </div>
+
+                        <!-- Row 4 - Attendence semester 4 -->
+
+                        <div class="form-group row mt-3">
+                            <div class="col m-2">
+                                <p class="">Sgpa for Semester 7 :</p>
+                                <input type="number" name="sgpa7"
+                                       value="0"
+                                       max="10"
+                                       step="1"
+                                       class="form-control"
+                                       oninput="calculateAverageSGPA()" id="sgpa7">
+                            </div>
+
+                            <div class="col m-2">
+                                <p class="">Sgpa for Semester 8 :</p>
+                                <input type="number" name="sgpa8"
+                                       value="0"
+                                       max="10"
+                                       step="1"
+                                       class="form-control"
+                                       oninput="calculateAverageSGPA()" id="sgpa8">
+                            </div>
+
+                                <input type="hidden" name="cgpa"
+
+                                       class="form-control"
+                                       id="avgSgpa" >
+
+
+                        </div>
+
+
+                        <div class="modal-footer justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-mdb-ripple-init
+                                    data-mdb-dismiss="modal">Close
+                            </button>
+                            <button type="submit" class="btn btn-primary" data-mdb-ripple-init>Save Changes</button>
+                            <div id="loadingSpinner3" style="display: none;">
+                                <!-- HTML for the spinner -->
+                                <div class="spinner-border text-primary mt-1" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--    update sgpa model-->
 
 
     <div class="vw-100 section">
@@ -683,7 +860,7 @@
     });
 
 
-    document.addEventListener('DOMContentLoaded',function (){
+    document.addEventListener('DOMContentLoaded', function () {
 
 
         const button = document.getElementById('home-btn');
@@ -708,15 +885,12 @@
         }
 
 
-
     })
 
-    document.addEventListener('DOMContentLoaded',function (){
+    document.addEventListener('DOMContentLoaded', function () {
 
 
         const url = document.getElementById('url').getAttribute('data-url');
-
-        console.log(url)
 
         if (url) {
 
@@ -787,7 +961,6 @@
 
 
         }
-
 
 
     })

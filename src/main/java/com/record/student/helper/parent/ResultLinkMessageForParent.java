@@ -1,6 +1,6 @@
-package com.record.student.helper;
+package com.record.student.helper.parent;
 
-public class ParentMessage {
+public class ResultLinkMessageForParent {
 
     public static String getMessage(String name,String link){
 
