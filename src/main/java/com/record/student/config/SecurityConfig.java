@@ -28,17 +28,6 @@ public class SecurityConfig {
     @Autowired
     private AdminCustomUserDetailsService adminCustomUserDetailsService;
 
-//    @Bean
-//    public UserDetailsService adminUserDetailsService(){
-//        UserDetails admin = User
-//                .builder()
-//                .username("himanshu")
-//                .password("{noop}ayush@123")
-//                .roles("ADMIN")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(admin);
-//    }
 
     @Bean
     public PasswordEncoder adminPasswordEncoder() {

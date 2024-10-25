@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Controller
 public class HomeController {
 
@@ -31,7 +33,7 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
 
         return "index";
     }
@@ -52,7 +54,7 @@ public class HomeController {
     }
 
     @GetMapping("/add-admin")
-    public String addAdmin(){
+    public String addAdmin() {
         return "admin/add_Admin";
     }
 
@@ -60,16 +62,33 @@ public class HomeController {
     public String addAdmin(@RequestParam("name") String username,
                            @RequestParam("password") String password,
                            Model model) {
-        try {
 
-            this.adminService.createAdmin(new Admin(username,passwordEncoder.encode(password),"ADMIN"));
+        Optional<Admin> OptionalAdmin = this.adminService.getAdminByName(username);
 
-            model.addAttribute("message", "Admin added successfully!");
+        if (OptionalAdmin.isPresent()) {
 
-        } catch (Exception e) {
+            Admin admin = OptionalAdmin.get();
 
-            model.addAttribute("message", "Error adding admin: " + e.getMessage());
+            admin.setPassword(passwordEncoder.encode(password));
 
+            this.adminService.createAdmin(admin);
+
+            model.addAttribute("message", "Password Change successfully!");
+
+        }else{
+
+            try {
+
+                this.adminService.createAdmin(new Admin(username, passwordEncoder.encode(password), "ADMIN"));
+
+                model.addAttribute("message", "Admin added successfully!");
+
+            } catch (Exception e) {
+
+
+                model.addAttribute("message", "Error adding admin: " + e.getMessage());
+
+            }
         }
 
         return "redirect:/"; // Redirect to the form page or a success page

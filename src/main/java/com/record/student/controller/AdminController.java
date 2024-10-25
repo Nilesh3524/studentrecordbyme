@@ -129,8 +129,6 @@ public class AdminController {
     @GetMapping("/dashboard")
     public String dashboard(Model m) {
 
-        m.addAttribute("title", "DASHBOARD");
-
         return "admin/home";
     }
 
